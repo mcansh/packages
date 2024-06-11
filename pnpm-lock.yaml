@@ -11,9 +11,6 @@ importers:
       '@types/node':
         specifier: ^20.14.2
         version: 20.14.2
-      load-tsconfig:
-        specifier: ^0.2.5
-        version: 0.2.5
       prettier:
         specifier: ^3.3.1
         version: 3.3.1
@@ -541,10 +538,6 @@ packages:
 
   kolorist@1.8.0:
     resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
-
-  load-tsconfig@0.2.5:
-    resolution: {integrity: sha512-IXO6OCs9yg8tMKzfPZ1YmheJbZCiEsnBdcB03l0OcfK9prKnJb96siuHCr5Fl37/yo9DnKU+TLpxzTUspw9shg==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   local-pkg@0.5.0:
     resolution: {integrity: sha512-ok6z3qlYyCDS4ZEU27HaU6x/xZa9Whf8jD4ptH5UZTQYZVYeb9bnZ3ojVhiJNLiXK1Hfc0GNbLXcmZ5plLDDBg==}
@@ -1347,8 +1340,6 @@ snapshots:
       graceful-fs: 4.2.11
 
   kolorist@1.8.0: {}
-
-  load-tsconfig@0.2.5: {}
 
   local-pkg@0.5.0:
     dependencies:

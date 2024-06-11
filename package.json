@@ -10,7 +10,6 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.14.2",
-    "load-tsconfig": "^0.2.5",
     "prettier": "^3.3.1",
     "typescript": "^5.4.5",
     "vite": "^5.2.13",
