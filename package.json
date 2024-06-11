@@ -1,27 +1,37 @@
 {
   "name": "@mcansh/url",
   "version": "0.1.0",
-  "scripts": {
-    "build": "vite build",
-    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write ."
-  },
-  "type": "module",
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^20.14.2",
-    "prettier": "^3.3.1",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.13",
-    "vite-plugin-dts": "^3.9.1",
-    "vitest": "^1.6.0"
-  },
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
   },
-  "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
+    "validate": "node --run build && attw --pack . --ignore-rules cjs-resolves-to-esm"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.15.3",
+    "@types/node": "^20.14.2",
+    "prettier": "^3.3.1",
+    "tsup": "^8.1.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  },
+  "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631",
+  "engines": {
+    "node": ">=20"
+  }
 }
