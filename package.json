@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "build": "vite build",
-    "format": "prettier --write . --ignore-path .gitignore --ignore-unknown"
+    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write ."
   },
   "type": "module",
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
