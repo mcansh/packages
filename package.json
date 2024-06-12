@@ -22,7 +22,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
-    "validate": "node --run build && attw --pack . --ignore-rules cjs-resolves-to-esm"
+    "validate": "node --run build && attw --pack . --ignore-rules cjs-resolves-to-esm",
+    "test": "vitest"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.15.3",
