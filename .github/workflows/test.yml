@@ -1,0 +1,69 @@
+name: 🧪 Test
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        # this is limited to string | boolean | number (https://github.community/t/can-action-inputs-be-arrays/16457)
+        # but we want to pass an array (os: "[ubuntu-latest, macos-latest, windows-latest]"),
+        # so we'll need to manually stringify it for now
+        type: string
+      node:
+        required: true
+        # this is limited to string | boolean | number (https://github.community/t/can-action-inputs-be-arrays/16457)
+        # but we want to pass an array (node_version: "[18, 20]"),
+        # so we'll need to manually stringify it for now
+        type: string
+
+jobs:
+  build:
+    name: ⚙️ Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Enable corepack
+        run: corepack enable
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".node-version"
+          cache: "pnpm"
+
+      - name: 🟧 Install dependencies
+        run: pnpm install --recursive --frozen-lockfile --strict-peer-dependencies
+
+      - name: 🏗 Build
+        run: npm run build
+
+      - name: 📦 Package
+        run: npm run attw
+
+  test:
+    name: "🧪 Test ${{ matrix.os }} | ${{ matrix.node }}"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.os) }}
+        node: ${{ fromJSON(inputs.node) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Enable corepack
+        run: corepack enable
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: 🟧 Install dependencies
+        run: pnpm install --recursive --frozen-lockfile --strict-peer-dependencies
+
+      - name: 🧪 Run Tests
+        run: pnpm run test
