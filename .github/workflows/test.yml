@@ -43,7 +43,7 @@ jobs:
         run: npm run attw
 
   test:
-    name: "🧪 Test ${{ matrix.os }} | ${{ matrix.node }}"
+    name: "🧪 Test / ${{ matrix.os }} / ${{ matrix.node }}"
     strategy:
       fail-fast: false
       matrix:
