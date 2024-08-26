@@ -24,15 +24,17 @@
     "dev": "tsup --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
-    "test": "vitest"
+    "test": "node --import tsimp/import --test ./src/**/*.spec.ts",
+    "test:watch": "node --watch --import tsimp/import --test ./src/**/*.spec.ts"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.15.3",
-    "@types/node": "^20.14.2",
-    "prettier": "^3.3.1",
-    "tsup": "^8.1.0",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "@arethetypeswrong/cli": "^0.15.4",
+    "@types/node": "^22.5.0",
+    "prettier": "^3.3.3",
+    "tsimp": "^2.0.11",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   },
   "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631",
   "engines": {
