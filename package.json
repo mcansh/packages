@@ -19,10 +19,10 @@
     "README.md"
   ],
   "scripts": {
+    "prepublishOnly": "node --run build && node --run attw",
     "build": "tsup",
     "dev": "tsup --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
-    "validate": "node --run build && node --run attw",
     "attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
     "test": "vitest"
   },
