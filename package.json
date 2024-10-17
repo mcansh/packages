@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
-    "test": "vitest",
+    "test": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 vitest",
     "prepublishOnly": "node --run build"
   },
   "exports": {
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^22.7.6",
+    "cross-env": "^7.0.3",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "tsup": "^8.3.0",

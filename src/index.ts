@@ -5,33 +5,29 @@ import { z } from "zod";
 type VaultOptions = {
   vaultAddress: string;
   kvCredsPath: string;
-  localAgentAddress?: string;
+  tokenAddress: string;
 };
 
 export class Vault {
   private kvCredsPath: string;
   private client: vault.client;
 
-  constructor({ vaultAddress, kvCredsPath, localAgentAddress }: VaultOptions) {
+  constructor({ vaultAddress, kvCredsPath, tokenAddress }: VaultOptions) {
     this.kvCredsPath = kvCredsPath;
-
-    if (!localAgentAddress) {
-      throw new Error("No local agent address provided");
-    }
 
     try {
       // using fetch was 404ing
       // so using curl and `--write-out` to append the status code to the response
       // then we can split the response at the `-` and check if the status code is 200
       let result = cp.execSync(
-        `curl --silent --write-out ' - %{http_code}' ${localAgentAddress}`,
+        `curl --silent --write-out ' - %{http_code}' ${tokenAddress}`,
         { encoding: "utf-8", stdio: "pipe" },
       );
 
       let [rawToken, statusCode] = result.split(" - ");
 
       if (statusCode !== "200" || !rawToken) {
-        throw new VaultError(localAgentAddress);
+        throw new VaultError(tokenAddress);
       }
 
       let token = rawToken.trim();
@@ -48,7 +44,7 @@ export class Vault {
         },
       });
     } catch (error) {
-      throw new VaultError(localAgentAddress);
+      throw new VaultError(tokenAddress);
     }
   }
 
