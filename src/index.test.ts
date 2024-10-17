@@ -15,24 +15,24 @@ test("it throws an error when it cant reach vault", () => {
 });
 
 test("it throws when the schema doesnt match the data", async () => {
-  let v = new Vault({
+  let vault = new Vault({
     kvCredsPath: "dev/ui-mortgagematchup/kv/data/api",
     vaultAddress: "https://vault.dev.uwm.com",
     localAgentAddress: "http://localhost:9876/token",
   });
 
-  let secrets = await v.getSecrets(z.object({ gautocomplete: z.string() }));
+  let secrets = await vault.getSecrets(z.object({ gautocomplete: z.string() }));
   expect(secrets.gautocomplete).toBeDefined();
 });
 
 test("allows remapping of the secrets", async () => {
-  let v = new Vault({
+  let vault = new Vault({
     kvCredsPath: "dev/ui-mortgagematchup/kv/data/api",
     vaultAddress: "https://vault.dev.uwm.com",
     localAgentAddress: "http://localhost:9876/token",
   });
 
-  let secrets = await v.getSecrets(
+  let secrets = await vault.getSecrets(
     z.object({ gautocomplete: z.string() }).transform((values) => {
       return { GOOGLE_API_KEY: values.gautocomplete };
     }),
