@@ -6,8 +6,6 @@ let external = [
   ...Object.keys(packageJson.devDependencies),
 ];
 
-console.log({ external });
-
 export default defineConfig({
   entry: ["./src/index.ts"],
   outDir: "./dist",
@@ -15,4 +13,8 @@ export default defineConfig({
   external,
   format: "esm",
   splitting: true,
+  clean: true,
+  dts: true,
+  platform: "node",
+  tsconfig: "./tsconfig.json",
 });
