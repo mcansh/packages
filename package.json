@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
-    "test": "vitest"
+    "test": "vitest",
+    "prepublishOnly": "node --run build"
   },
   "exports": {
     "./package.json": "./package.json",
