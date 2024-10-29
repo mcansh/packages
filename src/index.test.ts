@@ -5,7 +5,7 @@ import { Vault } from "./index.js";
 
 let vaultAddress = "https://vault.dev.uwm.com";
 let kvCredsPath = "dev/ui-mortgagematchup/kv/data/api";
-let vaultSecretPath = `/v1/secret/data/${kvCredsPath}`;
+let vaultSecretPath = `/v1/${kvCredsPath}`;
 
 let mockAgent = new MockAgent();
 mockAgent.disableNetConnect();

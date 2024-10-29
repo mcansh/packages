@@ -31,13 +31,13 @@ export class Vault {
 
       this.client = {
         async read(path: string) {
-          let url = new URL(`/v1/secret/data/${path}`, vaultAddress);
-          let response = await fetch(url, {
+          let url = new URL(`/v1/${path}`, vaultAddress).href;
+          const response = await fetch(url, {
             headers: { "X-Vault-Token": token },
           });
 
           if (!response.ok) {
-            throw new VaultError(`Failed to fetch ${url.href}`);
+            throw new VaultError(`Failed to fetch ${url}`);
           }
 
           return response.json();
