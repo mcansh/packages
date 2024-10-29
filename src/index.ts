@@ -1,4 +1,3 @@
-import * as vault from "node-vault";
 import * as cp from "node:child_process";
 import type { z } from "zod";
 
@@ -8,7 +7,9 @@ type VaultOptions = {
 };
 
 export class Vault {
-  private client: vault.client;
+  private client: {
+    read(path: string): Promise<any>;
+  };
 
   constructor({ vaultAddress, tokenAddress }: VaultOptions) {
     try {
@@ -22,25 +23,30 @@ export class Vault {
 
       let [rawToken, statusCode] = result.split(" - ");
 
-      if (statusCode !== "200" || !rawToken) {
+      if (statusCode !== "200" || !rawToken || rawToken.trim() === "") {
         throw new VaultError(tokenAddress);
       }
 
       let token = rawToken.trim();
 
-      let disableSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED !== "0";
+      this.client = {
+        async read(path: string) {
+          let url = new URL(`/v1/secret/data/${path}`, vaultAddress);
+          let response = await fetch(url, {
+            headers: { "X-Vault-Token": token },
+          });
 
-      this.client = vault.default({
-        apiVersion: "v1",
-        endpoint: vaultAddress,
-        token,
-        requestOptions: {
-          rejectUnauthorized: disableSSL,
-          strictSSL: disableSSL,
+          if (!response.ok) {
+            throw new VaultError(`Failed to fetch ${url.href}`);
+          }
+
+          return response.json();
         },
-      });
+      };
     } catch (error) {
-      throw new VaultError(tokenAddress);
+      throw new VaultError(
+        `Couldn't find a vault token at ${tokenAddress}, is the VaultAgent running?`,
+      );
     }
   }
 
@@ -55,10 +61,10 @@ export class Vault {
 }
 
 class VaultError extends Error {
-  constructor(url: string) {
+  constructor(message: string) {
     super();
     this.name = "VaultError";
-    this.message = `Couldn't find a vault token at ${url}, is the VaultAgent running?`;
+    this.message = message;
     this.stack = "";
   }
 }
