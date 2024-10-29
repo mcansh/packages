@@ -4,17 +4,13 @@ import { z } from "zod";
 
 type VaultOptions = {
   vaultAddress: string;
-  kvCredsPath: string;
   tokenAddress: string;
 };
 
 export class Vault {
-  private kvCredsPath: string;
   private client: vault.client;
 
-  constructor({ vaultAddress, kvCredsPath, tokenAddress }: VaultOptions) {
-    this.kvCredsPath = kvCredsPath;
-
+  constructor({ vaultAddress, tokenAddress }: VaultOptions) {
     try {
       // using fetch was 404ing
       // so using curl and `--write-out` to append the status code to the response
@@ -49,9 +45,10 @@ export class Vault {
   }
 
   async getSecrets<Schema extends z.ZodTypeAny>(
+    kvCredsPath: string,
     schema: Schema,
   ): Promise<z.infer<Schema>> {
-    let secrets = await this.client.read(this.kvCredsPath);
+    let secrets = await this.client.read(kvCredsPath);
     let validatedSecrets = schema.parse(secrets.data.data);
     return validatedSecrets;
   }
