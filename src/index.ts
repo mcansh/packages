@@ -1,6 +1,6 @@
 import * as vault from "node-vault";
 import * as cp from "node:child_process";
-import { z } from "zod";
+import type { z } from "zod";
 
 type VaultOptions = {
   vaultAddress: string;
