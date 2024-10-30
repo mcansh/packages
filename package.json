@@ -5,13 +5,16 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && attw --pack",
     "test": "vitest",
     "prepublishOnly": "node --run build"
   },
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   },
   "files": [
     "package.json",
@@ -21,6 +24,7 @@
   "keywords": [],
   "author": "Logan McAnsh <lmcansh@uwm.com>",
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.16.4",
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^22.7.6",
     "prettier": "^3.3.3",

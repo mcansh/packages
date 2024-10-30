@@ -11,7 +11,7 @@ export default defineConfig({
   outDir: "./dist",
   target: "node20",
   external,
-  format: "esm",
+  format: ["esm", "cjs"],
   splitting: true,
   clean: true,
   dts: true,
