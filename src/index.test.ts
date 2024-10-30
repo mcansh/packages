@@ -3,8 +3,8 @@ import { expect, test } from "vitest";
 import { z } from "zod";
 import { Vault } from "./index.js";
 
-let vaultAddress = "https://vault.dev.uwm.com";
-let kvCredsPath = "dev/ui-mortgagematchup/kv/data/api";
+let vaultAddress = "https://vault.com";
+let kvCredsPath = "dev/some-service/kv/data/api";
 let vaultSecretPath = `/v1/${kvCredsPath}`;
 let vaultSecretsUrl = new URL(vaultSecretPath, vaultAddress).href;
 
