@@ -22,17 +22,16 @@ export class Vault {
       );
 
       let [rawToken, statusCode] = result.split(" - ");
+      let token = rawToken?.trim();
 
-      if (statusCode !== "200" || !rawToken || rawToken.trim() === "") {
+      if (statusCode !== "200" || !token) {
         throw new VaultError(tokenAddress);
       }
-
-      let token = rawToken.trim();
 
       this.client = {
         async read(path: string) {
           let url = new URL(`/v1/${path}`, vaultAddress).href;
-          const response = await fetch(url, {
+          let response = await fetch(url, {
             headers: { "X-Vault-Token": token },
           });
 
