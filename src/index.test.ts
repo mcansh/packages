@@ -38,10 +38,10 @@ test("it gets data from vault", async () => {
     tokenAddress: "http://localhost:9876/token",
   });
 
-  let secrets = await vault.getSecrets(
-    kvCredsPath,
-    z.object({ gautocomplete: z.string() }),
-  );
+  let secrets = await vault.getSecrets({
+    path: kvCredsPath,
+    schema: z.object({ gautocomplete: z.string() }),
+  });
   expect(secrets.gautocomplete).toBe("some-google-api-key");
 });
 
@@ -59,12 +59,12 @@ test("allows remapping of the secrets", async () => {
     { headers: { "Content-Type": "application/json" } },
   );
 
-  let secrets = await vault.getSecrets(
-    kvCredsPath,
-    z.object({ gautocomplete: z.string() }).transform((values) => {
+  let secrets = await vault.getSecrets({
+    path: kvCredsPath,
+    schema: z.object({ gautocomplete: z.string() }).transform((values) => {
       return { GOOGLE_API_KEY: values.gautocomplete };
     }),
-  );
+  });
 
   expect(secrets.GOOGLE_API_KEY).toBe("some-google-api-key");
 });
@@ -84,10 +84,10 @@ test("it throws an error when the schema is invalid", async () => {
   );
 
   expect(() => {
-    return vault.getSecrets(
-      kvCredsPath,
-      z.object({ gautocomplete: z.number() }),
-    );
+    return vault.getSecrets({
+      path: kvCredsPath,
+      schema: z.object({ gautocomplete: z.number() }),
+    });
   }).rejects.toThrowErrorMatchingInlineSnapshot(`
     [ZodError: [
       {
@@ -119,7 +119,7 @@ test("it throws an error if vault returns a non 200 status code", async () => {
       });
 
     expect(() =>
-      vault.getSecrets(kvCredsPath, z.object({})),
+      vault.getSecrets({ path: kvCredsPath, schema: z.object({}) }),
     ).rejects.toThrowError(errorRegex);
   }
 });

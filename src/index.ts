@@ -49,11 +49,14 @@ export class Vault {
     }
   }
 
-  async getSecrets<Schema extends z.ZodTypeAny>(
-    kvCredsPath: string,
-    schema: Schema,
-  ): Promise<z.infer<Schema>> {
-    let secrets = await this.client.read(kvCredsPath);
+  async getSecrets<Schema extends z.ZodTypeAny>({
+    path,
+    schema,
+  }: {
+    path: string;
+    schema: Schema;
+  }): Promise<z.infer<Schema>> {
+    let secrets = await this.client.read(path);
     let validatedSecrets = schema.parse(secrets.data.data);
     return validatedSecrets;
   }
