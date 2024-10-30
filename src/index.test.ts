@@ -6,6 +6,7 @@ import { Vault } from "./index.js";
 let vaultAddress = "https://vault.dev.uwm.com";
 let kvCredsPath = "dev/ui-mortgagematchup/kv/data/api";
 let vaultSecretPath = `/v1/${kvCredsPath}`;
+let vaultSecretsUrl = new URL(vaultSecretPath, vaultAddress).href;
 
 let mockAgent = new MockAgent();
 mockAgent.disableNetConnect();
@@ -29,6 +30,7 @@ test("it gets data from vault", async () => {
     JSON.stringify({
       data: { data: { gautocomplete: "some-google-api-key" } },
     }),
+    { headers: { "Content-Type": "application/json" } },
   );
 
   let vault = new Vault({
@@ -54,6 +56,7 @@ test("allows remapping of the secrets", async () => {
     JSON.stringify({
       data: { data: { gautocomplete: "some-google-api-key" } },
     }),
+    { headers: { "Content-Type": "application/json" } },
   );
 
   let secrets = await vault.getSecrets(
@@ -77,6 +80,7 @@ test("it throws an error when the schema is invalid", async () => {
     JSON.stringify({
       data: { data: { gautocomplete: "some-google-api-key" } },
     }),
+    { headers: { "Content-Type": "application/json" } },
   );
 
   expect(() => {
@@ -84,26 +88,38 @@ test("it throws an error when the schema is invalid", async () => {
       kvCredsPath,
       z.object({ gautocomplete: z.number() }),
     );
-  }).rejects.toThrowError();
+  }).rejects.toThrowErrorMatchingInlineSnapshot(`
+    [ZodError: [
+      {
+        "code": "invalid_type",
+        "expected": "number",
+        "received": "string",
+        "path": [
+          "gautocomplete"
+        ],
+        "message": "Expected number, received string"
+      }
+    ]]
+  `);
 });
 
-test("it throws an error if vault returns a 404", async () => {
+test("it throws an error if vault returns a non 200 status code", async () => {
   let vault = new Vault({
     vaultAddress,
     tokenAddress: "http://localhost:9876/token",
   });
 
-  mockClient.intercept({ path: vaultSecretPath, method: "GET" }).reply(
-    404,
-    JSON.stringify({
-      errors: ["path not found"],
-    }),
-  );
+  let errorRegex = new RegExp(`failed to fetch ${vaultSecretsUrl}`, "i");
 
-  expect(() => {
-    return vault.getSecrets(
-      kvCredsPath,
-      z.object({ gautocomplete: z.string() }),
-    );
-  }).rejects.toThrowError();
+  for (let statusCode of [404, 500]) {
+    mockClient
+      .intercept({ path: vaultSecretPath, method: "GET" })
+      .reply(statusCode, JSON.stringify({}), {
+        headers: { "Content-Type": "application/json" },
+      });
+
+    expect(() =>
+      vault.getSecrets(kvCredsPath, z.object({})),
+    ).rejects.toThrowError(errorRegex);
+  }
 });
