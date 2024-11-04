@@ -17,7 +17,7 @@ export class Vault {
       // so using curl and `--write-out` to append the status code to the response
       // then we can split the response at the `-` and check if the status code is 200
       let result = cp.execSync(
-        `curl --silent --write-out ' - %{http_code}' ${tokenAddress}`,
+        `curl --silent --write-out " - %{http_code}" ${tokenAddress}`,
         { encoding: "utf-8", stdio: "pipe" },
       );
 
