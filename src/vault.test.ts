@@ -1,31 +1,46 @@
 import { MockAgent, setGlobalDispatcher } from "undici";
-import { expect, test } from "vitest";
+import { beforeEach, expect, test } from "vitest";
 import { z } from "zod";
-import { Vault } from "./index.js";
+import { Vault } from "./vault";
 
-let vaultAddress = "https://vault.com";
-let kvCredsPath = "dev/some-service/kv/data/api";
-let vaultSecretPath = `/v1/${kvCredsPath}`;
+let vaultAddress = "https://vault.com" as const;
+let kvCredsPath = "dev/some-service/kv/data/api" as const;
+let vaultSecretPath = `/v1/${kvCredsPath}` as const;
 let vaultSecretsUrl = new URL(vaultSecretPath, vaultAddress).href;
+
+let tokenAddress = "http://localhost:9876" as const;
+let tokenPath = "/token" as const;
+let mockedToken = "abc123" as const;
 
 let mockAgent = new MockAgent();
 mockAgent.disableNetConnect();
-const mockClient = mockAgent.get(vaultAddress);
+
+// create a mock client for the vault and token
+let mockVaultClient = mockAgent.get(vaultAddress);
+let mockTokenClient = mockAgent.get(tokenAddress);
 setGlobalDispatcher(mockAgent);
 
+beforeEach(() => {
+  mockTokenClient
+    .intercept({ path: tokenPath, method: "GET" })
+    .reply(200, mockedToken);
+});
+
 test("it throws an error when it cant reach vault", () => {
+  let invalidTokenAddress = new URL("token", "https://invalid-vault.com").href;
+
   expect(() => {
-    new Vault({
+    return new Vault({
       vaultAddress,
-      tokenAddress: "http://localhost:3000/token",
+      tokenAddress: invalidTokenAddress,
     });
   }).toThrowErrorMatchingInlineSnapshot(
-    `[VaultError: Couldn't find a vault token at http://localhost:3000/token, is the VaultAgent running?]`,
+    `[VaultError: Couldn't find a vault token at ${invalidTokenAddress}, is the VaultAgent running?]`,
   );
 });
 
 test("it gets data from vault", async () => {
-  mockClient.intercept({ path: vaultSecretPath, method: "GET" }).reply(
+  mockVaultClient.intercept({ path: vaultSecretPath, method: "GET" }).reply(
     200,
     JSON.stringify({
       data: { data: { gautocomplete: "some-google-api-key" } },
@@ -46,18 +61,18 @@ test("it gets data from vault", async () => {
 });
 
 test("allows remapping of the secrets", async () => {
-  let vault = new Vault({
-    vaultAddress,
-    tokenAddress: "http://localhost:9876/token",
-  });
-
-  mockClient.intercept({ path: vaultSecretPath, method: "GET" }).reply(
+  mockVaultClient.intercept({ path: vaultSecretPath, method: "GET" }).reply(
     200,
     JSON.stringify({
       data: { data: { gautocomplete: "some-google-api-key" } },
     }),
     { headers: { "Content-Type": "application/json" } },
   );
+
+  let vault = new Vault({
+    vaultAddress,
+    tokenAddress: "http://localhost:9876/token",
+  });
 
   let secrets = await vault.getSecrets({
     path: kvCredsPath,
@@ -70,18 +85,18 @@ test("allows remapping of the secrets", async () => {
 });
 
 test("it throws an error when the schema is invalid", async () => {
-  let vault = new Vault({
-    vaultAddress,
-    tokenAddress: "http://localhost:9876/token",
-  });
-
-  mockClient.intercept({ path: vaultSecretPath, method: "GET" }).reply(
+  mockVaultClient.intercept({ path: vaultSecretPath, method: "GET" }).reply(
     200,
     JSON.stringify({
       data: { data: { gautocomplete: "some-google-api-key" } },
     }),
     { headers: { "Content-Type": "application/json" } },
   );
+
+  let vault = new Vault({
+    vaultAddress,
+    tokenAddress: "http://localhost:9876/token",
+  });
 
   expect(() => {
     return vault.getSecrets({
@@ -112,7 +127,7 @@ test("it throws an error if vault returns a non 200 status code", async () => {
   let errorRegex = new RegExp(`failed to fetch ${vaultSecretsUrl}`, "i");
 
   for (let statusCode of [404, 500]) {
-    mockClient
+    mockVaultClient
       .intercept({ path: vaultSecretPath, method: "GET" })
       .reply(statusCode, JSON.stringify({}), {
         headers: { "Content-Type": "application/json" },

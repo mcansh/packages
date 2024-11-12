@@ -2,10 +2,12 @@
   "name": "lib-node-vault-client",
   "version": "0.1.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsup && attw --pack",
+    "build": "tsup && attw --pack --format=table",
     "test": "vitest",
     "prepublishOnly": "node --run build"
   },
@@ -14,12 +16,20 @@
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
+    },
+    "./node": {
+      "import": "./dist/node.js",
+      "require": "./dist/node.cjs"
     }
   },
   "files": [
     "package.json",
     "README.md",
-    "dist"
+    "dist",
+    "node.js",
+    "node.cjs",
+    "node.d.ts",
+    "node.d.cts"
   ],
   "keywords": [],
   "author": "Logan McAnsh <lmcansh@uwm.com>",
@@ -27,6 +37,7 @@
     "@arethetypeswrong/cli": "^0.16.4",
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^22.8.4",
+    "dotenv": "^16.4.5",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "tsup": "^8.3.5",
@@ -36,7 +47,11 @@
     "zod": "^3.23.8"
   },
   "peerDependencies": {
+    "dotenv": "^16.0.0",
     "zod": "^3.23.8"
   },
-  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
+  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
+  "dependencies": {
+    "neverthrow": "^8.1.1"
+  }
 }
