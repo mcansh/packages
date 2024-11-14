@@ -11,7 +11,7 @@ async function parseDotenvFile(filePath: string) {
     }
     return err(`Error reading file: ${filePath}`);
   }).andThen((contents) => {
-    return contents ? ok(dotenv.parse(contents)) : err("No contents");
+    return ok(dotenv.parse(contents));
   });
 }
 
@@ -34,10 +34,18 @@ export async function parseDotenvFiles<Schema extends z.ZodTypeAny>({
 
   if (defaultEnv.isOk()) {
     result = { ...result, ...defaultEnv.value };
+  } else {
+    console.error(
+      `failed to parse ${Path.relative(process.cwd(), defaultEnvFilePath)}`,
+    );
   }
 
   if (envSpecific.isOk()) {
     result = { ...result, ...envSpecific.value };
+  } else {
+    console.error(
+      `failed to parse ${Path.relative(process.cwd(), envSpecificFilePath)}`,
+    );
   }
 
   return schema.parse(result);

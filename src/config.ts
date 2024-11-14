@@ -9,14 +9,14 @@ async function parseConfigFile(filePath: string) {
       return err(error.message);
     }
     return err(`Error reading file: ${filePath}`);
-  }).andThen((contents) => {
-    return contents ? ok(JSON.parse(contents)) : err("No contents");
+  }).andThen((result) => {
+    return ok(JSON.parse(result));
   });
 }
 
 export async function parseConfigFiles<Schema extends z.ZodTypeAny>({
   env,
-  directory = process.cwd(),
+  directory = Path.join(process.cwd(), "config"),
   schema,
 }: {
   directory?: string;
@@ -24,19 +24,27 @@ export async function parseConfigFiles<Schema extends z.ZodTypeAny>({
   schema: Schema;
 }) {
   let defaultConfigFilePath = Path.resolve(directory, "default.json");
-  let configSpecificFilePath = Path.resolve(directory, `${env}.json`);
+  let envSpecificFilePath = Path.resolve(directory, `${env}.json`);
 
   let defaultEnv = await parseConfigFile(defaultConfigFilePath);
-  let envSpecific = await parseConfigFile(configSpecificFilePath);
+  let envSpecific = await parseConfigFile(envSpecificFilePath);
 
   let result: Record<string, string> = {};
 
   if (defaultEnv.isOk()) {
     result = { ...result, ...defaultEnv.value };
+  } else {
+    console.error(
+      `failed to parse ${Path.relative(process.cwd(), defaultConfigFilePath)}`,
+    );
   }
 
   if (envSpecific.isOk()) {
     result = { ...result, ...envSpecific.value };
+  } else {
+    console.error(
+      `failed to parse ${Path.relative(process.cwd(), envSpecificFilePath)}`,
+    );
   }
 
   return schema.parse(result);
