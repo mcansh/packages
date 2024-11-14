@@ -1,6 +1,7 @@
 import Fsp from "node:fs/promises";
 import Path from "node:path";
 import { styleText } from "node:util";
+import { format } from "prettier";
 import { defineConfig } from "tsup";
 import packageJson from "./package.json";
 
@@ -26,13 +27,18 @@ export default defineConfig({
   tsconfig: "./tsconfig.json",
   async onSuccess() {
     async function createEsmReExport(file: string, originalPath: string) {
-      let content = js`export * from "${originalPath}";`;
+      let content = await format(js`export * from "${originalPath}";`, {
+        parser: "typescript",
+      });
       await Fsp.writeFile(file, content);
       return createBuildLog(file);
     }
 
     async function createCjsReExport(file: string, originalPath: string) {
-      let content = js`module.exports = require("${originalPath}");`;
+      let content = await format(
+        js`module.exports = require("${originalPath}");`,
+        { parser: "babel" },
+      );
       await Fsp.writeFile(file, content);
       return createBuildLog(file);
     }

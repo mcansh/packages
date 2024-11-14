@@ -9,7 +9,8 @@
   "scripts": {
     "build": "tsup && attw --pack --format=table",
     "test": "vitest",
-    "prepublishOnly": "node --run build"
+    "prepublishOnly": "node --run build",
+    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --cache --ignore-unknown --write ./"
   },
   "exports": {
     "./package.json": "./package.json",
