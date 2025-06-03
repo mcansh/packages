@@ -40,7 +40,7 @@ jobs:
   release:
     name: 🧑‍🔬 Experimental Release
     if: |
-      github.repository == 'mcansh/http-helmet' &&
+      github.repository == 'mcansh/packages' &&
       contains(github.ref, 'experimental')
     runs-on: ubuntu-latest
     steps:

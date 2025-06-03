@@ -13,7 +13,7 @@ on:
 jobs:
   preview:
     runs-on: ubuntu-latest
-    if: github.repository == 'mcansh/http-helmet'
+    if: github.repository == 'mcansh/packages'
 
     steps:
       - name: Checkout code

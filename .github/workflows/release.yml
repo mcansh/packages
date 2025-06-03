@@ -21,7 +21,7 @@ concurrency:
 jobs:
   release:
     name: 🦋 Changesets Release
-    if: github.repository == 'mcansh/http-helmet'
+    if: github.repository == 'mcansh/packages'
     runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.changesets.outputs.published }}
