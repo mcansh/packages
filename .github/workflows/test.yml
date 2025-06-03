@@ -40,7 +40,7 @@ jobs:
         run: npm run build
 
       - name: 📦 Package
-        run: npm run attw
+        run: pnpm run --parallel attw
 
   test:
     name: "${{ matrix.os }} | node-${{ matrix.node }}"
