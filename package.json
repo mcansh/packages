@@ -1,0 +1,49 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "del dist",
+    "predev": "pnpm run clean",
+    "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
+    "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
+    "prebuild": "pnpm run clean",
+    "build": "pnpm run --recursive build",
+    "test": "pnpm run --recursive --filter ./packages/* test",
+    "lint": "pnpm run --recursive --filter ./packages/* lint",
+    "publish": "./scripts/publish.js",
+    "publint": "publint ./packages/**",
+    "prepublishOnly": "pnpm run build",
+    "changeset": "changeset",
+    "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
+    "changeset:release": "pnpm run build && changeset publish",
+    "format": "prettier --cache --ignore-path .gitignore --ignore-path .prettierignore --write .",
+    "validate": "run-p build lint format publint typecheck",
+    "typecheck": "pnpm run --recursive --filter ./packages/* typecheck"
+  },
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "dependencies": {
+    "@changesets/cli": "^2.28.1",
+    "@manypkg/get-packages": "^2.2.2",
+    "@types/node": "^22.15.21",
+    "chalk": "^5.4.1",
+    "del-cli": "^6.0.0",
+    "glob": "^11.0.1",
+    "jsonfile": "^6.1.0",
+    "npm-run-all": "^4.1.5",
+    "pkg-pr-new": "^0.0.40",
+    "prettier": "^3.5.3",
+    "prompt-confirm": "^2.0.4",
+    "publint": "^0.3.12",
+    "semver": "^7.7.1",
+    "tsup": "^8.4.0",
+    "type-fest": "^4.41.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.1.4"
+  },
+  "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3"
+}
