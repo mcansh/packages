@@ -27,6 +27,7 @@
     "examples/*"
   ],
   "dependencies": {
+    "@arethetypeswrong/cli": "^0.18.1",
     "@changesets/cli": "^2.28.1",
     "@manypkg/get-packages": "^2.2.2",
     "@types/node": "^22.15.21",

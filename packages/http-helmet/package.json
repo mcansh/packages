@@ -41,7 +41,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "attw": "attw --pack . --profile node16"
   },
   "dependencies": {
     "change-case": "^5.4.4",
