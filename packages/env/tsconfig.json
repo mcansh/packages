@@ -1,0 +1,4 @@
+{
+  "extends": "./node_modules/@total-typescript/tsconfig/bundler/no-dom.json",
+  "compilerOptions": {}
+}
