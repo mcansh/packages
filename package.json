@@ -41,10 +41,10 @@
     "prompt-confirm": "^2.0.4",
     "publint": "^0.3.12",
     "semver": "^7.7.1",
-    "tsup": "^8.4.0",
+    "tsup": "^8.3.5",
     "type-fest": "^4.41.0",
     "typescript": "^5.8.2",
-    "vitest": "^3.1.4"
+    "vitest": "^2.1.9"
   },
   "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912"
 }
