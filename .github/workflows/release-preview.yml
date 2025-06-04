@@ -1,0 +1,57 @@
+name: 🚀 Release (preview)
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ./packages/*
+    tags:
+      - "!**"
+  pull_request:
+    branches: [main]
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    if: github.repository == 'mcansh/packages'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟧 Get pnpm version
+        id: pnpm-version
+        shell: bash
+        run: |
+          # get pnpm version from package.json packageManager field
+          VERSION=$(node -e "console.log(require('./package.json').packageManager.replace(/pnpm@/, ''))")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: 🟧 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ steps.pnpm-version.outputs.VERSION }}
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+              cwd: ./
+
+      - name: 🔐 Setup npm auth
+        run: |
+          echo "registry=https://registry.npmjs.org" >> ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+
+      - name: 🟧 Set publish-branch to current branch
+        run: |
+          echo "publish-branch=$(git branch --show-current)" >> ~/.npmrc
+
+      - name: 🏗️ Build
+        run: pnpm run build
+
+      - name: 🚀 Publish PR
+        run: pnpx pkg-pr-new publish --compact './packages/*' --template './examples/*'
