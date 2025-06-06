@@ -14,7 +14,7 @@ import {
   UNSAFE_HASHES,
   UNSAFE_INLINE,
   WASM_UNSAFE_EVAL,
-} from "../src/index.js";
+} from "#src/index.js";
 
 describe("createSecureHeaders", () => {
   it("generates a config", () => {

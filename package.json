@@ -2,14 +2,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "clean": "del dist",
-    "predev": "pnpm run clean",
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
-    "prebuild": "pnpm run clean",
     "build": "pnpm run --recursive build",
-    "test": "pnpm run --recursive --filter ./packages/* test",
-    "lint": "pnpm run --recursive --filter ./packages/* lint",
+    "test": "pnpm run --recursive test",
+    "lint": "pnpm run --recursive lint",
     "publish": "./scripts/publish.js",
     "publint": "publint ./packages/**",
     "prepublishOnly": "pnpm run build",
@@ -18,7 +15,7 @@
     "changeset:release": "pnpm run build && changeset publish",
     "format": "prettier --cache --ignore-path .gitignore --ignore-path .prettierignore --write .",
     "validate": "run-p build lint format publint typecheck",
-    "typecheck": "pnpm run --recursive --filter ./packages/* typecheck"
+    "typecheck": "pnpm run --recursive typecheck"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",
@@ -27,24 +24,17 @@
     "examples/*"
   ],
   "dependencies": {
-    "@arethetypeswrong/cli": "^0.18.1",
-    "@changesets/cli": "^2.28.1",
-    "@manypkg/get-packages": "^2.2.2",
-    "@types/node": "^22.15.21",
+    "@changesets/cli": "^2.29.4",
+    "@manypkg/get-packages": "^3.0.0",
+    "@types/node": "^22.15.30",
     "chalk": "^5.4.1",
-    "del-cli": "^6.0.0",
-    "glob": "^11.0.1",
     "jsonfile": "^6.1.0",
-    "npm-run-all": "^4.1.5",
-    "pkg-pr-new": "^0.0.40",
+    "pkg-pr-new": "^0.0.51",
     "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "prompt-confirm": "^2.0.4",
     "publint": "^0.3.12",
-    "semver": "^7.7.1",
-    "tsup": "^8.4.0",
-    "type-fest": "^4.41.0",
-    "typescript": "^5.8.2",
-    "vitest": "^3.1.4"
+    "semver": "^7.7.2"
   },
   "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912"
 }

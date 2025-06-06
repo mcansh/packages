@@ -9,4 +9,7 @@ let q = "my search";
 urlString`https://site.com/path?q=${q}&user=${user}&filter=${filter}`;
 // => "https://site.com/path?q=my+search"
 ```
+
+```
+
 ```
