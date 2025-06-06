@@ -2,10 +2,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "pnpm run clean",
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
-    "prebuild": "pnpm run clean",
     "build": "pnpm run --recursive build",
     "test": "pnpm run --recursive test",
     "lint": "pnpm run --recursive lint",
