@@ -16,6 +16,9 @@
       "url": "https://github.com/sponsors/mcansh"
     }
   ],
+  "imports": {
+    "#*": "./*"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -49,11 +52,16 @@
     "type-fest": "^4.41.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "catalog:",
+    "@types/node": "catalog:",
     "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@types/react-dom": "^19.1.6",
     "content-security-policy-parser": "^0.6.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "peerDependencies": {
     "react": ">=18.0.0 || >=19.0.0",

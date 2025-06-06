@@ -4,12 +4,15 @@
   "license": "MIT",
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "type": "module",
+  "imports": {
+    "#*": "./*"
+  },
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json"
+    }
   },
   "repository": {
     "type": "git",
@@ -27,7 +30,8 @@
   "files": [
     "dist",
     "package.json",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "prepublishOnly": "node --run build && node --run attw",
@@ -35,17 +39,15 @@
     "dev": "tsup --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
-    "test": "node --import tsimp/import --test ./src/**/*.spec.ts",
-    "test:watch": "node --watch --import tsimp/import --test ./src/**/*.spec.ts"
+    "test": "vitest"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.15.4",
-    "@types/node": "^22.5.0",
-    "prettier": "^3.3.3",
-    "tsimp": "^2.0.11",
-    "tsup": "^8.2.4",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "@arethetypeswrong/cli": "catalog:",
+    "@types/node": "catalog:",
+    "prettier": "^3.5.3",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1",
   "engines": {

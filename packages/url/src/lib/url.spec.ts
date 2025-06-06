@@ -1,26 +1,21 @@
-import * as assert from "node:assert/strict";
-import { describe, test } from "node:test";
+import { describe, expect, it } from "vitest";
 import { urlString } from "./url.js";
 
 describe("invalid", () => {
-  test("not passed a url", () => {
-    assert.throws(() => urlString`hello world`, {
-      name: "TypeError",
-      message: 'Invalid URL: "hello world"',
-    });
+  it("not passed a url", () => {
+    expect(() => urlString`hello world`).toThrow(
+      new TypeError('Invalid URL: "hello world"'),
+    );
   });
 
-  test("empty string", () => {
-    assert.throws(() => urlString``, {
-      name: "TypeError",
-      message: `Invalid URL: ""`,
-    });
+  it("empty string", () => {
+    expect(() => urlString``).toThrow(new TypeError('Invalid URL: ""'));
   });
 
-  test("called as function");
-  assert.throws(() => urlString(""), {
-    name: "TypeError",
-    message: `function must be used as template string`,
+  it("called as function", () => {
+    expect(() => urlString("")).toThrow(
+      new TypeError(`function must be used as template string`),
+    );
   });
 });
 
@@ -44,56 +39,54 @@ const cases = [
 ] as const;
 
 describe("basic urls", () => {
-  for (let [input, expected] of cases) {
-    test(`${input} -> ${expected}`, () => {
-      assert.equal(urlString`${input}`, expected);
-    });
-  }
+  it.each(cases)("`%s` -> `%s`", (input, expected) => {
+    expect(urlString`${input}`).toBe(expected);
+  });
 });
 
-test("non-interpolated url", () => {
-  assert.equal(urlString`https://site.com/path`, "https://site.com/path");
+it("non-interpolated url", () => {
+  expect(urlString`https://site.com/path`).toBe("https://site.com/path");
 });
 
-test("interpolated url with values", () => {
+it("interpolated url with values", () => {
   let q = "my search";
   let actual = urlString`https://site.com/path?q=${q}`;
-  assert.equal(actual, "https://site.com/path?q=my+search");
+  expect(actual).toBe("https://site.com/path?q=my+search");
 });
 
-test("interpolated url with only undefined/null values", () => {
+it("interpolated url with only undefined/null values", () => {
   let filter = undefined;
   let user = null;
   let q = undefined;
   let actual = urlString`https://site.com/path?q=${q}&user=${user}&filter=${filter}`;
-  assert.equal(actual, "https://site.com/path");
+  expect(actual).toBe("https://site.com/path");
 });
 
-test("interpolated url with valid, and undefined/null values", () => {
+it("interpolated url with valid, and undefined/null values", () => {
   let filter = undefined;
   let user = null;
   let q = "my search";
   let actual = urlString`https://site.com/path?q=${q}&user=${user}&filter=${filter}`;
-  assert.equal(actual, "https://site.com/path?q=my+search");
+  expect(actual).toBe("https://site.com/path?q=my+search");
 });
 
-test("static url with valid, and undefined/null values", () => {
+it("static url with valid, and undefined/null values", () => {
   let actual = urlString`https://site.com/path?q=my+search&user=null&filter=undefined`;
-  assert.equal(actual, "https://site.com/path?q=my+search");
+  expect(actual).toBe("https://site.com/path?q=my+search");
 });
 
-test("url with auth, port, query, hash", () => {
+it("url with auth, port, query, hash", () => {
   let filter = undefined;
   let user = null;
   let q = "my search";
   let actual = urlString`https://user:pass@site.com:8080/path?q=${q}&user=${user}&filter=${filter}#hash`;
-  assert.equal(actual, "https://user:pass@site.com:8080/path?q=my+search#hash");
+  expect(actual).toBe("https://user:pass@site.com:8080/path?q=my+search#hash");
 });
 
-test("url with auth, port, query, hash", () => {
+it("url with auth, port, query, hash", () => {
   let filter = undefined;
   let user = "1";
   let q = null;
   let actual = urlString`https://user:pass@site.com:8080/path?q=${q}&user=${user}&filter=${filter}#hash`;
-  assert.equal(actual, "https://user:pass@site.com:8080/path?user=1#hash");
+  expect(actual).toBe("https://user:pass@site.com:8080/path?user=1#hash");
 });
