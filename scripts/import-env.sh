@@ -23,23 +23,23 @@ DEST_WORKING_BRANCH="import-env"
 # Using the source repo as this remote
 TEMP_SOURCE_REMOTE_NAME="rtw"
 
-rm -rf $SOURCE_REPO_DIR
-rm -rf $DEST_REPO_DIR
+rm -rf "$SOURCE_REPO_DIR"
+rm -rf "$DEST_REPO_DIR"
 
 # Clone fresh copies of the repos
-git clone $SOURCE_GIT $SOURCE_REPO_DIR
-git clone $DEST_GIT $DEST_REPO_DIR
+git clone "$SOURCE_GIT" "$SOURCE_REPO_DIR"
+git clone "$DEST_GIT" "$DEST_REPO_DIR"
 
 # Remove origins so we can't accidentally mess them up
-cd $SOURCE_REPO_DIR
+cd "$SOURCE_REPO_DIR"
 git remote rm origin
 cd ..
-cd $DEST_REPO_DIR
+cd "$DEST_REPO_DIR"
 git checkout $DEST_BRANCH
 git remote rm origin
 cd ..
 
-cd $SOURCE_REPO_DIR
+cd "$SOURCE_REPO_DIR"
 
 git checkout -b $SOURCE_WORKING_BRANCH $SOURCE_REF
 # git-filter-repo --force \
