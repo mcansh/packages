@@ -41,8 +41,8 @@
   ],
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
     "test": "vitest",
     "typecheck": "tsc",
     "attw": "attw --pack . --profile node16"

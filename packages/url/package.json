@@ -35,8 +35,8 @@
   ],
   "scripts": {
     "prepublishOnly": "node --run build && node --run attw",
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
     "test": "vitest"
