@@ -54,4 +54,6 @@ jobs:
         run: pnpm run build
 
       - name: 🚀 Publish PR
-        run: pnpx pkg-pr-new publish --compact './packages/*' --template './examples/*'
+        # re add --compact when we start releasing from this repo
+        # run: pnpx pkg-pr-new publish --compact './packages/*' --template './examples/*'
+        run: pnpx pkg-pr-new publish './packages/*' --template './examples/*'
