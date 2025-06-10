@@ -4,9 +4,9 @@
   "scripts": {
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
-    "build": "pnpm run --recursive build",
-    "test": "pnpm run --recursive test",
-    "lint": "pnpm run --recursive lint",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
     "publish": "./scripts/publish.js",
     "publint": "publint ./packages/**",
     "prepublishOnly": "pnpm run build",
@@ -15,7 +15,7 @@
     "changeset:release": "pnpm run build && changeset publish",
     "format": "prettier --cache --ignore-path .gitignore --ignore-path .prettierignore --write .",
     "validate": "run-p build lint format publint typecheck",
-    "typecheck": "pnpm run --recursive typecheck"
+    "typecheck": "turbo typecheck"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",
@@ -36,5 +36,8 @@
     "publint": "^0.3.12",
     "semver": "^7.7.2"
   },
-  "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912"
+  "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912",
+  "devDependencies": {
+    "turbo": "^2.5.4"
+  }
 }
