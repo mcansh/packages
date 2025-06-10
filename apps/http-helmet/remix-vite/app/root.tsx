@@ -9,7 +9,7 @@ import {
 } from "@remix-run/react";
 import rootStyleHref from "./root.css?url";
 
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: rootStyleHref },
     { rel: "preload", as: "style", href: rootStyleHref },
@@ -17,7 +17,7 @@ export let links: LinksFunction = () => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  let nonce = useNonce();
+  const nonce = useNonce();
 
   return (
     <html lang="en">

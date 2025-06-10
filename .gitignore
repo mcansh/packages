@@ -6,3 +6,5 @@
 **/LICENSE
 !/LICENSE
 **/coverage/
+.tsimp
+.turbo

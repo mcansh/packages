@@ -7,6 +7,6 @@ export function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function Component() {
-  let data = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>();
   return <h1>Hello from Page {data.id}</h1>;
 }
