@@ -1,6 +1,6 @@
 packages:
   - packages/*
-  - examples/*
+  - apps/**/*
 catalog:
   "@arethetypeswrong/cli": ^0.18.1
   "@types/node": ^22.15.30

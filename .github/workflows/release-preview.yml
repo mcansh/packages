@@ -56,4 +56,4 @@ jobs:
       - name: 🚀 Publish PR
         # re add --compact when we start releasing from this repo
         # run: pnpx pkg-pr-new publish --compact './packages/*' --template './examples/*'
-        run: pnpx pkg-pr-new publish './packages/*' --template './apps/**/*'
+        run: pnpx pkg-pr-new publish --pnpm './packages/*' --template './apps/url/*' --template './apps/http-helmet/*'
