@@ -30,7 +30,7 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: ".node-version"
 
       - name: 🟧 Setup pnpm
         uses: pnpm/action-setup@v4
@@ -56,4 +56,4 @@ jobs:
       - name: 🚀 Publish PR
         # re add --compact when we start releasing from this repo
         # run: pnpx pkg-pr-new publish --compact './packages/*' --template './examples/*'
-        run: pnpx pkg-pr-new publish './packages/*' --template './examples/*'
+        run: pnpx pkg-pr-new publish './packages/*' --template './apps/**/*'
