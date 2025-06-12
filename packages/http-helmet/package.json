@@ -45,6 +45,7 @@
     "dev": "tsdown --watch",
     "test": "vitest",
     "typecheck": "tsc",
+    "typedoc": "typedoc",
     "attw": "attw --pack . --profile node16"
   },
   "dependencies": {
@@ -60,6 +61,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tsdown": "catalog:",
+    "typedoc": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
