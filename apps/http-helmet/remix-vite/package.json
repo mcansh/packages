@@ -1,5 +1,5 @@
 {
-  "name": "example-vite-app",
+  "name": "example-remix-vite",
   "private": true,
   "sideEffects": false,
   "type": "module",

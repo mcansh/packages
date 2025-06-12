@@ -1,5 +1,5 @@
 {
-  "name": "example-app",
+  "name": "example-remix-classic-compiler",
   "private": true,
   "sideEffects": false,
   "type": "module",
