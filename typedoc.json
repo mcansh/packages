@@ -1,4 +1,6 @@
 {
+  "$schema": "https://typedoc.org/schema.json",
+  "readme": "./README.md",
   "name": "Packages",
   "entryPoints": ["packages/*"],
   "entryPointStrategy": "packages",

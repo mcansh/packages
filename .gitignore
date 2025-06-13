@@ -1,5 +1,5 @@
-dist
-node_modules
+**/dist/
+**/node_modules/
 .ds_store
-.tsimp
 /public/dev/
+/.wrangler/
