@@ -46,7 +46,7 @@ jobs:
         run: pnpm run build
 
       - name: 📦 Package
-        run: pnpm run attw
+        run: pnpm run --recursive --parallel attw
 
       - name: 🚀 Publish PR
         run: pnpx pkg-pr-new publish
