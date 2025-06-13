@@ -2,4 +2,4 @@ dist
 node_modules
 .ds_store
 .tsimp
-**/docs/
+/public/dev/

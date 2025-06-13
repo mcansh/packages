@@ -39,15 +39,13 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
-    "test": "vitest",
-    "typedoc": "typedoc"
+    "test": "vitest"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",
     "@types/node": "catalog:",
     "prettier": "^3.5.3",
     "tsdown": "catalog:",
-    "typedoc": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
