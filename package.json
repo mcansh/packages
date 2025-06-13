@@ -27,7 +27,7 @@
   "dependencies": {
     "@changesets/cli": "^2.29.4",
     "@manypkg/get-packages": "^3.0.0",
-    "@types/node": "^22.15.30",
+    "@types/node": "catalog:",
     "chalk": "^5.4.1",
     "jsonfile": "^6.1.0",
     "pkg-pr-new": "^0.0.51",

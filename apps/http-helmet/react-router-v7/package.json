@@ -19,13 +19,13 @@
   },
   "devDependencies": {
     "@react-router/dev": "^7.6.2",
-    "@tailwindcss/vite": "^4.1.8",
-    "@types/node": "^22.15.30",
-    "@types/react": "^19.1.6",
+    "@tailwindcss/vite": "^4.1.10",
+    "@types/node": "catalog:",
+    "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
-    "tailwindcss": "^4.1.8",
+    "tailwindcss": "^4.1.10",
     "typescript": "catalog:",
     "vite": "^6.3.5",
     "vite-tsconfig-paths": "^5.1.4"
