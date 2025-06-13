@@ -7,5 +7,5 @@
   "includeVersion": true,
   "json": "./public/dev/api.json",
   "out": "./public/dev",
-  "hostedBaseUrl": "https://api.reactrouter.com/dev/"
+  "hostedBaseUrl": "https://packages.mcan.sh/"
 }
