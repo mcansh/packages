@@ -1,0 +1,11 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "readme": "./README.md",
+  "name": "Packages",
+  "entryPoints": ["packages/*"],
+  "entryPointStrategy": "packages",
+  "includeVersion": true,
+  "json": "./public/dev/api.json",
+  "out": "./public/dev",
+  "hostedBaseUrl": "https://packages.mcan.sh/"
+}

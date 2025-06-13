@@ -1,15 +1,19 @@
 packages:
   - packages/*
   - apps/**/*
+
 catalog:
-  "@arethetypeswrong/cli": ^0.18.1
-  "@types/node": ^22.15.30
+  '@arethetypeswrong/cli': ^0.18.1
+  '@types/node': ^22.15.30
   tsdown: ^0.12.7
   type-fest: ^4.41.0
   typescript: ^5.8.3
   vitest: ^3.2.3
+
 onlyBuiltDependencies:
-  - "@tailwindcss/oxide"
+  - '@tailwindcss/oxide'
   - esbuild
   - rolldown
+  - sharp
   - unrs-resolver
+  - workerd
