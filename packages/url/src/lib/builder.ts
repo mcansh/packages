@@ -20,7 +20,13 @@ export class UrlBuilder {
   private hashValue: string = "";
 
   removeLeadingTrailingSlashes(input: string): string {
-    return input.replace(/^\/*/, "").replace(/\/*$/, "");
+    while (input.startsWith("/")) {
+      input = input.slice(1);
+    }
+    while (input.endsWith("/")) {
+      input = input.slice(0, -1);
+    }
+    return input;
   }
 
   protocol(protocol: string): Omit<this, "protocol"> {
