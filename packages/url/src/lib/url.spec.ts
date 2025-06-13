@@ -23,7 +23,6 @@ describe("invalid", () => {
  * note that the URL constructor will add a trailing slash
  * to the url for certain protocols
  */
-
 const cases = [
   [`ssh://site.com`, "ssh://site.com"],
   [`data://site.com`, "data://site.com"],
@@ -75,18 +74,20 @@ it("static url with valid, and undefined/null values", () => {
   expect(actual).toBe("https://site.com/path?q=my+search");
 });
 
-it("url with auth, port, query, hash", () => {
-  let filter = undefined;
-  let user = null;
-  let q = "my search";
+it.each([
+  {
+    filter: undefined,
+    user: null,
+    q: "my search",
+    expected: "https://user:pass@site.com:8080/path?q=my+search#hash",
+  },
+  {
+    filter: undefined,
+    user: "1",
+    q: null,
+    expected: "https://user:pass@site.com:8080/path?user=1#hash",
+  },
+])("url with auth, port, query, hash", ({ expected, filter, q, user }) => {
   let actual = urlString`https://user:pass@site.com:8080/path?q=${q}&user=${user}&filter=${filter}#hash`;
-  expect(actual).toBe("https://user:pass@site.com:8080/path?q=my+search#hash");
-});
-
-it("url with auth, port, query, hash", () => {
-  let filter = undefined;
-  let user = "1";
-  let q = null;
-  let actual = urlString`https://user:pass@site.com:8080/path?q=${q}&user=${user}&filter=${filter}#hash`;
-  expect(actual).toBe("https://user:pass@site.com:8080/path?user=1#hash");
+  expect(actual).toBe(expected);
 });
