@@ -7,4 +7,7 @@ export default defineConfig({
   tsconfig: "tsconfig.json",
   sourcemap: true,
   clean: true,
+  copy() {
+    return ["../../LICENSE", { from: "../../LICENSE", to: "LICENSE" }];
+  },
 });

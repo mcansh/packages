@@ -1,5 +1,5 @@
 import { defineConfig } from "tsdown";
-import pkgJson from "./package.json";
+import pkgJson from "./package.json" with { type: "json" };
 
 let external = Object.keys(pkgJson.dependencies || {});
 
@@ -12,4 +12,7 @@ export default defineConfig({
   dts: true,
   format: ["cjs", "esm"],
   platform: "neutral",
+  copy() {
+    return ["../../LICENSE", { from: "../../LICENSE", to: "LICENSE" }];
+  },
 });

@@ -3,3 +3,5 @@
 .ds_store
 /public/dev/
 /.wrangler/
+**/LICENSE
+!/LICENSE
