@@ -10,7 +10,7 @@
     "typecheck": "tsc -b"
   },
   "dependencies": {
-    "@mcansh/http-helmet": "workspace:*",
+    "@mcansh/http-helmet": "^0.13.0",
     "@remix-run/node": "^2.16.8",
     "@remix-run/react": "^2.16.8",
     "@remix-run/serve": "^2.16.8",
@@ -24,7 +24,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "eslint": "^8.57.0",
-    "typescript": "catalog:"
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=18"
