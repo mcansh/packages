@@ -19,18 +19,22 @@ export class UrlBuilder {
   private queryParams: QueryParams = {};
   private hashValue: string = "";
 
+  removeLeadingTrailingSlashes(input: string): string {
+    return input.replace(/^\/*/, "").replace(/\/*$/, "");
+  }
+
   protocol(protocol: string): Omit<this, "protocol"> {
     this.protocolValue = protocol.replace(/:$/, ""); // Remove trailing colon if present
     return this;
   }
 
   domain(domain: string): Omit<this, "domain"> {
-    this.domainValue = domain.replace(/^\/+|\/+$/g, ""); // Trim slashes
+    this.domainValue = this.removeLeadingTrailingSlashes(domain);
     return this;
   }
 
   path(path: string): Omit<this, "path"> {
-    this.pathSegments.push(path.replace(/^\/+|\/+$/g, "")); // Trim slashes
+    this.pathSegments.push(this.removeLeadingTrailingSlashes(path));
     return this;
   }
 
