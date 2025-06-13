@@ -1,7 +1,9 @@
 name: 🚀 Release (preview)
+
 permissions:
   contents: read
   packages: write
+
 on:
   push:
     branches:
