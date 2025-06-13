@@ -1,6 +1,6 @@
 import * as assert from "node:assert/strict";
 import { describe, test } from "node:test";
-import { urlString } from "./url.js";
+import { urlString } from "./url.ts";
 
 describe("invalid", () => {
   test("not passed a url", () => {
@@ -28,7 +28,6 @@ describe("invalid", () => {
  * note that the URL constructor will add a trailing slash
  * to the url for certain protocols
  */
-
 const cases = [
   [`ssh://site.com`, "ssh://site.com"],
   [`data://site.com`, "data://site.com"],
@@ -74,6 +73,16 @@ test("interpolated url with valid, and undefined/null values", () => {
   let user = null;
   let q = "my search";
   let actual = urlString`https://site.com/path?q=${q}&user=${user}&filter=${filter}`;
+  assert.equal(actual, "https://site.com/path?q=my+search");
+});
+
+test("interpolated url origin with valid, and undefined/null values", () => {
+  let filter = undefined;
+  let user = null;
+  let q = "my search";
+  let origin = "https://site.com";
+  let path = "/path";
+  let actual = urlString`${origin}${path}?q=${q}&user=${user}&filter=${filter}`;
   assert.equal(actual, "https://site.com/path?q=my+search");
 });
 

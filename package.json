@@ -3,12 +3,10 @@
   "version": "0.2.2",
   "license": "MIT",
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "repository": "mcansh/url",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
+    ".": "./dist/index.js",
     "./package.json": "./package.json"
   },
   "module": "dist/index.js",
@@ -24,19 +22,21 @@
     "dev": "tsup --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
-    "test": "node --import tsimp/import --test ./src/**/*.spec.ts",
-    "test:watch": "node --watch --import tsimp/import --test ./src/**/*.spec.ts"
+    "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test './src/**/*.spec.ts'",
+    "test:watch": "node --watch --experimental-strip-types --disable-warning=ExperimentalWarning --test './src/**/*.spec.ts'"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.15.4",
-    "@types/node": "^22.5.0",
-    "prettier": "^3.3.3",
-    "tsimp": "^2.0.11",
-    "tsup": "^8.2.4",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "@arethetypeswrong/cli": "^0.17.1",
+    "@microsoft/api-extractor": "^7.48.0",
+    "@types/node": "^22.10.1",
+    "pkg-pr-new": "^0.0.37",
+    "prettier": "^3.4.2",
+    "tsimp": "^2.0.12",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   },
-  "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1",
+  "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c",
   "engines": {
     "node": ">=20"
   }
