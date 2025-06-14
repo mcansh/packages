@@ -275,3 +275,18 @@ describe("checks for both upgradeInsecureRequests and upgrade-insecure-requests"
     ).toMatchInlineSnapshot(`"upgrade-insecure-requests"`);
   });
 });
+
+describe("short hands work", () => {
+  it.each([
+    [SELF, "'self'"],
+    [NONE, "'none'"],
+    [UNSAFE_INLINE, "'unsafe-inline'"],
+    [UNSAFE_EVAL, "'unsafe-eval'"],
+    [WASM_UNSAFE_EVAL, "'wasm-unsafe-eval'"],
+    [UNSAFE_HASHES, "'unsafe-hashes'"],
+    [STRICT_DYNAMIC, "'strict-dynamic'"],
+    [REPORT_SAMPLE, "'report-sample'"],
+  ])("short hand %s is mapped to %s", (key, value) => {
+    expect(key).toBe(value);
+  });
+});
