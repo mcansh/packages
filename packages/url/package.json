@@ -34,14 +34,14 @@
     "LICENSE"
   ],
   "scripts": {
-    "prepublishOnly": "node --run build && node --run attw",
-    "build": "tsdown",
+    "prepublishOnly": "node --run build",
+    "build": "tsdown && attw --pack . --ignore-rules cjs-resolves-to-esm",
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "test": "vitest"
   },
   "devDependencies": {
-    "@arethetypeswrong/core": "catalog:",
+    "@arethetypeswrong/cli": "catalog:",
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
     "tsdown": "catalog:",

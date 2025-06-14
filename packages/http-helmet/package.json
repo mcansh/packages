@@ -41,7 +41,7 @@
   ],
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "tsdown",
+    "build": "tsdown && attw --pack . --profile node16",
     "dev": "tsdown --watch",
     "test": "vitest",
     "typecheck": "tsc"
@@ -51,7 +51,7 @@
     "type-fest": "^4.41.0"
   },
   "devDependencies": {
-    "@arethetypeswrong/core": "catalog:",
+    "@arethetypeswrong/cli": "catalog:",
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "^19.1.8",
