@@ -1,6 +1,8 @@
 {
-  "name": "packages",
   "private": true,
+  "name": "packages",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
@@ -17,12 +19,7 @@
     "validate": "run-p build lint format typecheck",
     "typecheck": "pnpm run --recursive typecheck"
   },
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
-  "license": "MIT",
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ],
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
   "dependencies": {
     "@changesets/cli": "^2.29.4",
     "@manypkg/get-packages": "^3.0.0",
@@ -32,10 +29,14 @@
     "pkg-pr-new": "^0.0.51",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-sort-package-json": "^1.1.0",
     "prompt-confirm": "^2.0.4",
     "semver": "^7.7.2",
     "typedoc": "^0.28.5",
     "wrangler": "^4.20.0"
   },
-  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ]
 }

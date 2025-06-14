@@ -1,12 +1,33 @@
 {
   "name": "@mcansh/url",
   "version": "0.3.0",
-  "license": "MIT",
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
-  "type": "module",
-  "imports": {
-    "#*": "./*"
+  "repository": {
+    "type": "git",
+    "url": "mcansh/packages",
+    "directory": "./packages/url"
   },
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/mcansh"
+    },
+    {
+      "type": "thanks_dev",
+      "url": "https://thanks.dev/u/gh/mcansh"
+    }
+  ],
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsdown && attw --pack . --ignore-rules cjs-resolves-to-esm",
+    "dev": "tsdown --watch",
+    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
+    "prepublishOnly": "node --run build",
+    "test": "vitest"
+  },
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -14,31 +35,15 @@
       "import": "./dist/index.js"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "mcansh/packages",
-    "directory": "./packages/url"
-  },
-  "funding": [
-    {
-      "type": "github",
-      "url": "https://github.com/sponsors/mcansh"
-    }
-  ],
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "package.json",
     "README.md",
     "LICENSE"
   ],
-  "scripts": {
-    "prepublishOnly": "node --run build",
-    "build": "tsdown && attw --pack . --ignore-rules cjs-resolves-to-esm",
-    "dev": "tsdown --watch",
-    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
-    "test": "vitest"
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
+  "engines": {
+    "node": ">=20"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",
@@ -48,8 +53,7 @@
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
-  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
-  "engines": {
-    "node": ">=20"
+  "imports": {
+    "#*": "./*"
   }
 }
