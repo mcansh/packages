@@ -38,13 +38,12 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
-    "attw": "attw --pack . --ignore-rules cjs-resolves-to-esm",
     "test": "vitest"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "catalog:",
+    "@arethetypeswrong/core": "catalog:",
+    "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
-    "prettier": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
