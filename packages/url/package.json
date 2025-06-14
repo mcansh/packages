@@ -16,8 +16,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/mcansh/packages.git",
-    "directory": "./packages/http-helmet"
+    "url": "mcansh/packages",
+    "directory": "./packages/url"
   },
   "funding": [
     {

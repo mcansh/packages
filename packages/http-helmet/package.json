@@ -7,7 +7,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/mcansh/packages.git",
+    "url": "mcansh/packages",
     "directory": "./packages/http-helmet"
   },
   "funding": [
