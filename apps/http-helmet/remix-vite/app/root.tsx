@@ -1,4 +1,5 @@
 import { useNonce } from "@mcansh/http-helmet/react";
+import { LinksFunction } from "@remix-run/node";
 import {
   Links,
   Meta,
@@ -6,9 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-
 import rootStyleHref from "./root.css?url";
-import { LinksFunction } from "@remix-run/node";
 
 export let links: LinksFunction = () => {
   return [

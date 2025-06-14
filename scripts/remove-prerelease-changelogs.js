@@ -1,7 +1,7 @@
+import { getPackagesSync } from "@manypkg/get-packages";
 import * as fs from "node:fs";
 import path from "node:path";
 import * as url from "node:url";
-import { getPackagesSync } from "@manypkg/get-packages";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const rootDir = path.join(__dirname, "..");

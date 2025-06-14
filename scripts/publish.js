@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
+import { globSync } from "glob";
 import { execSync } from "node:child_process";
 import semver from "semver";
-import { globSync } from "glob";
 
 let packages = globSync("packages/*", { absolute: true });
 

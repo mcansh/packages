@@ -1,9 +1,9 @@
-import path from "node:path";
-import { execSync } from "node:child_process";
-import semver from "semver";
-import jsonfile from "jsonfile";
 import chalk from "chalk";
+import jsonfile from "jsonfile";
+import { execSync } from "node:child_process";
+import path from "node:path";
 import Confirm from "prompt-confirm";
+import semver from "semver";
 
 let packages = ["http-helmet"];
 

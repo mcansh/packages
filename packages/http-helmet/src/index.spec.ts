@@ -1,5 +1,3 @@
-import { describe, expect, it } from "vitest";
-import parseContentSecurityPolicy from "content-security-policy-parser";
 import {
   createContentSecurityPolicy,
   createSecureHeaders,
@@ -15,6 +13,8 @@ import {
   UNSAFE_INLINE,
   WASM_UNSAFE_EVAL,
 } from "#src/index.js";
+import parseContentSecurityPolicy from "content-security-policy-parser";
+import { describe, expect, it } from "vitest";
 
 describe("createSecureHeaders", () => {
   it("generates a config", () => {
