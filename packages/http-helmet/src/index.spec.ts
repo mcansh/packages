@@ -105,19 +105,39 @@ describe("createSecureHeaders", () => {
     let fontSrc = parsed.get("font-src");
     if (!fontSrc) throw new Error("Expected font-src");
 
-    expect(defaultSrc).toEqual([NONE]);
-    expect(scriptSrc).toEqual([
-      SELF,
-      `'nonce-foo'`,
-      `'sha256-bar'`,
-      UNSAFE_EVAL,
-      UNSAFE_HASHES,
-      WASM_UNSAFE_EVAL,
-      STRICT_DYNAMIC,
-    ]);
-    expect(imgSrc).toEqual([SELF, "https://example.com"]);
-    expect(styleSrc).toEqual([UNSAFE_EVAL, UNSAFE_INLINE]);
-    expect(fontSrc).toEqual([REPORT_SAMPLE]);
+    expect(defaultSrc).toMatchInlineSnapshot(`
+      [
+        "'none'",
+      ]
+    `);
+    expect(scriptSrc).toMatchInlineSnapshot(`
+      [
+        "'self'",
+        "'nonce-foo'",
+        "'sha256-bar'",
+        "'unsafe-eval'",
+        "'unsafe-hashes'",
+        "'wasm-unsafe-eval'",
+        "'strict-dynamic'",
+      ]
+    `);
+    expect(imgSrc).toMatchInlineSnapshot(`
+      [
+        "'self'",
+        "https://example.com",
+      ]
+    `);
+    expect(styleSrc).toMatchInlineSnapshot(`
+      [
+        "'unsafe-eval'",
+        "'unsafe-inline'",
+      ]
+    `);
+    expect(fontSrc).toMatchInlineSnapshot(`
+      [
+        "'report-sample'",
+      ]
+    `);
   });
 
   it('allows shorthand for "Strict-Transport-Security"', () => {
