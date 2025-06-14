@@ -53,6 +53,9 @@ importers:
       prettier-plugin-organize-imports:
         specifier: ^4.1.0
         version: 4.1.0(prettier@3.5.3)(typescript@5.8.3)
+      prettier-plugin-sort-package-json:
+        specifier: ^1.1.0
+        version: 1.1.0(prettier@3.5.3)
       prompt-confirm:
         specifier: ^2.0.4
         version: 2.0.4
@@ -4856,6 +4859,11 @@ packages:
     peerDependenciesMeta:
       vue-tsc:
         optional: true
+
+  prettier-plugin-sort-package-json@1.1.0:
+    resolution: {integrity: sha512-vbOfkAvNjqbpZT7QdhGS/KE66C8J789zdzJtQvKHuM46+nBz7+A+2DrDuBriVPd9uf3qDRCKxHGKZ31bJQ87tA==}
+    peerDependencies:
+      prettier: ^3.0.0
 
   prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
@@ -11098,6 +11106,10 @@ snapshots:
     dependencies:
       prettier: 3.5.3
       typescript: 5.8.3
+
+  prettier-plugin-sort-package-json@1.1.0(prettier@3.5.3):
+    dependencies:
+      prettier: 3.5.3
 
   prettier@2.8.8: {}
 

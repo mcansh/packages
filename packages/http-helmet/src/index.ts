@@ -9,8 +9,8 @@ export {
   UNSAFE_HASHES,
   UNSAFE_INLINE,
   WASM_UNSAFE_EVAL,
-  mergeHeaders,
   createNonce,
+  mergeHeaders,
 } from "./utils";
 
 export {

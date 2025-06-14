@@ -1,7 +1,10 @@
 import { defineConfig } from "tsdown";
 import pkgJson from "./package.json" with { type: "json" };
 
-let external = "dependencies" in pkgJson && pkgJson.dependencies ? Object.keys(pkgJson.dependencies) : [];
+let external =
+  "dependencies" in pkgJson && pkgJson.dependencies
+    ? Object.keys(pkgJson.dependencies)
+    : [];
 
 export default defineConfig({
   entry: ["src/index.ts", "src/react.tsx"],

@@ -1,5 +1,5 @@
-import type { LiteralUnion } from "type-fest";
 import { kebabCase } from "change-case";
+import type { LiteralUnion } from "type-fest";
 
 type KnownPermissions = LiteralUnion<
   | "accelerometer"

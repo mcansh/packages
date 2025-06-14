@@ -1,3 +1,4 @@
+import { useNonce } from "@mcansh/http-helmet/react";
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
@@ -7,8 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { useNonce } from "@mcansh/http-helmet/react";
-
 import appStylesHref from "./styles/app.css";
 
 export const links: LinksFunction = () => {

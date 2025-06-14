@@ -2,23 +2,34 @@
   "name": "@mcansh/http-helmet",
   "version": "0.13.1",
   "description": "",
-  "license": "MIT",
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
-  "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/mcansh/packages.git",
+    "url": "mcansh/packages",
     "directory": "./packages/http-helmet"
   },
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
   "funding": [
     {
       "type": "github",
       "url": "https://github.com/sponsors/mcansh"
+    },
+    {
+      "type": "thanks_dev",
+      "url": "https://thanks.dev/u/gh/mcansh"
     }
   ],
-  "imports": {
-    "#*": "./*"
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsdown && attw --pack . --profile node16",
+    "dev": "tsdown --watch",
+    "prepublishOnly": "npm run build",
+    "test": "vitest",
+    "typecheck": "tsc"
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -30,25 +41,26 @@
       "import": "./dist/react.js"
     }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "README.md",
     "package.json"
   ],
-  "scripts": {
-    "prepublishOnly": "npm run build",
-    "build": "tsdown && attw --pack . --profile node16",
-    "dev": "tsdown --watch",
-    "test": "vitest",
-    "typecheck": "tsc"
-  },
   "dependencies": {
     "change-case": "^5.4.4",
     "type-fest": "^4.41.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0 || >=19.0.0",
+    "react-dom": ">=18.0.0 || >=19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",
@@ -63,20 +75,12 @@
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
-  "peerDependencies": {
-    "react": ">=18.0.0 || >=19.0.0",
-    "react-dom": ">=18.0.0 || >=19.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": true
-    },
-    "react-dom": {
-      "optional": true
-    }
-  },
   "publishConfig": {
     "access": "public",
     "provenance": true
-  }
+  },
+  "imports": {
+    "#*": "./*"
+  },
+  "source": "./src/index.ts"
 }

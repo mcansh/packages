@@ -1,5 +1,3 @@
-import { describe, expect, it } from "vitest";
-import parseContentSecurityPolicy from "content-security-policy-parser";
 import {
   createContentSecurityPolicy,
   createSecureHeaders,
@@ -15,6 +13,8 @@ import {
   UNSAFE_INLINE,
   WASM_UNSAFE_EVAL,
 } from "#src/index.js";
+import parseContentSecurityPolicy from "content-security-policy-parser";
+import { describe, expect, it } from "vitest";
 
 describe("createSecureHeaders", () => {
   it("generates a config", () => {
@@ -105,19 +105,39 @@ describe("createSecureHeaders", () => {
     let fontSrc = parsed.get("font-src");
     if (!fontSrc) throw new Error("Expected font-src");
 
-    expect(defaultSrc).toEqual([NONE]);
-    expect(scriptSrc).toEqual([
-      SELF,
-      `'nonce-foo'`,
-      `'sha256-bar'`,
-      UNSAFE_EVAL,
-      UNSAFE_HASHES,
-      WASM_UNSAFE_EVAL,
-      STRICT_DYNAMIC,
-    ]);
-    expect(imgSrc).toEqual([SELF, "https://example.com"]);
-    expect(styleSrc).toEqual([UNSAFE_EVAL, UNSAFE_INLINE]);
-    expect(fontSrc).toEqual([REPORT_SAMPLE]);
+    expect(defaultSrc).toMatchInlineSnapshot(`
+      [
+        "'none'",
+      ]
+    `);
+    expect(scriptSrc).toMatchInlineSnapshot(`
+      [
+        "'self'",
+        "'nonce-foo'",
+        "'sha256-bar'",
+        "'unsafe-eval'",
+        "'unsafe-hashes'",
+        "'wasm-unsafe-eval'",
+        "'strict-dynamic'",
+      ]
+    `);
+    expect(imgSrc).toMatchInlineSnapshot(`
+      [
+        "'self'",
+        "https://example.com",
+      ]
+    `);
+    expect(styleSrc).toMatchInlineSnapshot(`
+      [
+        "'unsafe-eval'",
+        "'unsafe-inline'",
+      ]
+    `);
+    expect(fontSrc).toMatchInlineSnapshot(`
+      [
+        "'report-sample'",
+      ]
+    `);
   });
 
   it('allows shorthand for "Strict-Transport-Security"', () => {
@@ -274,4 +294,51 @@ describe("checks for both upgradeInsecureRequests and upgrade-insecure-requests"
       }),
     ).toMatchInlineSnapshot(`"upgrade-insecure-requests"`);
   });
+});
+
+describe("shorthands work", () => {
+  let shorthands = [
+    [SELF, "'self'"],
+    [NONE, "'none'"],
+    [UNSAFE_INLINE, "'unsafe-inline'"],
+    [UNSAFE_EVAL, "'unsafe-eval'"],
+    [WASM_UNSAFE_EVAL, "'wasm-unsafe-eval'"],
+    [UNSAFE_HASHES, "'unsafe-hashes'"],
+    [STRICT_DYNAMIC, "'strict-dynamic'"],
+    [REPORT_SAMPLE, "'report-sample'"],
+  ];
+
+  it.each(shorthands)(
+    "createContentSecurityPolicy supports short hand %s => %s",
+    (key, value) => {
+      let result = createContentSecurityPolicy({ scriptSrc: [key] });
+      expect(result).toBe(`script-src ${value}`);
+    },
+  );
+
+  it.each(shorthands)(
+    "createSecureHeaders supports short hand %s => %s using kebab-case options",
+    (key, value) => {
+      let headers = createSecureHeaders({
+        "Content-Security-Policy": { "script-src": [key] },
+      });
+
+      let result = headers.get("Content-Security-Policy");
+
+      expect(result).toBe(`script-src ${value}`);
+    },
+  );
+
+  it.each(shorthands)(
+    "createSecureHeaders supports short hand %s => %s using camelCase options",
+    (key, value) => {
+      let headers = createSecureHeaders({
+        "Content-Security-Policy": { scriptSrc: [key] },
+      });
+
+      let result = headers.get("Content-Security-Policy");
+
+      expect(result).toBe(`script-src ${value}`);
+    },
+  );
 });

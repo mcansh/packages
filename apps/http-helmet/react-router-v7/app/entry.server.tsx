@@ -1,4 +1,8 @@
-import { createNonce, createSecureHeaders, mergeHeaders } from "@mcansh/http-helmet";
+import {
+  createNonce,
+  createSecureHeaders,
+  mergeHeaders,
+} from "@mcansh/http-helmet";
 import { NonceProvider } from "@mcansh/http-helmet/react";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
@@ -37,11 +41,7 @@ export default function handleRequest(
 
     const { pipe, abort } = renderToPipeableStream(
       <NonceProvider nonce={nonce}>
-        <ServerRouter
-          context={routerContext}
-          url={request.url}
-          nonce={nonce}
-        />
+        <ServerRouter context={routerContext} url={request.url} nonce={nonce} />
       </NonceProvider>,
       {
         nonce,
