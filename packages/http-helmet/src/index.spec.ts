@@ -297,7 +297,7 @@ describe("checks for both upgradeInsecureRequests and upgrade-insecure-requests"
 });
 
 describe("shorthands work", () => {
-  it.each([
+  let shorthands = [
     [SELF, "'self'"],
     [NONE, "'none'"],
     [UNSAFE_INLINE, "'unsafe-inline'"],
@@ -306,7 +306,39 @@ describe("shorthands work", () => {
     [UNSAFE_HASHES, "'unsafe-hashes'"],
     [STRICT_DYNAMIC, "'strict-dynamic'"],
     [REPORT_SAMPLE, "'report-sample'"],
-  ])("short hand %s is mapped to %s", (key, value) => {
-    expect(key).toBe(value);
-  });
+  ];
+
+  it.each(shorthands)(
+    "createContentSecurityPolicy supports short hand %s => %s",
+    (key, value) => {
+      let result = createContentSecurityPolicy({ scriptSrc: [key] });
+      expect(result).toBe(`script-src ${value}`);
+    },
+  );
+
+  it.each(shorthands)(
+    "createSecureHeaders supports short hand %s => %s using kebab-case options",
+    (key, value) => {
+      let headers = createSecureHeaders({
+        "Content-Security-Policy": { "script-src": [key] },
+      });
+
+      let result = headers.get("Content-Security-Policy");
+
+      expect(result).toBe(`script-src ${value}`);
+    },
+  );
+
+  it.each(shorthands)(
+    "createSecureHeaders supports short hand %s => %s using camelCase options",
+    (key, value) => {
+      let headers = createSecureHeaders({
+        "Content-Security-Policy": { scriptSrc: [key] },
+      });
+
+      let result = headers.get("Content-Security-Policy");
+
+      expect(result).toBe(`script-src ${value}`);
+    },
+  );
 });
