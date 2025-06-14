@@ -1,5 +1,6 @@
-import { LiteralUnion, KebabCasedProperties } from "type-fest";
-import { QuotedSource, isQuoted } from "../utils.js";
+import type { LiteralUnion, KebabCasedProperties } from "type-fest";
+import type { QuotedSource } from "../utils.js";
+import { isQuoted } from "../utils.js";
 import { kebabCase } from "change-case";
 
 type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>;
