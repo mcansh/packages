@@ -16,7 +16,4 @@ export default defineConfig({
   publint: true,
   external,
   platform: "neutral",
-  copy() {
-    return ["../../LICENSE", { from: "../../LICENSE", to: "LICENSE" }];
-  },
 });
