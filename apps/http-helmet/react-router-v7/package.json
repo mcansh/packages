@@ -6,6 +6,7 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
+    "lint": "oxlint",
     "typecheck": "react-router typegen && tsc --build --noEmit"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "@types/node": "^24.0.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "oxlint": "^1.1.0",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "tailwindcss": "^4.1.10",
