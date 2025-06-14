@@ -296,7 +296,7 @@ describe("checks for both upgradeInsecureRequests and upgrade-insecure-requests"
   });
 });
 
-describe("short hands work", () => {
+describe("shorthands work", () => {
   it.each([
     [SELF, "'self'"],
     [NONE, "'none'"],
