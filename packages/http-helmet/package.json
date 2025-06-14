@@ -41,11 +41,10 @@
   ],
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "tsdown",
+    "build": "tsdown && attw --pack . --profile node16",
     "dev": "tsdown --watch",
     "test": "vitest",
-    "typecheck": "tsc",
-    "attw": "attw --pack . --profile node16"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "change-case": "^5.4.4",
@@ -53,8 +52,9 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",
+    "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
-    "@types/react": "^19.1.6",
+    "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "content-security-policy-parser": "^0.6.0",
     "react": "^19.1.0",

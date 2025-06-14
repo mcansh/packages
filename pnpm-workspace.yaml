@@ -3,8 +3,10 @@ packages:
   - apps/**/*
 
 catalog:
-  '@arethetypeswrong/cli': ^0.18.1
-  '@types/node': ^22.15.30
+  '@arethetypeswrong/cli': ^0.18.2
+  "@total-typescript/tsconfig": ^1.0.4
+  '@types/node': ^24.0.1
+  publint: ^0.3.12
   tsdown: ^0.12.7
   type-fest: ^4.41.0
   typescript: ^5.8.3

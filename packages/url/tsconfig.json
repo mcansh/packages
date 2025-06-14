@@ -1,31 +1,9 @@
 {
+  "extends": "@total-typescript/tsconfig/bundler/dom",
   "include": ["src/**/*"],
   "compilerOptions": {
-    /* Base Options: */
-    "esModuleInterop": true,
-    "skipDefaultLibCheck": true,
-    "target": "ES2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
     "allowImportingTsExtensions": true,
-
-    /* Strictness */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-
-    /* AND if you're building for a library: */
-    "declaration": true,
-
-    /* If NOT transpiling with TypeScript: */
-    "moduleResolution": "bundler",
-    "module": "preserve",
-    "noEmit": true,
-
-    /* If your code runs in the DOM: */
-    "lib": ["es2022", "dom", "dom.iterable"]
+    "moduleResolution": "Bundler",
+    "forceConsistentCasingInFileNames": true
   }
 }
