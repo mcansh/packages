@@ -1,5 +1,12 @@
 # @mcansh/http-helmet
 
+## 0.13.1
+
+### Patch Changes
+
+- c79afa8: bump dependencies to latest versions
+- 3826f9d: add license to both packages during build
+
 ## 0.13.0
 
 ### Minor Changes
