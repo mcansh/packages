@@ -7,9 +7,9 @@
   "scripts": {
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
-    "build": "pnpm run --recursive build",
-    "test": "pnpm run --recursive test",
-    "lint": "pnpm run --recursive lint",
+    "build": "pnpm run --recursive --parallel build",
+    "test": "pnpm run --recursive --parallel test",
+    "lint": "pnpm run --recursive --parallel lint",
     "publish": "./scripts/publish.js",
     "prepublishOnly": "pnpm run build",
     "changeset": "changeset",
