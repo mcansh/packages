@@ -10,7 +10,7 @@ catalog:
   tsdown: ^0.12.7
   type-fest: ^4.41.0
   typescript: ^5.8.3
-  vitest: ^3.2.3
+  vitest: ^3.2.4
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
