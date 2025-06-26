@@ -33,7 +33,7 @@
     "prompt-confirm": "^2.0.4",
     "semver": "^7.7.2",
     "typedoc": "^0.28.5",
-    "wrangler": "^4.20.0"
+    "wrangler": "^4.20.5"
   },
   "workspaces": [
     "packages/*",
