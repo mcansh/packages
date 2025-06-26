@@ -26,7 +26,7 @@
     "@types/node": "catalog:",
     "chalk": "^5.4.1",
     "jsonfile": "^6.1.0",
-    "pkg-pr-new": "^0.0.51",
+    "pkg-pr-new": "^0.0.53",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-sort-package-json": "^1.1.0",
