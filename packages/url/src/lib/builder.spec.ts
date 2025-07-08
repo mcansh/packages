@@ -89,6 +89,40 @@ describe("UrlBuilder", () => {
     },
   );
 
+  let domainlessCases = [
+    new UrlBuilder(),
+    new UrlBuilder().protocol("https"),
+    new UrlBuilder().path("/test"),
+    new UrlBuilder().param("key", "value"),
+    new UrlBuilder().hash("section"),
+  ] as const;
+
+  it.each(domainlessCases)(
+    "throws an error when calling `build` without a domain",
+    (builder) => {
+      expect(() => builder.build()).toThrow(
+        "Domain is required to build the URL.",
+      );
+    },
+  );
+
+  it.each(domainlessCases)(
+    "throws an error when calling `toURL` without a domain",
+    (builder) => {
+      expect(() => builder.toURL()).toThrow(
+        "Domain is required to build the URL.",
+      );
+    },
+  );
+
+  it.each(domainlessCases)(
+    "throws an error when calling `href` without a domain",
+    (builder) => {
+      expect(() => builder.href).toThrow(
+        "Domain is required to build the URL.",
+      );
+    },
+  );
 
   it("should return a URL object", () => {
     const builder = new UrlBuilder();
@@ -105,7 +139,7 @@ describe("UrlBuilder", () => {
    * note that the URL constructor will add a trailing slash
    * to the url for certain protocols
    */
-  const cases = [
+  const protocolCases = [
     [`ssh`, "ssh://site.com"],
     [`data`, "data://site.com"],
     [`mailto`, "mailto://site.com"],
@@ -116,9 +150,10 @@ describe("UrlBuilder", () => {
     [`ws`, "ws://site.com/"],
     [`wss`, "wss://site.com/"],
     [`file`, "file://site.com/"],
+    [`custom`, "custom://site.com"],
   ] as const;
 
-  it.each(cases)("`%s` -> `%s`", (input, expected) => {
+  it.each(protocolCases)("`%s` -> `%s`", (input, expected) => {
     let url = new UrlBuilder().protocol(input).domain("site.com").build();
     expect(url).toBe(expected);
   });
