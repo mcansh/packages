@@ -8,7 +8,7 @@
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
     "build": "pnpm run --recursive --parallel build",
-    "test": "pnpm run --recursive --parallel test",
+    "test": "vitest",
     "lint": "pnpm run --recursive --parallel lint",
     "publish": "./scripts/publish.js",
     "prepublishOnly": "pnpm run build",
@@ -24,6 +24,7 @@
     "@changesets/cli": "^2.29.4",
     "@manypkg/get-packages": "^3.0.0",
     "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "chalk": "^5.4.1",
     "jsonfile": "^6.1.0",
     "pkg-pr-new": "^0.0.53",
@@ -33,6 +34,7 @@
     "prompt-confirm": "^2.0.4",
     "semver": "^7.7.2",
     "typedoc": "^0.28.5",
+    "vitest": "catalog:",
     "wrangler": "^4.20.5"
   },
   "workspaces": [
