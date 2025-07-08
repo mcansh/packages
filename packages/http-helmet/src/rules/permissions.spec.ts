@@ -1,6 +1,20 @@
 import { expect, it } from "vitest";
 import { createPermissionsPolicy } from "./permissions.ts";
 
+it("handles a single value", () => {
+  expect(createPermissionsPolicy({ battery: ["self"] })).toBe("battery=(self)");
+});
+
+it("handles multiple values", () => {
+  expect(
+    createPermissionsPolicy({ battery: ["self", "https://example.com"] }),
+  ).toBe('battery=(self "https://example.com")');
+});
+
+it("handles wildcard value", () => {
+  expect(createPermissionsPolicy({ battery: ["*"] })).toBe("battery=*");
+});
+
 it("throws an error when permissions are not strings", () => {
   expect(() =>
     createPermissionsPolicy({
