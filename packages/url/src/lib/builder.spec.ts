@@ -38,7 +38,7 @@ describe("UrlBuilder", () => {
     expect(url).toBe("https://example.com/#section");
   });
 
-  it("should build a URL with mutliple hashs", () => {
+  it("should build a URL with multiple hashes", () => {
     const builder = new UrlBuilder();
     const url = builder
       .protocol("https")
@@ -75,6 +75,20 @@ describe("UrlBuilder", () => {
     builder.protocol("https").domain("example.com").path("/test");
     expect(builder.href).toBe("https://example.com/test");
   });
+
+  it.each(["/test", "test/", "/test/"])(
+    "removes leading and trailing slashes from the path",
+    (path) => {
+      const builder = new UrlBuilder();
+      const url = builder
+        .protocol("https")
+        .domain("example.com")
+        .path(path)
+        .build();
+      expect(url).toBe("https://example.com/test");
+    },
+  );
+
 
   it("should return a URL object", () => {
     const builder = new UrlBuilder();
