@@ -89,38 +89,42 @@ describe("UrlBuilder", () => {
     },
   );
 
-  let domainlessCases = [
-    new UrlBuilder(),
-    new UrlBuilder().protocol("https"),
-    new UrlBuilder().path("/test"),
-    new UrlBuilder().param("key", "value"),
-    new UrlBuilder().hash("section"),
-  ] as const;
-
-  it.each(domainlessCases)(
-    "throws an error when calling `build` without a domain",
-    (builder) => {
-      expect(() => builder.build()).toThrow(
-        "Domain is required to build the URL.",
-      );
+  const domainlessCaseFactories = [
+    { description: "a new builder", factory: () => new UrlBuilder() },
+    {
+      description: "a builder with protocol",
+      factory: () => new UrlBuilder().protocol("https"),
     },
-  );
-
-  it.each(domainlessCases)(
-    "throws an error when calling `toURL` without a domain",
-    (builder) => {
-      expect(() => builder.toURL()).toThrow(
-        "Domain is required to build the URL.",
-      );
+    {
+      description: "a builder with path",
+      factory: () => new UrlBuilder().path("/test"),
     },
-  );
+    {
+      description: "a builder with param",
+      factory: () => new UrlBuilder().param("key", "value"),
+    },
+    {
+      description: "a builder with hash",
+      factory: () => new UrlBuilder().hash("section"),
+    },
+  ];
 
-  it.each(domainlessCases)(
-    "throws an error when calling `href` without a domain",
-    (builder) => {
-      expect(() => builder.href).toThrow(
-        "Domain is required to build the URL.",
-      );
+  describe.each(domainlessCaseFactories)(
+    "given $description without a domain",
+    ({ factory }) => {
+      const expectedError = "Domain is required to build the URL.";
+
+      it("throws an error when calling `build`", () => {
+        expect(() => factory().build()).toThrow(expectedError);
+      });
+
+      it("throws an error when calling `toURL`", () => {
+        expect(() => factory().toURL()).toThrow(expectedError);
+      });
+
+      it("throws an error when calling `href`", () => {
+        expect(() => factory().href).toThrow(expectedError);
+      });
     },
   );
 
