@@ -68,6 +68,7 @@
     "@types/node": "catalog:",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@vitest/coverage-v8": "catalog:",
     "content-security-policy-parser": "^0.6.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
