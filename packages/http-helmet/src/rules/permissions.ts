@@ -49,13 +49,13 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
     .map(([key, featureValues]) => {
       if (!Array.isArray(featureValues)) {
         throw new Error(
-          `The value of the "${key}" feature must be array of strings.`,
+          `[createPermissionsPolicy]: The value of the "${key}" feature must be array of strings.`,
         );
       }
 
       const allowedValuesSeen: Set<string> = new Set();
 
-      featureValues.forEach((allowedValue) => {
+      for (let allowedValue of featureValues) {
         if (typeof allowedValue !== "string") {
           throw new Error(
             `[createPermissionsPolicy]: The value of "${key}" contains a non-string, which is not supported.`,
@@ -75,7 +75,7 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
         }
 
         allowedValuesSeen.add(allowedValue);
-      });
+      }
 
       if (featureValues.length > 1 && allowedValuesSeen.has("*")) {
         throw new Error(
