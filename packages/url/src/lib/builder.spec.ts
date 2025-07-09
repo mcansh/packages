@@ -38,7 +38,7 @@ describe("UrlBuilder", () => {
     expect(url).toBe("https://example.com/#section");
   });
 
-  it("should build a URL with mutliple hashs", () => {
+  it("should build a URL with multiple hashes", () => {
     const builder = new UrlBuilder();
     const url = builder
       .protocol("https")
@@ -76,6 +76,58 @@ describe("UrlBuilder", () => {
     expect(builder.href).toBe("https://example.com/test");
   });
 
+  it.each(["/test", "test/", "/test/"])(
+    "removes leading and trailing slashes from the path",
+    (path) => {
+      const builder = new UrlBuilder();
+      const url = builder
+        .protocol("https")
+        .domain("example.com")
+        .path(path)
+        .build();
+      expect(url).toBe("https://example.com/test");
+    },
+  );
+
+  const domainlessCaseFactories = [
+    { description: "a new builder", factory: () => new UrlBuilder() },
+    {
+      description: "a builder with protocol",
+      factory: () => new UrlBuilder().protocol("https"),
+    },
+    {
+      description: "a builder with path",
+      factory: () => new UrlBuilder().path("/test"),
+    },
+    {
+      description: "a builder with param",
+      factory: () => new UrlBuilder().param("key", "value"),
+    },
+    {
+      description: "a builder with hash",
+      factory: () => new UrlBuilder().hash("section"),
+    },
+  ];
+
+  describe.each(domainlessCaseFactories)(
+    "given $description without a domain",
+    ({ factory }) => {
+      const expectedError = "Domain is required to build the URL.";
+
+      it("throws an error when calling `build`", () => {
+        expect(() => factory().build()).toThrow(expectedError);
+      });
+
+      it("throws an error when calling `toURL`", () => {
+        expect(() => factory().toURL()).toThrow(expectedError);
+      });
+
+      it("throws an error when calling `href`", () => {
+        expect(() => factory().href).toThrow(expectedError);
+      });
+    },
+  );
+
   it("should return a URL object", () => {
     const builder = new UrlBuilder();
     const url = builder
@@ -91,7 +143,7 @@ describe("UrlBuilder", () => {
    * note that the URL constructor will add a trailing slash
    * to the url for certain protocols
    */
-  const cases = [
+  const protocolCases = [
     [`ssh`, "ssh://site.com"],
     [`data`, "data://site.com"],
     [`mailto`, "mailto://site.com"],
@@ -102,9 +154,10 @@ describe("UrlBuilder", () => {
     [`ws`, "ws://site.com/"],
     [`wss`, "wss://site.com/"],
     [`file`, "file://site.com/"],
+    [`custom`, "custom://site.com"],
   ] as const;
 
-  it.each(cases)("`%s` -> `%s`", (input, expected) => {
+  it.each(protocolCases)("`%s` -> `%s`", (input, expected) => {
     let url = new UrlBuilder().protocol(input).domain("site.com").build();
     expect(url).toBe(expected);
   });

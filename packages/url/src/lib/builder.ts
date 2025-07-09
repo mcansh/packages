@@ -7,10 +7,7 @@ const protocolsWithTrailingSlash = new Set([
   "ws",
   "wss",
   "file",
-] as const);
-
-type protocolsWithTrailingSlash =
-  typeof protocolsWithTrailingSlash extends Set<infer T> ? T : never;
+]);
 
 export class UrlBuilder {
   private protocolValue: string = "http";
@@ -93,9 +90,7 @@ export class UrlBuilder {
     // Handle trailing slash for certain protocols when no path is provided
     if (
       this.pathSegments.length === 0 &&
-      protocolsWithTrailingSlash.has(
-        this.protocolValue as protocolsWithTrailingSlash,
-      )
+      protocolsWithTrailingSlash.has(this.protocolValue)
     ) {
       path += "/";
     }
