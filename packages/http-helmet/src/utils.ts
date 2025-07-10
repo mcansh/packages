@@ -48,9 +48,10 @@ export function mergeHeaders(...sources: HeadersInit[]): Headers {
     let headers = new Headers(source);
 
     for (let [key, value] of headers.entries()) {
+      let lowerKey = key.toLowerCase();
       if (value === undefined || value === "undefined") {
         result.delete(key);
-      } else if (key === "set-cookie") {
+      } else if (lowerKey === "set-cookie") {
         result.append(key, value);
       } else {
         result.set(key, value);

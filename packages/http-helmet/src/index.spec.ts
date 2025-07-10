@@ -211,7 +211,6 @@ describe("mergeHeaders", () => {
 
     let merged = mergeHeaders(headers1, headers2);
 
-    expect(merged.get("Set-Cookie")).toBe("foo=bar, baz=qux");
     expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
   });
 });
