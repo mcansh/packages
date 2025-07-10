@@ -214,7 +214,7 @@ describe("mergeHeaders", () => {
     expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
   });
 
-  it('merged different cased "Set-Cookie" headers", () => {
+  it('merged different cased "Set-Cookie" headers"', () => {
     let headers1 = new Headers({ "set-cookie": "foo=bar" });
     let headers2 = new Headers({ "Set-Cookie": "baz=qux" });
 
