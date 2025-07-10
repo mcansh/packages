@@ -213,6 +213,15 @@ describe("mergeHeaders", () => {
 
     expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
   });
+
+  it('merged different cased "Set-Cookie" headers", () => {
+    let headers1 = new Headers({ "set-cookie": "foo=bar" });
+    let headers2 = new Headers({ "Set-Cookie": "baz=qux" });
+
+    let merged = mergeHeaders(headers1, headers2);
+
+    expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
+  })
 });
 
 it("allows mixing camel and kebab case for CSP keys", () => {
