@@ -1,9 +1,10 @@
 {
   "extends": "@total-typescript/tsconfig/bundler/dom",
-  "include": ["src/**/*"],
+  "include": ["./src/**/*"],
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "moduleResolution": "Bundler",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vitest/globals"]
   }
 }
