@@ -1,10 +1,11 @@
 {
   "extends": "@total-typescript/tsconfig/bundler/dom",
-  "include": ["src/**/*"],
+  "include": ["./src/**/*", "./vitest.setup.ts"],
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "moduleResolution": "Bundler",
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   }
 }
