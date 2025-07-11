@@ -1,5 +1,12 @@
 # @mcansh/http-helmet
 
+## 0.13.2
+
+### Patch Changes
+
+- db6e852: explicitly handle case-insensitive Set-Cookie keys. may have already been fine, but added happy-dom to add a test for NonceProvider/useNonce and it popped up
+- 16f4a4e: add `createPermissionsPolicy` to error message thrown when passing a non array input of permissions
+
 ## 0.13.1
 
 ### Patch Changes
