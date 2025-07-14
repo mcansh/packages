@@ -233,12 +233,6 @@ importers:
       change-case:
         specifier: ^5.4.4
         version: 5.4.4
-      content-security-policy-parser:
-        specifier: ^0.6.0
-        version: 0.6.0
-      ts-extras:
-        specifier: ^0.14.0
-        version: 0.14.0
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -270,6 +264,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.13)(happy-dom@18.0.1)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.8.0))
+      content-security-policy-parser:
+        specifier: ^0.6.0
+        version: 0.6.0
       happy-dom:
         specifier: ^18.0.1
         version: 18.0.1
@@ -5665,10 +5662,6 @@ packages:
 
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
-
-  ts-extras@0.14.0:
-    resolution: {integrity: sha512-hxaLXbdiDxTAMES3MLwdQhIY7B8+ZaS9GXht9aEIv1dVi2lB8C6syN6UmkCjdXpNzk/aBi3fOs/4NV9bo5+PtQ==}
-    engines: {node: '>=18'}
 
   tsconfck@3.1.6:
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
@@ -12311,10 +12304,6 @@ snapshots:
   trim-lines@3.0.1: {}
 
   trough@2.2.0: {}
-
-  ts-extras@0.14.0:
-    dependencies:
-      type-fest: 4.41.0
 
   tsconfck@3.1.6(typescript@5.8.3):
     optionalDependencies:
