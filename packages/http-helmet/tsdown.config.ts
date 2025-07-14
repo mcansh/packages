@@ -7,13 +7,21 @@ let external =
     : [];
 
 export default defineConfig({
-  entry: ["src/index.ts", "src/react.tsx"],
+  entry: {
+    index: "./src/index.ts",
+    react: "./src/react.tsx",
+  },
   dts: true,
   format: ["cjs", "esm"],
   tsconfig: "./tsconfig.json",
   sourcemap: true,
+  exports: true,
   clean: true,
   publint: true,
+  attw: { profile: "node16" },
   external,
   platform: "neutral",
+  define: {
+    "import.meta.vitest": "undefined",
+  },
 });

@@ -1,13 +1,9 @@
-import { defineConfig } from "vitest/config";
+import { defineProject } from "vitest/config";
 
-export default defineConfig({
+export default defineProject({
   test: {
+    includeSource: ["./src/**/*.{js,ts}"],
     setupFiles: ["./vitest.setup.ts"],
     environment: "happy-dom",
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-      include: ["./src/**/*.{ts,tsx}"],
-    },
   },
 });

@@ -1,25 +1,28 @@
 {
-  "private": true,
   "name": "packages",
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "private": true,
   "license": "MIT",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "type": "module",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "scripts": {
+    "build": "pnpm run --recursive --parallel build",
+    "changeset": "changeset",
+    "changeset:release": "pnpm run build && changeset publish",
+    "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
-    "build": "pnpm run --recursive --parallel build",
-    "test": "vitest",
-    "lint": "pnpm run --recursive --parallel lint",
-    "publish": "./scripts/publish.js",
-    "prepublishOnly": "pnpm run build",
-    "changeset": "changeset",
-    "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
-    "changeset:release": "pnpm run build && changeset publish",
     "format": "prettier --cache --ignore-path .gitignore --ignore-path .prettierignore --write .",
-    "validate": "run-p build lint format typecheck",
-    "typecheck": "pnpm run --recursive typecheck"
+    "lint": "pnpm run --recursive --parallel lint",
+    "prepublishOnly": "pnpm run build",
+    "publish": "./scripts/publish.js",
+    "test": "vitest",
+    "typecheck": "pnpm run --recursive typecheck",
+    "validate": "run-p build lint format typecheck"
   },
-  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
   "dependencies": {
     "@changesets/cli": "^2.29.4",
     "@manypkg/get-packages": "^3.0.0",
@@ -37,8 +40,5 @@
     "vitest": "catalog:",
     "wrangler": "^4.20.5"
   },
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ]
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"
 }
