@@ -13,6 +13,13 @@ export {
   mergeHeaders,
 } from "./utils";
 
+export type {
+  Algorithm,
+  HashSource,
+  NonceSource,
+  QuotedSource,
+} from "./utils.ts";
+
 export {
   createContentSecurityPolicy,
   createPermissionsPolicy,

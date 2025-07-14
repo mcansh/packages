@@ -10,6 +10,7 @@ export default defineConfig({
   entry: {
     index: "./src/index.ts",
     react: "./src/react.tsx",
+    v2: "./src/v2/index.ts",
   },
   dts: true,
   format: ["cjs", "esm"],

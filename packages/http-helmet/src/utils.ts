@@ -2,9 +2,11 @@ export function isQuoted(value: string): boolean {
   return /^".*"$/.test(value);
 }
 
-type Algorithm = "sha256" | "sha384" | "sha512";
+export type Algorithm = "sha256" | "sha384" | "sha512";
 
-type HashSource = `'${Algorithm}-${string}'`;
+export type HashSource = `'${Algorithm}-${string}'`;
+
+export type NonceSource = `'nonce-${string}'`;
 
 export type QuotedSource =
   | "'self'"
@@ -26,7 +28,8 @@ export let WASM_UNSAFE_EVAL = "'wasm-unsafe-eval'" as const;
 export let UNSAFE_HASHES = "'unsafe-hashes'" as const;
 export let STRICT_DYNAMIC = "'strict-dynamic'" as const;
 export let REPORT_SAMPLE = "'report-sample'" as const;
-export function NONCE(nonce: string): `'nonce-${string}'` {
+
+export function NONCE(nonce: string): NonceSource {
   return `'nonce-${nonce}'`;
 }
 export function HASH(algorithm: Algorithm, hash: string): HashSource {
@@ -37,7 +40,9 @@ function isObject(value: unknown) {
   return value !== null && typeof value === "object";
 }
 
-export function mergeHeaders(...sources: HeadersInit[]): Headers {
+export function mergeHeaders(
+  ...sources: [HeadersInit, ...HeadersInit[]]
+): Headers {
   let result = new Headers();
 
   for (let source of sources) {
