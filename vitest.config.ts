@@ -9,6 +9,7 @@ export default defineConfig({
       "**/build/**",
       "**/dist/**",
       "./apps/**/*",
+      "./scripts/**/*",
     ],
     coverage: {
       provider: "v8",
@@ -18,6 +19,7 @@ export default defineConfig({
         "**/build/**",
         "**/dist/**",
         "./apps/**/*",
+        "./scripts/**/*",
       ],
     },
   },
