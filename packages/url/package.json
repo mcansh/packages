@@ -24,7 +24,7 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest"
+    "test": "vitest --project url"
   },
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

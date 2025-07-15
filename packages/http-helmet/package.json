@@ -24,7 +24,7 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "prepublishOnly": "npm run build",
-    "test": "vitest",
+    "test": "vitest --project http-helmet",
     "typecheck": "tsc"
   },
   "main": "./dist/index.cjs",
