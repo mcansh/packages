@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "mcansh/packages",
+    "url": "git+https://github.com/mcansh/packages.git",
     "directory": "./packages/http-helmet"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
@@ -21,25 +21,25 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsdown && attw --pack . --profile node16",
+    "build": "tsdown",
     "dev": "tsdown --watch",
     "prepublishOnly": "npm run build",
-    "test": "vitest",
+    "test": "vitest --project http-helmet",
     "typecheck": "tsc"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "exports": {
-    "./package.json": "./package.json",
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./react": {
-      "require": "./dist/react.cjs",
-      "import": "./dist/react.js"
-    }
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
@@ -63,7 +63,7 @@
     }
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "catalog:",
+    "@arethetypeswrong/core": "catalog:",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",

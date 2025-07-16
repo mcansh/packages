@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "repository": {
     "type": "git",
-    "url": "mcansh/packages",
+    "url": "git+https://github.com/mcansh/packages.git",
     "directory": "./packages/url"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
@@ -20,20 +20,17 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsdown && attw --pack . --ignore-rules cjs-resolves-to-esm",
+    "build": "tsdown",
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest"
+    "test": "vitest --project url"
   },
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
@@ -46,7 +43,7 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "catalog:",
+    "@arethetypeswrong/core": "catalog:",
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
@@ -56,5 +53,6 @@
   },
   "imports": {
     "#*": "./*"
-  }
+  },
+  "main": "./dist/index.js"
 }

@@ -13,7 +13,12 @@ export default defineConfig({
   tsconfig: "tsconfig.json",
   sourcemap: true,
   clean: true,
+  exports: true,
   publint: true,
+  attw: { profile: "node16" },
   external,
   platform: "neutral",
+  define: {
+    "import.meta.vitest": "undefined",
+  },
 });

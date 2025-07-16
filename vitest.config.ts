@@ -1,12 +1,26 @@
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     projects: ["./packages/*"],
+    include: ["./packages/*/src/**/*.{js,ts,tsx}"],
+    exclude: [
+      ...configDefaults.exclude,
+      "**/build/**",
+      "**/dist/**",
+      "./apps/**/*",
+      "./scripts/**/*",
+    ],
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
-      include: ["./packages/*/src/**/*.{ts,tsx}"],
+      exclude: [
+        ...(configDefaults.coverage.exclude ?? []),
+        "**/build/**",
+        "**/dist/**",
+        "./apps/**/*",
+        "./scripts/**/*",
+      ],
     },
   },
 });
