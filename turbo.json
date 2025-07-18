@@ -21,12 +21,7 @@
       "with": ["format"]
     },
     "validate": {
-      "with": [
-        "build",
-        "lint",
-        "format",
-        "typecheck"
-      ]
+      "with": ["build", "lint", "format", "typecheck"]
     },
     "dev": {
       "persistent": true,

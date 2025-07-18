@@ -6,7 +6,6 @@
     "url": "git+https://github.com/mcansh/packages.git",
     "directory": "./packages/url"
   },
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "funding": [
     {
       "type": "github",
@@ -18,30 +17,30 @@
     }
   ],
   "license": "MIT",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "type": "module",
-  "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
-    "prepublishOnly": "node --run build",
-    "test": "vitest --project url"
+  "imports": {
+    "#*": "./*"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json"
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "package.json",
     "README.md",
     "LICENSE"
   ],
-  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
-  "engines": {
-    "node": ">=20"
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
+    "prepublishOnly": "node --run build",
+    "test": "vitest --project url"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "catalog:",
@@ -52,7 +51,8 @@
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
-  "imports": {
-    "#*": "./*"
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
+  "engines": {
+    "node": ">=20"
   }
 }
