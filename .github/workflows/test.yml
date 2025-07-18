@@ -78,3 +78,4 @@ jobs:
         uses: codecov/test-results-action@v1
         with:
           token: ${{ secrets.codecov_token }}
+          file: './coverage/test-report.junit.xml'
