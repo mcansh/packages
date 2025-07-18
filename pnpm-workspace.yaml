@@ -1,12 +1,14 @@
+shellEmulator: true
+
 packages:
   - packages/*
   - apps/**/*
 
 catalog:
-  '@arethetypeswrong/core': ^0.18.2
-  '@total-typescript/tsconfig': ^1.0.4
-  '@types/node': ^24.0.14
-  '@vitest/coverage-v8': ^3.2.4
+  "@arethetypeswrong/core": ^0.18.2
+  "@total-typescript/tsconfig": ^1.0.4
+  "@types/node": ^24.0.14
+  "@vitest/coverage-v8": ^3.2.4
   publint: ^0.3.12
   tsdown: ^0.12.9
   type-fest: ^4.41.0
@@ -14,7 +16,7 @@ catalog:
   vitest: ^3.2.4
 
 onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
+  - "@tailwindcss/oxide"
   - esbuild
   - rolldown
   - sharp
@@ -22,8 +24,6 @@ onlyBuiltDependencies:
   - workerd
 
 overrides:
-  '@mcansh/http-helmet': workspace:*
-  '@mcansh/url': workspace:*
-  '@mcansh/vitest-response-matchers': workspace:*
-
-shellEmulator: true
+  "@mcansh/vitest-response-matchers": "workspace:"
+  "@mcansh/http-helmet": "workspace:"
+  "@mcansh/url": "workspace:"
