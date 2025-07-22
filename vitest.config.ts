@@ -11,9 +11,9 @@ export default defineConfig({
       "./apps/**/*",
       "./scripts/**/*",
     ],
+    reporters: process.env.CI ? ["junit"] : [],
+    outputFile: process.env.CI ? "./coverage/test-report.junit.xml" : undefined,
     coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
       exclude: [
         ...(configDefaults.coverage.exclude ?? []),
         "**/build/**",

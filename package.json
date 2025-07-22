@@ -9,7 +9,9 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "pnpm run --recursive --parallel build",
+    "build:packages": "pnpm run --recursive --parallel --filter \"./packages/**\" build",
+    "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**\" build",
+    "build": "pnpm run --sequential \"/^build:.*/\"",
     "changeset": "changeset",
     "changeset:release": "pnpm run build && changeset publish",
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
@@ -20,6 +22,7 @@
     "prepublishOnly": "pnpm run build",
     "publish": "./scripts/publish.js",
     "test": "vitest",
+    "test:ci": "vitest --coverage",
     "typecheck": "pnpm run --recursive typecheck",
     "validate": "run-p build lint format typecheck"
   },
@@ -30,6 +33,7 @@
     "@vitest/coverage-v8": "catalog:",
     "chalk": "^5.4.1",
     "jsonfile": "^6.1.0",
+    "junit": "^1.4.9",
     "pkg-pr-new": "^0.0.54",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.1.0",
@@ -38,7 +42,7 @@
     "semver": "^7.7.2",
     "typedoc": "^0.28.7",
     "vitest": "catalog:",
-    "wrangler": "^4.20.5"
+    "wrangler": "^4.25.0"
   },
-  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }
