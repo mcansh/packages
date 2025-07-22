@@ -1,7 +1,5 @@
 import { configDefaults, defineConfig } from "vitest/config";
 
-// --reporter=junit --outputFile=test-report.junit.xml
-
 export default defineConfig({
   test: {
     projects: ["./packages/*"],
@@ -13,8 +11,8 @@ export default defineConfig({
       "./apps/**/*",
       "./scripts/**/*",
     ],
-    reporters: process.env.CI ? ['junit'] : [],
-    outputFile: './coverage/test-report.junit.xml',
+    reporters: process.env.CI ? ["junit"] : [],
+    outputFile: process.env.CI ? "./coverage/test-report.junit.xml" : undefined,
     coverage: {
       exclude: [
         ...(configDefaults.coverage.exclude ?? []),
