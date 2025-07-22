@@ -9,7 +9,9 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "pnpm run --recursive --parallel build",
+    "build:packages": "pnpm run --recursive --parallel --filter \"./packages/**\" build",
+    "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**\" build",
+    "build": "pnpm run --sequential /^build:.*/",
     "changeset": "changeset",
     "changeset:release": "pnpm run build && changeset publish",
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
