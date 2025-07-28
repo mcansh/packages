@@ -23,14 +23,12 @@ export function toMatchResponse(
 if (import.meta.vitest) {
   let { describe, expect, it } = import.meta.vitest;
 
+  expect.extend({ toMatchResponse });
+
   describe("toMatchResponse", () => {
     it("should match the response status and statusText", () => {
-      const received = new Response(null, { status: 200, statusText: "OK" });
-      const expected = { status: 200, statusText: "OK" };
-      expect(toMatchResponse(received, expected)).toEqual({
-        message: expect.any(Function),
-        pass: true,
-      });
+      const response = new Response(null, { status: 200, statusText: "OK" });
+      expect(response).toMatchResponse({ status: 200, statusText: "OK" });
     });
   });
 }

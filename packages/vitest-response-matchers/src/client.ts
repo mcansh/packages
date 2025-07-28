@@ -11,7 +11,7 @@ declare namespace matchers {
     toHaveStrictStatusText(): R;
     toHaveTextBody(expected: string | null): R;
     toMatchResponse(expected: Response | ResponseInit): R;
-    toThrowResponse: (expected: Response | ResponseInit) => R;
+    toThrowResponse(expected: Response | ResponseInit): R;
   }
 }
 
