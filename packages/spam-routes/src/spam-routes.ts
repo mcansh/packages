@@ -1,0 +1,27 @@
+/* istanbul ignore file */
+
+export const SPAM_ROUTES = [
+  "/(.*).php",
+  "/(.*).env",
+  "/ads.txt",
+  "/boaform(.*)",
+  "/setup.cgi",
+  "/cgi-bin(.*)",
+  "/s3cmd.ini",
+  "/HNAP1(.*)",
+  "/php(.*)",
+  "/db(.*)",
+  "/sql(.*)",
+  "/.git(.*)",
+  "(.*)/wp-includes/(.*)",
+  "/api(.*)",
+  "/Autodiscover(.*)",
+  "/_ignition(.*)",
+  "/solr(.*)",
+  "/wp-content(.*)",
+  "/ReportServer(.*)",
+  "/currentsetting(.*)",
+  "/webfig(.*)",
+  "/config(.*)",
+  "/console(.*)",
+];
