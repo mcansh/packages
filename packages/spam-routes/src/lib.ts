@@ -4,10 +4,12 @@ import { SPAM_ROUTES } from "./spam-routes";
 
 export type OnMatch = (pathname: string) => Response;
 
-export let defaultMatchResponse = new Response(null, {
-  status: 404,
-  statusText: "Not Found",
-});
+export function defaultMatchResponse() {
+  return new Response(null, {
+    status: 404,
+    statusText: "Not Found",
+  });
+}
 
 export type SpamRouteOptions = {
   spamRoutes?: Array<string>;
@@ -17,7 +19,7 @@ export type SpamRouteOptions = {
 export function throwIfSpamRoute(request: Request, options?: SpamRouteOptions) {
   options ??= {};
   options.spamRoutes ??= SPAM_ROUTES;
-  options.onMatch ??= () => defaultMatchResponse;
+  options.onMatch ??= defaultMatchResponse;
 
   let url = new URL(request.url);
 

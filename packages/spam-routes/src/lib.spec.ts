@@ -31,7 +31,7 @@ it("throws a custom Response when theres a match", async () => {
     });
   }
 
-  await expect(() => {
+  expect(() => {
     throwIfSpamRoute(
       new Request("https://example.com/wp-content/themes/index.php"),
       { onMatch },
@@ -44,5 +44,5 @@ it("throws a 404 Response when theres a match when using a custom list", () => {
     throwIfSpamRoute(new Request("https://example.com/something/custom"), {
       spamRoutes: ["(.*)/custom"],
     });
-  }).toThrowResponse(defaultMatchResponse);
+  }).toThrowResponse(defaultMatchResponse());
 });
