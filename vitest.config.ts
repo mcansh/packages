@@ -6,6 +6,9 @@ let exclude = [
   "**/apps/**",
   "**/scripts/**",
   "**/tsdown.config.ts",
+  "**/coverage/**",
+  "**/vitest.setup.ts",
+  "**/public/**",
 ];
 
 export default defineConfig({
