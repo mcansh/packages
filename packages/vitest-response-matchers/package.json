@@ -46,6 +46,9 @@
   "engines": {
     "node": ">=20"
   },
+  "dependencies": {
+    "@mjackson/headers": "^0.11.1"
+  },
   "peerDependencies": {
     "vitest": "^3.2.4"
   },

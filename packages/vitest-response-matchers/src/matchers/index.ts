@@ -1,5 +1,10 @@
+export { toHaveBody } from "./to-have-body";
+export { toHaveCookies } from "./to-have-cookies";
+export { toHaveHeader } from "./to-have-header";
+export { toHaveJsonBody } from "./to-have-json-body";
 export { toHaveStatus } from "./to-have-status";
 export { toHaveStatusText } from "./to-have-status-text";
 export { toHaveStrictStatusText } from "./to-have-strict-status-text";
+export { toHaveTextBody } from "./to-have-text-body";
 export { toMatchResponse } from "./to-match-response";
 export { toThrowResponse } from "./to-throw-response";
