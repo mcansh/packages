@@ -4,7 +4,7 @@ import type { MatcherResult } from "./matcher";
 export function toHaveCookies(
   response: Response | ResponseInit,
   cookies: Array<string>,
-  strict: boolean = false,
+  options?: { strict?: boolean },
 ): MatcherResult {
   let headers =
     response.headers instanceof Headers
@@ -22,13 +22,14 @@ export function toHaveCookies(
     };
   }
 
+  // normalize formatting of cookies
   let cookiesArray = responseCookies
     .split(",")
-    .map((cookie) => new SetCookie(cookie.trim()));
+    .map((cookie) => new SetCookie(cookie.trim()).toString());
 
-  let pass = cookiesArray.every((cookie) => {
-    return cookies.includes(cookie.toString());
-  });
+  let pass = options?.strict
+    ? cookiesArray.every((cookie) => cookies.includes(cookie))
+    : cookiesArray.some((cookie) => cookies.includes(cookie));
 
   return {
     pass,
@@ -49,11 +50,9 @@ if (import.meta.vitest) {
     let headers = new Headers();
     headers.append("set-cookie", "sessionId=abc123; Path=/");
     headers.append("set-cookie", "userId=xyz789; Path=/");
+    headers.append("set-cookie", "anotherId=def456;Path=/;httpOnly");
     let response = new Response("Hello, world!", { headers });
-    expect(response).toHaveCookies([
-      "sessionId=abc123; Path=/",
-      "userId=xyz789; Path=/",
-    ]);
+    expect(response).toHaveCookies(["sessionId=abc123; Path=/"]);
   });
 
   it.fails("toHaveCookies matcher - negative case", () => {
@@ -61,5 +60,28 @@ if (import.meta.vitest) {
       headers: { "set-cookie": "sessionId=abc123; Path=/" },
     });
     expect(response).toHaveCookies(["sessionId=wrongValue"]);
+  });
+
+  it.fails("strict mode ensures all cookies are accounted for", () => {
+    let headers = new Headers();
+    headers.append("set-cookie", "sessionId=abc123; Path=/");
+    headers.append("set-cookie", "userId=xyz789; Path=/");
+    let response = new Response("Hello, world!", { headers });
+    expect(response).toHaveCookies(["sessionId=abc123; Path=/"], {
+      strict: true,
+    });
+  });
+
+  it("strict mode ensures all cookies are accounted for", () => {
+    let headers = new Headers();
+    headers.append("set-cookie", "sessionId=abc123; Path=/");
+    headers.append("set-cookie", "userId=xyz789; Path=/");
+    let response = new Response("Hello, world!", { headers });
+    expect(response).toHaveCookies(
+      ["sessionId=abc123; Path=/", "userId=xyz789; Path=/"],
+      {
+        strict: true,
+      },
+    );
   });
 }
