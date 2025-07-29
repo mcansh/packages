@@ -1,4 +1,16 @@
-export function toHaveStatus(response: Response, status?: number) {
+import type { MatcherResult } from "./matcher";
+
+export function toHaveStatus(
+  response: Response,
+  status?: number,
+): MatcherResult {
+  if (!(response instanceof Response)) {
+    return {
+      message: () => `Expected a Response, but received ${typeof response}`,
+      pass: false,
+    };
+  }
+
   if (typeof status === "undefined") {
     status = 200;
   }
@@ -8,6 +20,8 @@ export function toHaveStatus(response: Response, status?: number) {
     message: () => {
       return `Expected status ${status}, but received ${response.status}`;
     },
+    expected: status,
+    actual: response.status,
   };
 }
 

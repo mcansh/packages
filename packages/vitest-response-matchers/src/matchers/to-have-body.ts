@@ -1,4 +1,13 @@
-export function toHaveBody(response: Response) {
+import type { MatcherResult } from "./matcher";
+
+export function toHaveBody(response: Response): MatcherResult {
+  if (!(response instanceof Response)) {
+    return {
+      message: () => `Expected a Response, but received ${typeof response}`,
+      pass: false,
+    };
+  }
+
   return {
     message: () => `Expected response to have body`,
     pass: response.body !== null,
@@ -18,5 +27,9 @@ if (import.meta.vitest) {
   it.fails("fails when body is null", () => {
     let response = new Response(null);
     expect(response).toHaveBody();
+  });
+
+  it.fails("when passed something that is not a Response", () => {
+    expect(Error).toHaveBody();
   });
 }

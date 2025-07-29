@@ -19,6 +19,8 @@ export function toHaveCookies(
       message: () => {
         return `Expected "Set-Cookie" header to be present, but it was not found`;
       },
+      actual: headers.get("set-cookie"),
+      expected: cookies,
     };
   }
 
@@ -55,6 +57,17 @@ if (import.meta.vitest) {
     expect(response).toHaveCookies(["sessionId=abc123; Path=/"]);
   });
 
+  it("toHaveCookies matcher with inline headers", () => {
+    expect({
+      headers: { "Set-Cookie": "sessionId=abc123; Path=/" },
+    }).toHaveCookies(["sessionId=abc123; Path=/"]);
+  });
+
+  it.fails("fails if no cookies are present", () => {
+    let response = new Response("Hello, world!");
+    expect(response).toHaveCookies(["sessionId=abc123; Path=/"]);
+  });
+
   it.fails("toHaveCookies matcher - negative case", () => {
     let response = new Response("Hello, world!", {
       headers: { "set-cookie": "sessionId=abc123; Path=/" },
@@ -79,9 +92,7 @@ if (import.meta.vitest) {
     let response = new Response("Hello, world!", { headers });
     expect(response).toHaveCookies(
       ["sessionId=abc123; Path=/", "userId=xyz789; Path=/"],
-      {
-        strict: true,
-      },
+      { strict: true },
     );
   });
 }

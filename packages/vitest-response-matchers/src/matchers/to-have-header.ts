@@ -1,8 +1,10 @@
+import type { MatcherResult } from "./matcher";
+
 export function toHaveHeader(
   response: Response | ResponseInit,
   header: string,
   expected?: string,
-) {
+): MatcherResult {
   let headers =
     response.headers instanceof Headers
       ? response.headers
@@ -11,8 +13,11 @@ export function toHaveHeader(
   if (expected == undefined) {
     return {
       pass: headers.has(header),
-      message: () =>
-        `Expected response header "${header}" to be absent, but it was found`,
+      message: () => {
+        return `Expected response header "${header}" to be absent, but it was found`;
+      },
+      actual: headers.get(header),
+      expected: undefined,
     };
   }
 
@@ -22,6 +27,8 @@ export function toHaveHeader(
     message: () =>
       `Expected response header "${header}" to be "${expected}", but got "${actual}"`,
     pass: actual === expected,
+    actual,
+    expected,
   };
 }
 
@@ -37,6 +44,13 @@ if (import.meta.vitest) {
     expect(response).toHaveHeader("x-custom-header", "custom-value");
   });
 
+  it("ResponseInit", () => {
+    expect({ headers: { "x-custom-header": "custom-value" } }).toHaveHeader(
+      "x-custom-header",
+      "custom-value",
+    );
+  });
+
   it.fails("toHaveHeader matcher - negative case", () => {
     let response = new Response("Hello, world!", {
       headers: { "x-custom-header": "custom-value" },
@@ -49,5 +63,10 @@ if (import.meta.vitest) {
       headers: { "x-custom-header": "custom-value" },
     });
     expect(response).toHaveHeader("x-custom-header");
+  });
+
+  it.fails("fails when header is not present", () => {
+    let response = new Response("Hello, world!");
+    expect(response).toHaveHeader("x-cache-hit");
   });
 }

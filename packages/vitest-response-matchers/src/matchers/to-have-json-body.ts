@@ -2,6 +2,13 @@ export async function toHaveJsonBody(
   response: Response,
   expected: object | null,
 ) {
+  if (!(response instanceof Response)) {
+    return {
+      message: () => `Expected a Response, but received ${typeof response}`,
+      pass: false,
+    };
+  }
+
   let body = await response.clone().json();
 
   let expectedJson = JSON.stringify(expected);
@@ -9,6 +16,8 @@ export async function toHaveJsonBody(
   return {
     message: () => `Expected response to have body "${expectedJson}"`,
     pass: JSON.stringify(body) === expectedJson,
+    actual: body,
+    expected,
   };
 }
 

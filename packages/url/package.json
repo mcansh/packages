@@ -26,6 +26,7 @@
     "prepublishOnly": "node --run build",
     "test": "vitest --project url"
   },
+  "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -53,6 +54,5 @@
   },
   "imports": {
     "#*": "./*"
-  },
-  "main": "./dist/index.js"
+  }
 }

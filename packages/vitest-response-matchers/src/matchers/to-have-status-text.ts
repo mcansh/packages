@@ -1,4 +1,16 @@
-export function toHaveStatusText(response: Response, statusText?: string) {
+import type { MatcherResult } from "./matcher";
+
+export function toHaveStatusText(
+  response: Response,
+  statusText?: string,
+): MatcherResult {
+  if (!(response instanceof Response)) {
+    return {
+      message: () => `Expected a Response, but received ${typeof response}`,
+      pass: false,
+    };
+  }
+
   if (typeof statusText === "undefined") {
     return {
       pass: false,
@@ -11,6 +23,8 @@ export function toHaveStatusText(response: Response, statusText?: string) {
     message: () => {
       return `Expected status text "${statusText}", but received "${response.statusText}"`;
     },
+    actual: response.statusText,
+    expected: statusText,
   };
 }
 
@@ -26,6 +40,11 @@ if (import.meta.vitest) {
       new Response(null, { status: 500 }),
     ])("fails when missing statusText", (response) => {
       expect(response).toHaveStatusText();
+    });
+
+    it.fails("fails when statusText does not match", () => {
+      let response = new Response(null, { status: 200, statusText: "OK" });
+      expect(response).toHaveStatusText("Not Found");
     });
 
     it.each([

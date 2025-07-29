@@ -30,6 +30,8 @@ export function toThrowResponse(
       error instanceof Response &&
       error.status === expectedResponse.status &&
       error.statusText === expectedResponse.statusText,
+    actual: { status: error.status, statusText: error.statusText },
+    expected: { status: expected.status, statusText: expected.statusText },
   };
 }
 
@@ -48,6 +50,14 @@ if (import.meta.vitest) {
     let expected = { status: 404, statusText: "Not Found" };
     expect(() => {
       throw new Response("Not Found", expected);
+    }).toThrowResponse(expected);
+  });
+
+  it.fails("fails when passing a non response", () => {
+    const received = { status: 200, statusText: "OK" };
+    const expected = { status: 200, statusText: "OK" };
+    expect(() => {
+      throw received;
     }).toThrowResponse(expected);
   });
 
