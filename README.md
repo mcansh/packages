@@ -4,6 +4,6 @@ Collection of packages created by [@mcansh](https://github.com/mcansh)
 
 All packages are packaged underneath the @mcansh scope
 
-- [http-helmet](https://packages.mcan.sh/modules/_mcansh_http-helmet)
-- [url](https://packages.mcan.sh/modules/_mcansh_url)
-- [vitest-response-matchers](https://packages.mcan.sh/modules/_mcansh_vitest-response-matchers)
+- [http-helmet](./packages/http-helmet)
+- [url](./packages/url)
+- [vitest-response-matchers](./packages/vitest-response-matchers)
