@@ -221,7 +221,7 @@ describe("mergeHeaders", () => {
     let merged = mergeHeaders(headers1, headers2);
 
     expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
-  })
+  });
 });
 
 it("allows mixing camel and kebab case for CSP keys", () => {

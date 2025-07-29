@@ -1,10 +1,11 @@
 {
-  "name": "@mcansh/url",
-  "version": "0.3.0",
+  "name": "@mcansh/vitest-response-matchers",
+  "version": "0.0.0",
+  "description": "Response assertion matchers for vitest",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mcansh/packages.git",
-    "directory": "./packages/url"
+    "directory": "./packages/vitest-response-matchers"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "funding": [
@@ -24,13 +25,15 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest --project url"
+    "test": "vitest"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
+    "./client": "./dist/client.js",
+    "./matchers": "./dist/matchers.js",
     "./package.json": "./package.json"
   },
   "files": [
@@ -43,6 +46,12 @@
   "engines": {
     "node": ">=20"
   },
+  "dependencies": {
+    "@mjackson/headers": "^0.11.1"
+  },
+  "peerDependencies": {
+    "vitest": "^3.2.4"
+  },
   "devDependencies": {
     "@arethetypeswrong/core": "catalog:",
     "@total-typescript/tsconfig": "catalog:",
@@ -50,7 +59,7 @@
     "@vitest/coverage-v8": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "^3.2.4"
   },
   "imports": {
     "#*": "./*"
