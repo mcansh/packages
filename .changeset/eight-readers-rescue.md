@@ -1,5 +1,5 @@
 ---
-"@mcansh/vitest-response-matchers": patch
+"@mcansh/vitest-response-matchers": minor
 ---
 
 add vitest response matchers package
