@@ -1,3 +1,7 @@
 {
-  "entryPoints": ["./src/**/*.ts"]
+  "entryPoints": [
+    "./src/index.ts",
+    "./src/client.ts",
+    "./src/matchers/index.ts"
+  ]
 }
