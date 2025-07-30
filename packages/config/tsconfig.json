@@ -1,0 +1,10 @@
+{
+  "extends": "@total-typescript/tsconfig/bundler/no-dom",
+  "include": ["./src/**/*", "./vitest.setup.ts"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "Bundler",
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vitest/importMeta"]
+  }
+}

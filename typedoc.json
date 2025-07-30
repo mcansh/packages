@@ -1,11 +1,28 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "readme": "./README.md",
-  "name": "Packages",
+  "name": "@mcansh packages",
   "entryPoints": ["packages/*"],
   "entryPointStrategy": "packages",
   "includeVersion": true,
+  "cacheBust": true,
+  "githubPages": false,
   "json": "./public/dev/api.json",
   "out": "./public/dev",
-  "hostedBaseUrl": "https://packages.mcan.sh/"
+  "hostedBaseUrl": "https://packages.mcan.sh/",
+  "jsDocCompatibility": true,
+  "highlightLanguages": [
+    "bash",
+    "console",
+    "css",
+    "html",
+    "javascript",
+    "json",
+    "jsonc",
+    "json5",
+    "yaml",
+    "tsx",
+    "typescript",
+    "markdown"
+  ]
 }
