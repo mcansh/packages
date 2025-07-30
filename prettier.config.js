@@ -1,7 +1,8 @@
-/** @type {import('prettier').Config} */
+/** @type {import("prettier").Config} */
 export default {
   plugins: [
     "prettier-plugin-organize-imports",
     "prettier-plugin-sort-package-json",
+    "prettier-plugin-jsdoc",
   ],
 };

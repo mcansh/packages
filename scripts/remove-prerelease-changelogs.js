@@ -6,7 +6,8 @@ import * as url from "node:url";
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const rootDir = path.join(__dirname, "..");
 
-const DRY_RUN = false;
+const DRY_RUN =
+  process.env.DRY_RUN === "true" || process.argv.includes("--dry-run");
 // pre-release headings look like: "1.15.0-pre.2"
 const PRE_RELEASE_HEADING_REGEXP = /^\d+\.\d+\.\d+-pre\.\d+$/i;
 // stable headings look like: "1.15.0"
@@ -97,6 +98,7 @@ function isPrereleaseMode() {
 /**
  * @param {string} markdownContents
  * @param {{ level: number; startAtIndex: number; matcher: RegExp }} opts
+ * @returns {number} The line index of the heading, or -1 if not found.
  */
 function findHeadingLineIndex(
   markdownContents,
@@ -113,7 +115,8 @@ function findHeadingLineIndex(
 
 /**
  * @param {string} markdownContents
- * @param {{ start: number; end: number | 'max' }} param1
+ * @param {{ start: number; end: number | "max" }} opts
+ * @returns {string} The modified markdown contents with the specified lines removed.
  */
 function removeLines(markdownContents, { start, end }) {
   let lines = markdownContents.split("\n");
