@@ -24,7 +24,8 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest --project url"
+    "test": "vitest --project url",
+    "typecheck": "tsgo"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -47,6 +48,7 @@
     "@arethetypeswrong/core": "catalog:",
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
