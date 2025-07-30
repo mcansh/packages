@@ -1,34 +1,38 @@
-import type { MatcherResult } from "./matcher";
+import {
+  expectedResponseError,
+  isResponse,
+  type MatcherResult,
+} from "../utils";
 
 export function toHaveHeader(
-  response: Response | ResponseInit,
-  header: string,
-  expected?: string,
+  response: Response,
+  headerName: string,
+  headerValue?: string,
 ): MatcherResult {
-  let headers =
-    response.headers instanceof Headers
-      ? response.headers
-      : new Headers(response.headers);
+  if (!isResponse(response)) {
+    return expectedResponseError(response);
+  }
 
-  if (expected == undefined) {
+  let actual = response.headers.get(headerName);
+
+  if (headerValue == undefined) {
     return {
-      pass: headers.has(header),
+      pass: response.headers.has(headerName),
+      actual,
+      expected: headerValue,
       message: () => {
-        return `Expected response header "${header}" to be absent, but it was found`;
+        return `Expected response header "${headerName}" to be found`;
       },
-      actual: headers.get(header),
-      expected: undefined,
     };
   }
 
-  let actual = headers.get(header);
-
   return {
-    message: () =>
-      `Expected response header "${header}" to be "${expected}", but got "${actual}"`,
-    pass: actual === expected,
+    pass: actual === headerValue,
     actual,
-    expected,
+    expected: headerValue,
+    message: () => {
+      return `Expected response header "${headerName}" to be "${headerValue}", but got "${actual}"`;
+    },
   };
 }
 
@@ -37,21 +41,14 @@ if (import.meta.vitest) {
 
   expect.extend({ toHaveHeader });
 
-  it("toHaveHeader matcher", () => {
+  it("basic", () => {
     let response = new Response("Hello, world!", {
       headers: { "x-custom-header": "custom-value" },
     });
     expect(response).toHaveHeader("x-custom-header", "custom-value");
   });
 
-  it("ResponseInit", () => {
-    expect({ headers: { "x-custom-header": "custom-value" } }).toHaveHeader(
-      "x-custom-header",
-      "custom-value",
-    );
-  });
-
-  it.fails("toHaveHeader matcher - negative case", () => {
+  it.fails("fails when header value does not match", () => {
     let response = new Response("Hello, world!", {
       headers: { "x-custom-header": "custom-value" },
     });
@@ -69,4 +66,11 @@ if (import.meta.vitest) {
     let response = new Response("Hello, world!");
     expect(response).toHaveHeader("x-cache-hit");
   });
+
+  it.fails.each([{}, null, 1, [], Error, "lol"])(
+    "fails when passed %s",
+    (input) => {
+      expect(input).toHaveHeader("x-custom-header");
+    },
+  );
 }

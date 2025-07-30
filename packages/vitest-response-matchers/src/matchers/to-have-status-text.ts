@@ -1,14 +1,15 @@
-import type { MatcherResult } from "./matcher";
+import {
+  expectedResponseError,
+  isResponse,
+  type MatcherResult,
+} from "../utils";
 
 export function toHaveStatusText(
   response: Response,
   statusText?: string,
 ): MatcherResult {
-  if (!(response instanceof Response)) {
-    return {
-      message: () => `Expected a Response, but received ${typeof response}`,
-      pass: false,
-    };
+  if (!isResponse(response)) {
+    return expectedResponseError(response);
   }
 
   if (typeof statusText === "undefined") {
@@ -33,14 +34,21 @@ if (import.meta.vitest) {
 
   expect.extend({ toHaveStatusText });
 
-  describe("toHaveStatusText matcher", () => {
+  describe("toHaveStatusText", () => {
     it.fails.each([
       new Response(null, { status: 200 }),
       new Response(null, { status: 404 }),
       new Response(null, { status: 500 }),
-    ])("fails when missing statusText", (response) => {
+    ])("fails when missing statusText for $status", (response) => {
       expect(response).toHaveStatusText();
     });
+
+    it.fails.each([{}, null, 1, [], Error, "lol"])(
+      "fails when passed %s",
+      (input) => {
+        expect(input).toHaveStatusText();
+      },
+    );
 
     it.fails("fails when statusText does not match", () => {
       let response = new Response(null, { status: 200, statusText: "OK" });

@@ -1,26 +1,29 @@
 import { SetCookie } from "@mjackson/headers";
-import type { MatcherResult } from "./matcher";
+import {
+  expectedResponseError,
+  isResponse,
+  type MatcherResult,
+} from "../utils";
 
 export function toHaveCookies(
-  response: Response | ResponseInit,
+  response: Response,
   cookies: Array<string>,
   options?: { strict?: boolean },
 ): MatcherResult {
-  let headers =
-    response.headers instanceof Headers
-      ? response.headers
-      : new Headers(response.headers);
+  if (!isResponse(response)) {
+    return expectedResponseError(response);
+  }
 
-  let responseCookies = headers.get("set-cookie");
+  let responseCookies = response.headers.get("set-cookie");
 
   if (!responseCookies) {
     return {
       pass: false,
+      actual: responseCookies,
+      expected: cookies,
       message: () => {
         return `Expected "Set-Cookie" header to be present, but it was not found`;
       },
-      actual: headers.get("set-cookie"),
-      expected: cookies,
     };
   }
 
@@ -48,7 +51,7 @@ if (import.meta.vitest) {
 
   expect.extend({ toHaveCookies });
 
-  it("toHaveCookies matcher", () => {
+  it("toHaveCookies", () => {
     let headers = new Headers();
     headers.append("set-cookie", "sessionId=abc123; Path=/");
     headers.append("set-cookie", "userId=xyz789; Path=/");
@@ -57,18 +60,12 @@ if (import.meta.vitest) {
     expect(response).toHaveCookies(["sessionId=abc123; Path=/"]);
   });
 
-  it("toHaveCookies matcher with inline headers", () => {
-    expect({
-      headers: { "Set-Cookie": "sessionId=abc123; Path=/" },
-    }).toHaveCookies(["sessionId=abc123; Path=/"]);
-  });
-
   it.fails("fails if no cookies are present", () => {
     let response = new Response("Hello, world!");
     expect(response).toHaveCookies(["sessionId=abc123; Path=/"]);
   });
 
-  it.fails("toHaveCookies matcher - negative case", () => {
+  it.fails("fails when cookie value does not match", () => {
     let response = new Response("Hello, world!", {
       headers: { "set-cookie": "sessionId=abc123; Path=/" },
     });
@@ -95,4 +92,11 @@ if (import.meta.vitest) {
       { strict: true },
     );
   });
+
+  it.fails.each([{}, null, 1, [], Error, "lol"])(
+    "fails when passed %s",
+    (input) => {
+      expect(input).toHaveCookies([]);
+    },
+  );
 }
