@@ -4,6 +4,7 @@ declare namespace matchers {
   interface CustomResponseMatchers<E, R> {
     toHaveBody(): R;
     toHaveCookies(cookies: Array<string>, options?: { strict?: boolean }): R;
+    toHaveHeader(headerName: string, expected?: string): R
     toHaveJsonBody(expected: object | null): R;
     toHaveStatus(status?: number): R;
     toHaveStatusText(statusText?: string): R;
