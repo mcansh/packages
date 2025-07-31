@@ -1,17 +1,35 @@
+import { getHeaders } from "#src/utils.ts";
 import { SetCookie } from "@mjackson/headers";
-import type { MatcherResult } from "./matcher";
+import type { MatcherResult } from "./types";
 
 export function toHaveCookies(
-  response: Response | ResponseInit,
+  response: Response | { headers?: HeadersInit },
   cookies: Array<string>,
   options?: { strict?: boolean },
 ): MatcherResult {
-  let headers =
-    response.headers instanceof Headers
-      ? response.headers
-      : new Headers(response.headers);
+  let headers = getHeaders(response);
 
   let responseCookies = headers.get("set-cookie");
+
+  if (!responseCookies && cookies.length > 0) {
+    return {
+      pass: false,
+      message: () => {
+        return `Expected "Set-Cookie" header to be present, but it was not found`;
+      },
+      actual: headers.get("set-cookie"),
+      expected: cookies,
+    };
+  }
+
+  if (!responseCookies && cookies.length === 0) {
+    return {
+      pass: true,
+      message: () => `Expected no cookies, and none were found.`,
+      actual: [],
+      expected: cookies,
+    };
+  }
 
   if (!responseCookies) {
     return {
@@ -56,6 +74,13 @@ if (import.meta.vitest) {
     let response = new Response("Hello, world!", { headers });
     expect(response).toHaveCookies(["sessionId=abc123; Path=/"]);
   });
+
+  it.each([new Response("Hello, world!"), {}])(
+    "passes when no cookies are expected",
+    (responseOrResponseInit) => {
+      expect(responseOrResponseInit).toHaveCookies([]);
+    },
+  );
 
   it("toHaveCookies matcher with inline headers", () => {
     expect({

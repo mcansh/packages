@@ -1,13 +1,10 @@
+import { verifyResponse } from "#src/utils.ts";
+
 export async function toHaveTextBody(
   response: Response,
   expected: string | null,
 ) {
-  if (!(response instanceof Response)) {
-    return {
-      message: () => `Expected a Response, but received ${typeof response}`,
-      pass: false,
-    };
-  }
+  verifyResponse(response);
 
   let body = await response.clone().text();
 

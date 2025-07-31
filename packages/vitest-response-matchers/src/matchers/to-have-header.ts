@@ -1,14 +1,12 @@
-import type { MatcherResult } from "./matcher";
+import { getHeaders } from "#src/utils.ts";
+import type { MatcherResult } from "./types";
 
 export function toHaveHeader(
   response: Response | ResponseInit,
   header: string,
   expected?: string,
 ): MatcherResult {
-  let headers =
-    response.headers instanceof Headers
-      ? response.headers
-      : new Headers(response.headers);
+  let headers = getHeaders(response);
 
   if (expected == undefined) {
     return {

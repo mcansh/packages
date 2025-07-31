@@ -1,4 +1,4 @@
-import type { MatcherResult } from "./matcher";
+import type { MatcherResult } from "./types";
 
 export function toThrowResponse(
   received: () => Response,
@@ -8,7 +8,7 @@ export function toThrowResponse(
 
   try {
     received();
-  } catch (e: unknown) {
+  } catch (e) {
     error = e;
   }
 
@@ -27,7 +27,6 @@ export function toThrowResponse(
   return {
     message: () => `Expected to throw a Response`,
     pass:
-      error instanceof Response &&
       error.status === expectedResponse.status &&
       error.statusText === expectedResponse.statusText,
     actual: { status: error.status, statusText: error.statusText },

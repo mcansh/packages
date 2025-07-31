@@ -1,15 +1,11 @@
-import type { MatcherResult } from "./matcher";
+import { verifyResponse } from "#src/utils.ts";
+import type { MatcherResult } from "./types";
 
 export function toHaveStatusText(
   response: Response,
-  statusText?: string,
+  statusText: string,
 ): MatcherResult {
-  if (!(response instanceof Response)) {
-    return {
-      message: () => `Expected a Response, but received ${typeof response}`,
-      pass: false,
-    };
-  }
+  verifyResponse(response);
 
   if (typeof statusText === "undefined") {
     return {

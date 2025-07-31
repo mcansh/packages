@@ -1,16 +1,12 @@
-import type { MatcherResult } from "./matcher";
+import { verifyResponse } from "#src/utils.ts";
+import type { MatcherResult } from "./types";
 
 export function toHaveBody(response: Response): MatcherResult {
-  if (!(response instanceof Response)) {
-    return {
-      message: () => `Expected a Response, but received ${typeof response}`,
-      pass: false,
-    };
-  }
+  verifyResponse(response);
 
   return {
     message: () => `Expected response to have body`,
-    pass: response.body !== null,
+    pass: typeof response.body !== "undefined",
   };
 }
 
@@ -24,7 +20,7 @@ if (import.meta.vitest) {
     expect(response).toHaveBody();
   });
 
-  it.fails("fails when body is null", () => {
+  it("allows body to be null", () => {
     let response = new Response(null);
     expect(response).toHaveBody();
   });

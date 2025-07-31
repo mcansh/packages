@@ -1,13 +1,9 @@
+import { verifyResponse } from "#src/utils.ts";
 import { STATUS_CODES } from "node:http";
-import type { MatcherResult } from "./matcher";
+import type { MatcherResult } from "./types";
 
 export function toHaveStrictStatusText(response: Response): MatcherResult {
-  if (!(response instanceof Response)) {
-    return {
-      message: () => `Expected a Response, but received ${typeof response}`,
-      pass: false,
-    };
-  }
+  verifyResponse(response);
 
   let found = STATUS_CODES[response.status];
 

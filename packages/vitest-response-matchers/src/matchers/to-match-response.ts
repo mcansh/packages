@@ -1,15 +1,11 @@
-import type { MatcherResult } from "./matcher";
+import { verifyResponse } from "#src/utils.ts";
+import type { MatcherResult } from "./types";
 
 export function toMatchResponse(
   received: Response,
   expected: { status: number; statusText: string },
 ): MatcherResult {
-  if (!(received instanceof Response)) {
-    return {
-      message: () => `Expected a Response, but received ${typeof received}`,
-      pass: false,
-    };
-  }
+  verifyResponse(received);
 
   return {
     message() {
