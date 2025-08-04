@@ -1,0 +1,1 @@
+export { removeAttributesPlugin } from "./plugin";
