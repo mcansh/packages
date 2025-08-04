@@ -3,7 +3,7 @@ import type { Plugin, TransformResult } from "vite";
 
 type PluginOptions = {
   /** Attributes to remove from the HTML elements. Defaults to `["data-testid"]`. */
-  attributes: [string, ...string[]];
+  attributes?: [string, ...string[]];
   /** Whether the plugin is enabled. Defaults to `true` in production mode. */
   enabled?: boolean;
 };
@@ -13,7 +13,8 @@ export function handler(
   id: string,
   options?: PluginOptions,
 ): TransformResult {
-  options ??= { attributes: ["data-testid"] };
+  options ??= {};
+  options.attributes ??= ["data-testid"];
 
   if (options.attributes.length === 0) {
     return { code, map: null };
@@ -31,18 +32,19 @@ export function handler(
   return { code: s.toString(), map: s.generateMap({ source: id }) };
 }
 
-export function removeAttributesPlugin({
-  attributes = ["data-testid"],
-  enabled = process.env.NODE_ENV === "production",
-}: PluginOptions): Plugin {
+export function removeAttributesPlugin(options?: PluginOptions): Plugin {
+  options ??= {};
+  options.attributes ??= ["data-testid"];
+  options.enabled ??= process.env.NODE_ENV === "production";
+
   return {
     name: "vite-plugin-attributes",
 
     transform: {
       filter: { id: /.*\.(tsx|jsx)$/ },
       handler(code, id) {
-        if (!enabled) return;
-        return handler(code, id, { attributes });
+        if (!options.enabled) return;
+        return handler(code, id, { attributes: options.attributes });
       },
     },
   };
