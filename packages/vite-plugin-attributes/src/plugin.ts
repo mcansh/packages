@@ -15,13 +15,8 @@ export function handler(
 ): TransformResult {
   options ??= { attributes: ["data-testid"] };
 
-  if (
-    Array.isArray(options.attributes) === false ||
-    options.attributes.length === 0
-  ) {
-    throw new TypeError(
-      "vite-plugin-attributes: options.attributes must be an array with at least one attribute to remove.",
-    );
+  if (options.attributes.length === 0) {
+    return { code, map: null };
   }
 
   let s = new MagicString(code);
@@ -110,12 +105,15 @@ if (import.meta.vitest) {
     });
   });
 
-  it("throws a TypeError when no attributes to remove are found", () => {
-    expect(() => {
-      // @ts-expect-error - testing error case
-      handler(`<h1>hello</h1>`, "test.tsx", { attributes: [] });
-    }).toThrow(
-      "vite-plugin-attributes: options.attributes must be an array with at least one attribute to remove.",
-    );
+  it("returns code as is when attributes is an empty array", () => {
+    expect(
+      handler(`<h1 data-testid="welcome-message">hello</h1>`, "test.tsx", {
+        // @ts-expect-error - testing error case
+        attributes: [],
+      }),
+    ).toEqual({
+      code: `<h1 data-testid="welcome-message">hello</h1>`,
+      map: null,
+    });
   });
 }
