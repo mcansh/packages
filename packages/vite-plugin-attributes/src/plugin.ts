@@ -21,11 +21,12 @@ export function handler(
 
   let s = new MagicString(code);
 
-  let regexp = options.attributes.reduce<Array<string>>((acc, attr) => {
-    return [...acc, `\\s${attr}(=["'](.*?)["'])?`];
-  }, []);
+  const regexp = new RegExp(
+    options.attributes.map((attr) => `\\s${attr}(=["'](.*?)["'])?`).join("|"),
+    "g",
+  );
 
-  s.replaceAll(new RegExp(regexp.join("|"), "g"), "");
+  s.replaceAll(regexp, "");
 
   return { code: s.toString(), map: s.generateMap({ source: id }) };
 }
