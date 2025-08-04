@@ -24,7 +24,7 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest --project url"
+    "test": "vitest --project vite-plugin-attributes"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -43,6 +43,9 @@
   "engines": {
     "node": ">=20"
   },
+  "dependencies": {
+    "magic-string": "^0.30.17"
+  },
   "peerDependencies": {
     "vite": "^6.0.0 || ^7.0.0"
   },
@@ -59,8 +62,5 @@
   },
   "imports": {
     "#*": "./*"
-  },
-  "dependencies": {
-    "magic-string": "^0.30.17"
   }
 }

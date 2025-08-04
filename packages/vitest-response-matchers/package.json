@@ -25,7 +25,7 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest"
+    "test": "vitest --project vitest-response-matchers"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
