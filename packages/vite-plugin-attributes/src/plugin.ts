@@ -2,7 +2,9 @@ import MagicString from "magic-string";
 import type { Plugin, TransformResult } from "vite";
 
 type PluginOptions = {
-  attributes: Array<string>;
+  /** Attributes to remove from the HTML elements. Defaults to `["data-testid"]`. */
+  attributes: [string, ...string[]];
+  /** Whether the plugin is enabled. Defaults to `true` in production mode. */
   enabled?: boolean;
 };
 
@@ -12,10 +14,18 @@ export function handler(
   options?: PluginOptions,
 ): TransformResult {
   options ??= { attributes: ["data-testid"] };
-  options.attributes ??= ["data-testid"];
+
+  if (
+    Array.isArray(options.attributes) === false ||
+    options.attributes.length === 0
+  ) {
+    throw new TypeError(
+      "vite-plugin-attributes: options.attributes must be an array with at least one attribute to remove.",
+    );
+  }
 
   let s = new MagicString(code);
-  // make a regex out of all the options.attributes
+
   let regexp = options.attributes.reduce<Array<string>>((acc, attr) => {
     return [...acc, `\\s${attr}(=["'](.*?)["'])?`];
   }, []);
@@ -23,6 +33,23 @@ export function handler(
   s.replaceAll(new RegExp(regexp.join("|"), "g"), "");
 
   return { code: s.toString(), map: s.generateMap({ source: id }) };
+}
+
+export function removeAttributesPlugin({
+  attributes = ["data-testid"],
+  enabled = process.env.NODE_ENV === "production",
+}: PluginOptions): Plugin {
+  return {
+    name: "vite-plugin-attributes",
+
+    transform: {
+      filter: { id: /.*\.(tsx|jsx)$/ },
+      handler(code, id) {
+        if (!enabled) return;
+        return handler(code, id, { attributes });
+      },
+    },
+  };
 }
 
 if (import.meta.vitest) {
@@ -82,23 +109,13 @@ if (import.meta.vitest) {
       map: expect.any(Object),
     });
   });
-}
 
-export function removeAttributesPlugin({
-  attributes = ["data-testid"],
-  enabled = process.env.NODE_ENV === "production",
-}: PluginOptions): Plugin[] {
-  return [
-    {
-      name: "vite-plugin-attributes",
-
-      transform: {
-        filter: { id: /.*\.(tsx|jsx)$/ },
-        handler(code, id) {
-          if (!enabled) return;
-          return handler(code, id, { attributes });
-        },
-      },
-    },
-  ];
+  it("throws a TypeError when no attributes to remove are found", () => {
+    expect(() => {
+      // @ts-expect-error - testing error case
+      handler(`<h1>hello</h1>`, "test.tsx", { attributes: [] });
+    }).toThrow(
+      "vite-plugin-attributes: options.attributes must be an array with at least one attribute to remove.",
+    );
+  });
 }
