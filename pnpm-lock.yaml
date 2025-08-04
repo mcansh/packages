@@ -31,6 +31,7 @@ catalogs:
 overrides:
   '@mcansh/http-helmet': workspace:*
   '@mcansh/url': workspace:*
+  '@mcansh/vite-plugin-attributes': workspace:*
   '@mcansh/vitest-response-matchers': workspace:*
 
 importers:
@@ -336,9 +337,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.14)(happy-dom@18.0.1)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.8.0))
-      dedent:
-        specifier: ^1.6.0
-        version: 1.6.0
       tsdown:
         specifier: 'catalog:'
         version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.12)(typescript@5.8.3)

@@ -24,6 +24,7 @@ onlyBuiltDependencies:
 overrides:
   '@mcansh/http-helmet': workspace:*
   '@mcansh/url': workspace:*
+  '@mcansh/vite-plugin-attributes': workspace:*
   '@mcansh/vitest-response-matchers': workspace:*
 
 shellEmulator: true

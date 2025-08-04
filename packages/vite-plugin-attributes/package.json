@@ -54,7 +54,6 @@
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
-    "dedent": "^1.6.0",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vite": "^6.3.5",
