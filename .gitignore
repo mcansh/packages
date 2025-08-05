@@ -1,8 +1,9 @@
 **/dist/
 **/node_modules/
-.ds_store
-/public/dev/
-/.wrangler/
+**/.ds_store
+**/public/dev/
+**/.wrangler/
 **/LICENSE
 !/LICENSE
 **/coverage/
+**/*.tsbuildinfo
