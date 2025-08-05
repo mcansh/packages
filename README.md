@@ -6,4 +6,5 @@ All packages are packaged underneath the @mcansh scope
 
 - [http-helmet](./packages/http-helmet)
 - [url](./packages/url)
+- [vite-plugin-attributes](./packages/vite-plugin-attributes)
 - [vitest-response-matchers](./packages/vitest-response-matchers)
