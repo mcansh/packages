@@ -7,5 +7,20 @@
   "includeVersion": true,
   "json": "./public/dev/api.json",
   "out": "./public/dev",
-  "hostedBaseUrl": "https://packages.mcan.sh/"
+  "hostedBaseUrl": "https://packages.mcan.sh/",
+  "highlightLanguages": [
+    "bash",
+    "console",
+    "css",
+    "diff",
+    "html",
+    "javascript",
+    "json",
+    "jsonc",
+    "json5",
+    "yaml",
+    "shell",
+    "tsx",
+    "typescript"
+  ]
 }

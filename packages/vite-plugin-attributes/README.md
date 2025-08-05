@@ -19,7 +19,7 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { removeAttributesPlugin } from "@mcansh/vite-plugin-attributes";
++ import { removeAttributesPlugin } from "@mcansh/vite-plugin-attributes";
 
 export default defineConfig({
   plugins: [
