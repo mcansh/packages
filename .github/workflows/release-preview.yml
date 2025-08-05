@@ -2,13 +2,13 @@ name: 🚀 Release (preview)
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
       - ./packages/*
     tags:
       - "!**"
   pull_request:
-    branches: [main]
+    branches: [dev]
 
 jobs:
   preview:
