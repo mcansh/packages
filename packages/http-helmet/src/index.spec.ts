@@ -2,7 +2,6 @@ import {
   createContentSecurityPolicy,
   createSecureHeaders,
   HASH,
-  mergeHeaders,
   NONCE,
   NONE,
   REPORT_SAMPLE,
@@ -162,66 +161,6 @@ it("throws an error if the value is reserved", () => {
   ).toThrowErrorMatchingInlineSnapshot(
     `[Error: [createPermissionsPolicy]: self must not be quoted for "battery".]`,
   );
-});
-
-describe("mergeHeaders", () => {
-  it("merges headers", () => {
-    let secureHeaders = createSecureHeaders({
-      "Content-Security-Policy": { "default-src": ["'self'"] },
-    });
-
-    let responseHeaders = new Headers({
-      "Content-Type": "text/html",
-      "x-foo": "bar",
-    });
-
-    let merged = mergeHeaders(responseHeaders, secureHeaders);
-
-    expect(merged.get("Content-Type")).toBe("text/html");
-    expect(merged.get("x-foo")).toBe("bar");
-    expect(merged.get("Content-Security-Policy")).toBe("default-src 'self'");
-  });
-
-  it("throws if the argument is not an object", () => {
-    // @ts-expect-error
-    expect(() => mergeHeaders("foo")).toThrowErrorMatchingInlineSnapshot(
-      `[TypeError: All arguments must be of type object]`,
-    );
-  });
-
-  it("overrides existing headers", () => {
-    let secureHeaders = createSecureHeaders({
-      "Content-Security-Policy": { "default-src": ["'self'"] },
-    });
-
-    let responseHeaders = new Headers({
-      "Content-Security-Policy": "default-src 'none'",
-    });
-
-    let merged1 = mergeHeaders(responseHeaders, secureHeaders);
-    let merged2 = mergeHeaders(secureHeaders, responseHeaders);
-
-    expect(merged1.get("Content-Security-Policy")).toBe("default-src 'self'");
-    expect(merged2.get("Content-Security-Policy")).toBe("default-src 'none'");
-  });
-
-  it('keeps all "Set-Cookie" headers', () => {
-    let headers1 = new Headers({ "Set-Cookie": "foo=bar" });
-    let headers2 = new Headers({ "Set-Cookie": "baz=qux" });
-
-    let merged = mergeHeaders(headers1, headers2);
-
-    expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
-  });
-
-  it('merged different cased "Set-Cookie" headers"', () => {
-    let headers1 = new Headers({ "set-cookie": "foo=bar" });
-    let headers2 = new Headers({ "Set-Cookie": "baz=qux" });
-
-    let merged = mergeHeaders(headers1, headers2);
-
-    expect(merged.getSetCookie()).toStrictEqual(["foo=bar", "baz=qux"]);
-  });
 });
 
 it("allows mixing camel and kebab case for CSP keys", () => {

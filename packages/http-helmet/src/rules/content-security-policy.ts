@@ -3,9 +3,9 @@ import type { KebabCasedProperties, LiteralUnion } from "type-fest";
 import type { QuotedSource } from "../utils.js";
 import { isQuoted } from "../utils.js";
 
-type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>;
+export type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>;
 
-type ContentSecurityPolicyCamel = {
+export type ContentSecurityPolicyCamel = {
   childSrc?: CspSetting;
   connectSrc?: CspSetting;
   defaultSrc?: CspSetting;
@@ -36,10 +36,10 @@ type ContentSecurityPolicyCamel = {
   upgradeInsecureRequests?: boolean;
 };
 
-type ContentSecurityPolicyKebab =
+export type ContentSecurityPolicyKebab =
   KebabCasedProperties<ContentSecurityPolicyCamel>;
 
-type ContentSecurityPolicy =
+export type ContentSecurityPolicy =
   | ContentSecurityPolicyCamel
   | ContentSecurityPolicyKebab;
 
@@ -47,7 +47,7 @@ export type PublicContentSecurityPolicy = Parameters<
   typeof createContentSecurityPolicy
 >[0];
 
-let reservedCSPKeywords = new Set([
+export let reservedCSPKeywords = new Set([
   "self",
   "none",
   "unsafe-inline",

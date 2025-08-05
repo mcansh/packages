@@ -42,7 +42,7 @@ export type PermissionsPolicy = {
   [key in KnownPermissions]?: Array<string>;
 };
 
-const reservedPermissionKeywords = new Set(["self", "*"]);
+export const reservedPermissionKeywords = new Set(["self", "*"]);
 
 export function createPermissionsPolicy(features: PermissionsPolicy): string {
   return Object.entries(features)

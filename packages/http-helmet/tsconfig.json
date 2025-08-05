@@ -6,6 +6,10 @@
     "moduleResolution": "Bundler",
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": [
+      "vitest/importMeta",
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ]
   }
 }

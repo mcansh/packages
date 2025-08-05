@@ -39,6 +39,10 @@
       "import": "./dist/react.js",
       "require": "./dist/react.cjs"
     },
+    "./v2": {
+      "import": "./dist/v2.js",
+      "require": "./dist/v2.cjs"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -47,7 +51,9 @@
     "package.json"
   ],
   "dependencies": {
+    "content-security-policy-parser": "^0.6.0",
     "change-case": "^5.4.4",
+    "ts-extras": "^0.14.0",
     "type-fest": "^4.41.0"
   },
   "peerDependencies": {
@@ -72,7 +78,6 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitest/coverage-v8": "catalog:",
-    "content-security-policy-parser": "^0.6.0",
     "happy-dom": "^18.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
