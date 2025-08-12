@@ -9,7 +9,7 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "pnpm run --sequential \"/^build:.*/\"",
+    "build": "pnpm run build:packages && pnpm run build:apps",
     "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**\" build",
     "build:packages": "pnpm run --recursive --parallel --filter \"./packages/**\" build",
     "changeset": "changeset",
