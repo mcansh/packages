@@ -1,0 +1,57 @@
+{
+  "name": "@mcansh/remark-definition-links",
+  "version": "2.4.1",
+  "description": "",
+  "keywords": [],
+  "repository": {
+    "url": "https://github.com/mcansh/remark-definition-links"
+  },
+  "license": "MIT",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "readme.markdown"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "format": "prettier --write ./ --ignore-path .gitignore --ignore-path .prettierignore",
+    "prepublishOnly": "npm run build",
+    "test": "vitest",
+    "update": "node run.js"
+  },
+  "dependencies": {
+    "@sindresorhus/slugify": "^2.1.1",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/core": "^0.18.2",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^24.2.0",
+    "glob": "^11.0.3",
+    "publint": "^0.3.12",
+    "remark": "^15.0.1",
+    "remark-cli": "^12.0.1",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-preset-wooorm": "^11.0.0",
+    "to-vfile": "^8.0.0",
+    "tsdown": "^0.13.3",
+    "typescript": "^5.9.2",
+    "unplugin-unused": "^0.5.1",
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
+  "engines": {
+    "node": ">=18"
+  }
+}

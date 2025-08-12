@@ -1,13 +1,17 @@
 {
-  "private": true,
   "name": "packages",
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "private": true,
   "license": "MIT",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "type": "module",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "scripts": {
-    "build:packages": "pnpm run --recursive --parallel --filter \"./packages/**\" build",
-    "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**\" build",
     "build": "pnpm run --sequential \"/^build:.*/\"",
+    "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**\" build",
+    "build:packages": "pnpm run --recursive --parallel --filter \"./packages/**\" build",
     "changeset": "changeset",
     "changeset:release": "pnpm run build && changeset publish",
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
@@ -22,7 +26,6 @@
     "typecheck": "pnpm run --recursive typecheck",
     "validate": "run-p build lint format typecheck"
   },
-  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
   "dependencies": {
     "@changesets/cli": "^2.29.5",
     "@manypkg/get-packages": "^3.0.0",
@@ -34,15 +37,12 @@
     "pkg-pr-new": "^0.0.54",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.1.0",
-    "prettier-plugin-sort-package-json": "^1.1.0",
+    "prettier-plugin-packagejson": "^2.5.19",
     "prompt-confirm": "^2.0.4",
     "semver": "^7.7.2",
     "typedoc": "^0.28.7",
     "vitest": "catalog:",
     "wrangler": "^4.25.0"
   },
-  "workspaces": [
-    "packages/*",
-    "examples/*"
-  ]
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }
