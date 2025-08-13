@@ -1,8 +1,9 @@
-import { defineProject } from "vitest/config";
+import { defaultExclude, defineProject } from "vitest/config";
 
 export default defineProject({
   test: {
     includeSource: ["./src/**/*.{js,ts}"],
     name: "remark-definition-links",
+    exclude: [...defaultExclude, "./src/run.ts"],
   },
 });

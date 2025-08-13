@@ -1,12 +1,21 @@
 import { glob } from "glob";
+import cp from "node:child_process";
 import path from "node:path";
 import { remark } from "remark";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { read } from "to-vfile";
 import { describe, expect, test } from "vitest";
-import { INPUT_DIR, OUTPUT_DIR } from "../run.js";
 import { remarkDefinitionLinks } from "./index.ts";
+
+let root = cp
+  .execSync("git rev-parse --show-toplevel", { encoding: "utf-8" })
+  .trim();
+
+let project = path.join(root, "packages", "remark-definition-links");
+let FIXTURES_DIR = path.join(project, "fixtures");
+let INPUT_DIR = path.join(FIXTURES_DIR, "before");
+let OUTPUT_DIR = path.join(FIXTURES_DIR, "after");
 
 let files = await glob("./**/*.md", {
   cwd: INPUT_DIR,

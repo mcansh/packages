@@ -8,22 +8,14 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { read } from "to-vfile";
 
-function getRootDirectory() {
-  return cp
-    .execSync("git rev-parse --show-toplevel", { encoding: "utf-8" })
-    .trim();
-}
+let root = cp
+  .execSync("git rev-parse --show-toplevel", { encoding: "utf-8" })
+  .trim();
 
-let root = getRootDirectory();
-
-export let FIXTURES_DIR = path.join(
-  root,
-  "packages",
-  "remark-definition-links",
-  "fixtures",
-);
-export let INPUT_DIR = path.join(FIXTURES_DIR, "before");
-export let OUTPUT_DIR = path.join(FIXTURES_DIR, "after");
+let project = path.join(root, "packages", "remark-definition-links");
+let FIXTURES_DIR = path.join(project, "fixtures");
+let INPUT_DIR = path.join(FIXTURES_DIR, "before");
+let OUTPUT_DIR = path.join(FIXTURES_DIR, "after");
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main();
@@ -31,7 +23,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
 
 async function main() {
   const { remarkDefinitionLinks } = await import("./dist/index.js");
-  
+
   let files = await glob("./**/*.md", {
     absolute: true,
     cwd: INPUT_DIR,
