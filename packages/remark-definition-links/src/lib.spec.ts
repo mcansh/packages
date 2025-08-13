@@ -5,7 +5,7 @@ import { remark } from "remark";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { read } from "to-vfile";
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { remarkDefinitionLinks } from "./index.ts";
 
 let root = cp
@@ -23,7 +23,7 @@ let files = await glob("./**/*.md", {
 });
 
 describe("converts inline links to definitions", () => {
-  test.each(files)("%s", async (filename) => {
+  it.each(files)("%s", async (filename) => {
     let beforeFile = path.join(INPUT_DIR, filename);
     let afterFile = path.join(OUTPUT_DIR, filename);
 
@@ -52,4 +52,21 @@ describe("converts inline links to definitions", () => {
 
     expect(normalizedResult).toEqual(normalizedAfter);
   });
+});
+
+it("throws an error when image node has no alt text", async () => {
+  await expect(() =>
+    remark()
+      .use({
+        settings: {
+          fences: true,
+          listItemIndent: "one",
+          tightDefinitions: true,
+        },
+      })
+      .use(remarkDefinitionLinks)
+      .use(remarkGfm)
+      .use(remarkFrontmatter, ["yaml", "toml"])
+      .process("![](image.png)"),
+  ).rejects.toThrowError("Cannot aggregate a non-link, non-image node");
 });
