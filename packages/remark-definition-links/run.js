@@ -1,17 +1,36 @@
 import { glob } from "glob";
+import cp from "node:child_process";
 import fsp from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { remark } from "remark";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { read } from "to-vfile";
 import { remarkDefinitionLinks } from "./dist/index.js";
 
-let FIXTURES_DIR = path.join(process.cwd(), "fixtures");
-let INPUT_DIR = path.join(FIXTURES_DIR, "before");
-let OUTPUT_DIR = path.join(FIXTURES_DIR, "after");
+function getRootDirectory() {
+  return cp
+    .execSync("git rev-parse --show-toplevel", { encoding: "utf-8" })
+    .trim();
+}
 
-main();
+let root = getRootDirectory();
+
+export let FIXTURES_DIR = path.join(
+  root,
+  "packages",
+  "remark-definition-links",
+  "fixtures",
+);
+export let INPUT_DIR = path.join(FIXTURES_DIR, "before");
+export let OUTPUT_DIR = path.join(FIXTURES_DIR, "after");
+
+// check if ran directly
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
 
 async function main() {
   let files = await glob("./**/*.md", {

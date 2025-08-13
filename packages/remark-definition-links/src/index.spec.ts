@@ -5,11 +5,8 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { read } from "to-vfile";
 import { describe, expect, test } from "vitest";
+import { INPUT_DIR, OUTPUT_DIR } from "../run.js";
 import { remarkDefinitionLinks } from "./index.ts";
-
-let FIXTURES_DIR = path.join(process.cwd(), "fixtures");
-let INPUT_DIR = path.join(FIXTURES_DIR, "before");
-let OUTPUT_DIR = path.join(FIXTURES_DIR, "after");
 
 let files = await glob("./**/*.md", {
   cwd: INPUT_DIR,
