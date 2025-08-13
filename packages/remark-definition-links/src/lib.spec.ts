@@ -56,17 +56,6 @@ describe("converts inline links to definitions", () => {
 
 it("throws an error when image node has no alt text", async () => {
   await expect(() =>
-    remark()
-      .use({
-        settings: {
-          fences: true,
-          listItemIndent: "one",
-          tightDefinitions: true,
-        },
-      })
-      .use(remarkDefinitionLinks)
-      .use(remarkGfm)
-      .use(remarkFrontmatter, ["yaml", "toml"])
-      .process("![](image.png)"),
+    remark().use(remarkDefinitionLinks).process("![](image.png)"),
   ).rejects.toThrowError("Cannot aggregate a non-link, non-image node");
 });
