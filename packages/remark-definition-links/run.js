@@ -7,7 +7,6 @@ import { remark } from "remark";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { read } from "to-vfile";
-import { remarkDefinitionLinks } from "./dist/index.js";
 
 function getRootDirectory() {
   return cp
@@ -26,13 +25,13 @@ export let FIXTURES_DIR = path.join(
 export let INPUT_DIR = path.join(FIXTURES_DIR, "before");
 export let OUTPUT_DIR = path.join(FIXTURES_DIR, "after");
 
-// check if ran directly
-
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main();
 }
 
 async function main() {
+  const { remarkDefinitionLinks } = await import("./dist/index.js");
+  
   let files = await glob("./**/*.md", {
     absolute: true,
     cwd: INPUT_DIR,
