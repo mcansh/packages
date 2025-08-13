@@ -4,6 +4,6 @@ export default defineProject({
   test: {
     includeSource: ["./src/**/*.{js,ts}"],
     name: "remark-definition-links",
-    exclude: [...defaultExclude, "./src/run.ts"],
+    exclude: [...defaultExclude, "./run.js"],
   },
 });
