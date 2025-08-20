@@ -1,3 +1,5 @@
+shellEmulator: true
+
 packages:
   - packages/*
   - apps/**/*
@@ -26,4 +28,3 @@ overrides:
   '@mcansh/url': workspace:*
   '@mcansh/vitest-response-matchers': workspace:*
 
-shellEmulator: true

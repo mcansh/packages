@@ -16,7 +16,7 @@ export default defineConfig({
     projects: ["./packages/*"],
     include: ["./packages/*/src/**/*.{js,ts,tsx}"],
     exclude: [...configDefaults.exclude, ...exclude],
-    reporters: process.env.CI ? ["junit"] : [],
+    reporters: process.env.CI ? ["junit", "default"] : [],
     outputFile: process.env.CI ? "./coverage/test-report.junit.xml" : undefined,
     coverage: {
       exclude: [...(configDefaults.coverage.exclude ?? []), ...exclude],

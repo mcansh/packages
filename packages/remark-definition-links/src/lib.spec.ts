@@ -1,0 +1,61 @@
+import { glob } from "glob";
+import cp from "node:child_process";
+import path from "node:path";
+import { remark } from "remark";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
+import { read } from "to-vfile";
+import { describe, expect, it } from "vitest";
+import { remarkDefinitionLinks } from "./index.ts";
+
+let root = cp
+  .execSync("git rev-parse --show-toplevel", { encoding: "utf-8" })
+  .trim();
+
+let project = path.join(root, "packages", "remark-definition-links");
+let FIXTURES_DIR = path.join(project, "fixtures");
+let INPUT_DIR = path.join(FIXTURES_DIR, "before");
+let OUTPUT_DIR = path.join(FIXTURES_DIR, "after");
+
+let files = await glob("./**/*.md", {
+  cwd: INPUT_DIR,
+  ignore: ["**/node_modules/**"],
+});
+
+describe("converts inline links to definitions", () => {
+  it.each(files)("%s", async (filename) => {
+    let beforeFile = path.join(INPUT_DIR, filename);
+    let afterFile = path.join(OUTPUT_DIR, filename);
+
+    let [before, after] = await Promise.all([
+      read(beforeFile),
+      read(afterFile),
+    ]);
+
+    let result = await remark()
+      .use({
+        settings: {
+          fences: true,
+          listItemIndent: "one",
+          tightDefinitions: true,
+        },
+      })
+      .use(remarkDefinitionLinks)
+      .use(remarkGfm)
+      .use(remarkFrontmatter, ["yaml", "toml"])
+      .process(before);
+
+    // windows has new line endings of `\r\n`, unix has `\n`
+    // lets normalize them..
+    let normalizedResult = result.toString().replace(/\r\n/g, "\n");
+    let normalizedAfter = after.toString().replace(/\r\n/g, "\n");
+
+    expect(normalizedResult).toEqual(normalizedAfter);
+  });
+});
+
+it("throws an error when image node has no alt text", async () => {
+  await expect(() =>
+    remark().use(remarkDefinitionLinks).process("![](image.png)"),
+  ).rejects.toThrowError("Cannot aggregate a non-link, non-image node");
+});

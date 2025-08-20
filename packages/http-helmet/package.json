@@ -7,7 +7,6 @@
     "url": "git+https://github.com/mcansh/packages.git",
     "directory": "./packages/http-helmet"
   },
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
   "funding": [
     {
       "type": "github",
@@ -19,17 +18,11 @@
     }
   ],
   "license": "MIT",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
   "type": "module",
-  "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "prepublishOnly": "npm run build",
-    "test": "vitest --project http-helmet",
-    "typecheck": "tsc"
+  "imports": {
+    "#*": "./*"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -41,26 +34,25 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist",
     "README.md",
     "package.json"
   ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "prepublishOnly": "npm run build",
+    "test": "vitest --project http-helmet",
+    "typecheck": "tsc"
+  },
   "dependencies": {
     "change-case": "^5.4.4",
     "type-fest": "^4.41.0"
-  },
-  "peerDependencies": {
-    "react": ">=18.0.0 || >=19.0.0",
-    "react-dom": ">=18.0.0 || >=19.0.0"
-  },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": true
-    },
-    "react-dom": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@arethetypeswrong/core": "catalog:",
@@ -80,12 +72,20 @@
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
+  "peerDependencies": {
+    "react": ">=18.0.0 || >=19.0.0",
+    "react-dom": ">=18.0.0 || >=19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true
-  },
-  "imports": {
-    "#*": "./*"
-  },
-  "source": "./src/index.ts"
+  }
 }
