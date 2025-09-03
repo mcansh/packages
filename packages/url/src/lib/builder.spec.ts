@@ -140,8 +140,8 @@ describe("UrlBuilder", () => {
   });
 
   /**
-   * note that the URL constructor will add a trailing slash
-   * to the url for certain protocols
+   * Note that the URL constructor will add a trailing slash to the url for
+   * certain protocols
    */
   const protocolCases = [
     [`ssh`, "ssh://site.com"],

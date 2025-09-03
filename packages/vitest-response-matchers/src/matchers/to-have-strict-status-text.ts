@@ -1,12 +1,13 @@
 import { STATUS_CODES } from "node:http";
-import type { MatcherResult } from "./matcher";
+import {
+  expectedResponseError,
+  isResponse,
+  type MatcherResult,
+} from "../utils";
 
 export function toHaveStrictStatusText(response: Response): MatcherResult {
-  if (!(response instanceof Response)) {
-    return {
-      message: () => `Expected a Response, but received ${typeof response}`,
-      pass: false,
-    };
+  if (!isResponse(response)) {
+    return expectedResponseError(response);
   }
 
   let found = STATUS_CODES[response.status];
@@ -37,39 +38,44 @@ if (import.meta.vitest) {
 
   expect.extend({ toHaveStrictStatusText });
 
-  describe("toHaveStatus matcher", () => {
-    it.fails("when status code does not exist", () => {
-      let response = new Response("Hello, world!", {
-        status: 599,
-        statusText: "Unknown",
-      });
-
+  it.each([
+    [200, "OK"],
+    [204, "No Content"],
+    [302, "Found"],
+    [404, "Not Found"],
+    [500, "Internal Server Error"],
+  ])(
+    "passes when statusText matches the http spec for '%d'",
+    (status, statusText) => {
+      let response = new Response(null, { status, statusText });
       expect(response).toHaveStrictStatusText();
+    },
+  );
+
+  it.fails.each([{}, null, 1, [], Error, "lol"])(
+    "fails when passed %s",
+    (input) => {
+      expect(input).toHaveStrictStatusText();
+    },
+  );
+
+  it.fails("when status code does not exist", () => {
+    let response = new Response("Hello, world!", {
+      status: 599,
+      statusText: "Unknown",
     });
 
-    it.fails(
-      "when statusText on response is not what the http spec expects",
-      () => {
-        let response = new Response("Hello, world!", {
-          status: 200,
-          statusText: "Not OK",
-        });
-        expect(response).toHaveStrictStatusText();
-      },
-    );
-
-    it.each([
-      [200, "OK"],
-      [204, "No Content"],
-      [302, "Found"],
-      [404, "Not Found"],
-      [500, "Internal Server Error"],
-    ])(
-      "passes when statusText matches the http spec for '%d'",
-      (status, statusText) => {
-        let response = new Response(null, { status, statusText });
-        expect(response).toHaveStrictStatusText();
-      },
-    );
+    expect(response).toHaveStrictStatusText();
   });
+
+  it.fails(
+    "when statusText on response is not what the http spec expects",
+    () => {
+      let response = new Response("Hello, world!", {
+        status: 200,
+        statusText: "Not OK",
+      });
+      expect(response).toHaveStrictStatusText();
+    },
+  );
 }

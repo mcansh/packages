@@ -24,7 +24,8 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest --project url"
+    "test": "vitest --project url",
+    "typecheck": "tsgo"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -39,14 +40,15 @@
     "README.md",
     "LICENSE"
   ],
-  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "catalog:",
+    "@mcansh/config": "workspace:",
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",

@@ -1,11 +1,12 @@
-import type { MatcherResult } from "./matcher";
+import {
+  expectedResponseError,
+  isResponse,
+  type MatcherResult,
+} from "../utils";
 
 export function toHaveBody(response: Response): MatcherResult {
-  if (!(response instanceof Response)) {
-    return {
-      message: () => `Expected a Response, but received ${typeof response}`,
-      pass: false,
-    };
+  if (!isResponse(response)) {
+    return expectedResponseError(response);
   }
 
   return {
@@ -19,7 +20,7 @@ if (import.meta.vitest) {
 
   expect.extend({ toHaveBody });
 
-  it("toHaveBody matcher", () => {
+  it("toHaveBody", () => {
     let response = new Response("Hello, world!");
     expect(response).toHaveBody();
   });
@@ -29,7 +30,10 @@ if (import.meta.vitest) {
     expect(response).toHaveBody();
   });
 
-  it.fails("when passed something that is not a Response", () => {
-    expect(Error).toHaveBody();
-  });
+  it.fails.each([{}, null, 1, [], Error, "lol"])(
+    "fails when passed %s",
+    (input) => {
+      expect(input).toHaveBody();
+    },
+  );
 }
