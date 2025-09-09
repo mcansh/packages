@@ -30,6 +30,7 @@ catalogs:
 
 overrides:
   '@mcansh/http-helmet': workspace:*
+  '@mcansh/logger': workspace:*
   '@mcansh/url': workspace:*
   '@mcansh/vitest-response-matchers': workspace:*
 
@@ -284,6 +285,34 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
+      tsdown:
+        specifier: 'catalog:'
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.12)(typescript@5.8.3)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.0.14)(happy-dom@18.0.1)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.8.0)
+
+  packages/logger:
+    dependencies:
+      ansis:
+        specifier: ^4.1.0
+        version: 4.1.0
+    devDependencies:
+      '@arethetypeswrong/core':
+        specifier: 'catalog:'
+        version: 0.18.2
+      '@total-typescript/tsconfig':
+        specifier: 'catalog:'
+        version: 1.0.4
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.0.14
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.14)(happy-dom@18.0.1)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.8.0))
       tsdown:
         specifier: 'catalog:'
         version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.12)(typescript@5.8.3)

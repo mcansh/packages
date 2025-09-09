@@ -23,6 +23,7 @@ onlyBuiltDependencies:
 
 overrides:
   '@mcansh/http-helmet': workspace:*
+  '@mcansh/logger': workspace:*
   '@mcansh/url': workspace:*
   '@mcansh/vitest-response-matchers': workspace:*
 
