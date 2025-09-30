@@ -1,5 +1,5 @@
-import fsp from "node:fs/promises";
-import path from "node:path";
+import Fsp from "node:fs/promises";
+import Path from "node:path";
 import { expect, it } from "vitest";
 import { createTemporaryFiles } from "./lib";
 
@@ -9,8 +9,8 @@ it("creates temporary files", async () => {
     contents: "Hello, world!",
   });
 
-  const fileContents = await fsp.readFile(
-    path.join(tmp.directory, "file.txt"),
+  const fileContents = await Fsp.readFile(
+    Path.join(tmp.directory, "file.txt"),
     "utf8",
   );
 
