@@ -1,5 +1,5 @@
 {
-  "extends": "@total-typescript/tsconfig/bundler/dom",
+  "extends": "@total-typescript/tsconfig/bundler/library",
   "include": ["./src/**/*"],
   "compilerOptions": {
     "allowImportingTsExtensions": true,
