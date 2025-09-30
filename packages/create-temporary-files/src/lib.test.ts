@@ -1,6 +1,6 @@
 import Fsp from "node:fs/promises";
 import Path from "node:path";
-import { expect, it } from "vitest";
+import { expect, it, vi } from "vitest";
 import { createTemporaryFiles } from "./lib";
 
 it("creates temporary files and cleans them up", async () => {
@@ -37,8 +37,18 @@ it("creates temporary files and cleans them up", async () => {
     );
     expect(nestedFileContents).toBe("Nested file");
 
-    await expect(Fsp.stat(directoryPath)).resolves.toBeDefined();
   }
 
-  await expect(Fsp.stat(directoryPath)).rejects.toThrow();
+  await expect(Fsp.readdir(directoryPath)).rejects.toThrow();
+});
+
+it("automatically cleans up in the event of a file write error", async () => {
+  vi.spyOn(Fsp, "writeFile").mockRejectedValueOnce(new Error("Mocked error"));
+
+  expect(async () => {
+    await createTemporaryFiles({
+      filePath: "file.txt",
+      contents: "Hello, world!",
+    });
+  }).rejects.toThrow();
 });

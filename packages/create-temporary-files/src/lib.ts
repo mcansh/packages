@@ -6,26 +6,30 @@ export type TemporaryFile = {
   contents: string;
 };
 
+
 export async function createTemporaryFiles(
   ...files: [TemporaryFile, ...TemporaryFile[]]
 ) {
   let directory = await Fsp.mkdtemp("tmp-");
 
-  await Promise.all(
-    files.map(async (file) => {
-      let destination = Path.join(directory, file.filePath);
-      await Fsp.mkdir(Path.dirname(destination), { recursive: true });
-      await Fsp.writeFile(destination, file.contents);
-    }),
-  ).catch(async () => {
-    await Fsp.rmdir(directory, { recursive: true });
-  });
+  try {
+    await Promise.all(
+      files.map(async (file) => {
+        let destination = Path.join(directory, file.filePath);
+        await Fsp.mkdir(Path.dirname(destination), { recursive: true });
+        await Fsp.writeFile(destination, file.contents);
+      }),
+    );
+  } catch (error) {
+    await Fsp.rm(directory, { recursive: true });
+    throw error;
+  }
 
   return {
     directory,
     files: files.map((file) => Path.join(directory, file.filePath)),
     [Symbol.asyncDispose]: async () => {
-      await Fsp.rmdir(directory, { recursive: true });
+      await Fsp.rm(directory, { recursive: true });
     },
   };
 }
