@@ -11,16 +11,20 @@ export async function createTemporaryFiles(
 ) {
   let directory = await Fsp.mkdtemp("tmp-");
 
-  for (let file of files) {
-    let destination = Path.join(directory, file.filePath);
-    await Fsp.mkdir(Path.dirname(destination), { recursive: true });
-    await Fsp.writeFile(destination, file.contents);
-  }
+  await Promise.all(
+    files.map(async (file) => {
+      let destination = Path.join(directory, file.filePath);
+      await Fsp.mkdir(Path.dirname(destination), { recursive: true });
+      await Fsp.writeFile(destination, file.contents);
+    }),
+  ).catch(async () => {
+    await Fsp.rmdir(directory, { recursive: true });
+  });
 
   return {
     directory,
     [Symbol.asyncDispose]: async () => {
-      await Fsp.rm(directory, { recursive: true });
+      await Fsp.rmdir(directory, { recursive: true });
     },
   };
 }
