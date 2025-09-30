@@ -4,6 +4,7 @@ Collection of packages created by [@mcansh](https://github.com/mcansh)
 
 All packages are packaged underneath the @mcansh scope
 
+- [create-temporary-files](./packages/create-temporary-files)
 - [http-helmet](./packages/http-helmet)
 - [url](./packages/url)
 - [vitest-response-matchers](./packages/vitest-response-matchers)
