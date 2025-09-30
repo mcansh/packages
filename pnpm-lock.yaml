@@ -18,6 +18,9 @@ catalogs:
     '@vitest/coverage-v8':
       specifier: ^3.2.4
       version: 3.2.4
+    publint:
+      specifier: ^0.3.12
+      version: 0.3.13
     tsdown:
       specifier: ^0.12.9
       version: 0.12.9
@@ -251,9 +254,12 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(happy-dom@18.0.1)(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1))
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.13
       tsdown:
         specifier: 'catalog:'
-        version: 0.12.9(@arethetypeswrong/core@0.18.2)(typescript@5.9.2)
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2)
       typescript:
         specifier: 'catalog:'
         version: 5.9.2
@@ -303,6 +309,9 @@ importers:
       happy-dom:
         specifier: ^18.0.1
         version: 18.0.1
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.13
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -311,7 +320,7 @@ importers:
         version: 19.1.1(react@19.1.1)
       tsdown:
         specifier: 'catalog:'
-        version: 0.12.9(@arethetypeswrong/core@0.18.2)(typescript@5.9.2)
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2)
       typescript:
         specifier: 'catalog:'
         version: 5.9.2
@@ -333,9 +342,12 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(happy-dom@18.0.1)(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1))
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.13
       tsdown:
         specifier: 'catalog:'
-        version: 0.12.9(@arethetypeswrong/core@0.18.2)(typescript@5.9.2)
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2)
       typescript:
         specifier: 'catalog:'
         version: 5.9.2
@@ -361,9 +373,12 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(happy-dom@18.0.1)(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1))
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.13
       tsdown:
         specifier: 'catalog:'
-        version: 0.12.9(@arethetypeswrong/core@0.18.2)(typescript@5.9.2)
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2)
       typescript:
         specifier: 'catalog:'
         version: 5.9.2
@@ -1628,6 +1643,10 @@ packages:
 
   '@poppinss/exception@1.2.2':
     resolution: {integrity: sha512-m7bpKCD4QMlFCjA/nKTs23fuvoVFoA83brRKmObCUNmi/9tVu8Ve3w4YQAnJu4q3Tjf5fr685HYIC/IA2zHRSg==}
+
+  '@publint/pack@0.1.2':
+    resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
+    engines: {node: '>=18'}
 
   '@quansync/fs@0.1.5':
     resolution: {integrity: sha512-lNS9hL2aS2NZgNW7BBj+6EBl4rOf8l+tQ0eRY6JWCI8jI2kc53gSoqbjojU0OnAWhzoXiOjFyGsHcDGePB3lhA==}
@@ -4841,6 +4860,9 @@ packages:
   package-manager-detector@0.2.11:
     resolution: {integrity: sha512-BEnLolu+yuz22S56CU1SUKq3XC3PkwD5wv4ikR4MfGvnRVcmzXR9DwSlW2fEamyTPyXHomBJRzgapeuBvRNzJQ==}
 
+  package-manager-detector@1.3.0:
+    resolution: {integrity: sha512-ZsEbbZORsyHuO00lY1kV3/t72yp6Ysay6Pd17ZAlNGuGwmWDLCJxFpRs0IzfXfj1o4icJOkUEioexFHzyPurSQ==}
+
   pako@0.2.9:
     resolution: {integrity: sha512-NUcwaKxUxWrZLpDG+z/xZaCgQITkA/Dv4V/T6bw7VON6l1Xz/VnrBqrYjZQ12TamKHzITTfOEIYUj48y2KXImA==}
 
@@ -5085,6 +5107,11 @@ packages:
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
     engines: {node: '>= 0.10'}
+
+  publint@0.3.13:
+    resolution: {integrity: sha512-NC+lph09+BRO9LJgKlIy3WQXyu6/6WDQ0dCA60KALUwdKVf3PfGuC6fY8I+oKB/5kEPh50aOSUz+6yWy1n4EfA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   pump@2.0.1:
     resolution: {integrity: sha512-ruPMNRkN3MHP1cWJc9OWr+T/xDP0jhXYCLfJcBuX54hhfIBnaQmAUMfDcG4DM5UMWByBbJY69QSphm3jtDKIkA==}
@@ -7387,6 +7414,8 @@ snapshots:
       supports-color: 10.2.2
 
   '@poppinss/exception@1.2.2': {}
+
+  '@publint/pack@0.1.2': {}
 
   '@quansync/fs@0.1.5':
     dependencies:
@@ -11154,6 +11183,8 @@ snapshots:
     dependencies:
       quansync: 0.2.11
 
+  package-manager-detector@1.3.0: {}
+
   pako@0.2.9: {}
 
   parent-module@1.0.1:
@@ -11412,6 +11443,13 @@ snapshots:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
+
+  publint@0.3.13:
+    dependencies:
+      '@publint/pack': 0.1.2
+      package-manager-detector: 1.3.0
+      picocolors: 1.1.1
+      sade: 1.8.1
 
   pump@2.0.1:
     dependencies:
@@ -12209,7 +12247,7 @@ snapshots:
       minimist: 1.2.8
       strip-bom: 3.0.0
 
-  tsdown@0.12.9(@arethetypeswrong/core@0.18.2)(typescript@5.9.2):
+  tsdown@0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2):
     dependencies:
       ansis: 4.2.0
       cac: 6.7.14
@@ -12226,6 +12264,7 @@ snapshots:
       unconfig: 7.3.3
     optionalDependencies:
       '@arethetypeswrong/core': 0.18.2
+      publint: 0.3.13
       typescript: 5.9.2
     transitivePeerDependencies:
       - '@typescript/native-preview'

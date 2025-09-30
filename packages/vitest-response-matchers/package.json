@@ -57,6 +57,7 @@
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
+    "publint": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "^3.2.4"
