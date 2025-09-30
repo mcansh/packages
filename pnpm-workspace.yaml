@@ -22,6 +22,7 @@ onlyBuiltDependencies:
   - workerd
 
 overrides:
+  '@mcansh/create-temporary-files': workspace:*
   '@mcansh/http-helmet': workspace:*
   '@mcansh/url': workspace:*
   '@mcansh/vitest-response-matchers': workspace:*
