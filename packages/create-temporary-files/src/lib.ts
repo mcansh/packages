@@ -23,6 +23,7 @@ export async function createTemporaryFiles(
 
   return {
     directory,
+    files: files.map((file) => Path.join(directory, file.filePath)),
     [Symbol.asyncDispose]: async () => {
       await Fsp.rmdir(directory, { recursive: true });
     },
