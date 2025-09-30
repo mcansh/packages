@@ -1,11 +1,10 @@
 {
-  "name": "@mcansh/vitest-response-matchers",
-  "version": "0.1.0",
-  "description": "Response assertion matchers for vitest",
+  "name": "@mcansh/create-temporary-files",
+  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mcansh/packages.git",
-    "directory": "./packages/vitest-response-matchers"
+    "directory": "./packages/create-temporary-files"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "funding": [
@@ -25,15 +24,13 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest"
+    "test": "vitest --project create-temporary-files"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./client": "./dist/client.js",
-    "./matchers": "./dist/matchers.js",
     "./package.json": "./package.json"
   },
   "files": [
@@ -46,12 +43,6 @@
   "engines": {
     "node": ">=20"
   },
-  "dependencies": {
-    "@mjackson/headers": "^0.11.1"
-  },
-  "peerDependencies": {
-    "vitest": "^3.2.4"
-  },
   "devDependencies": {
     "@arethetypeswrong/core": "catalog:",
     "@total-typescript/tsconfig": "catalog:",
@@ -60,7 +51,7 @@
     "publint": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vitest": "^3.2.4"
+    "vitest": "catalog:"
   },
   "imports": {
     "#*": "./*"

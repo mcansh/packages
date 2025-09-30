@@ -1,0 +1,9 @@
+{
+  "extends": "@total-typescript/tsconfig/bundler/no-dom/library",
+  "include": ["./src/**/*"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "Bundler",
+    "forceConsistentCasingInFileNames": true
+  }
+}
