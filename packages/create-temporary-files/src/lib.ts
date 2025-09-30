@@ -1,8 +1,13 @@
 import Fsp from "node:fs/promises";
 import Path from "node:path";
 
+export type TemporaryFile = {
+  filePath: string;
+  contents: string;
+};
+
 export async function createTemporaryFiles(
-  ...files: Array<{ filePath: string; contents: string }>
+  ...files: [TemporaryFile, ...TemporaryFile[]]
 ) {
   let directory = await Fsp.mkdtemp("tmp-");
 
