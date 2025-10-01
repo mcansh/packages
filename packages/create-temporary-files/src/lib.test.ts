@@ -21,7 +21,7 @@ it("creates temporary files and cleans them up", async () => {
     expect(tmp.files).toEqual([
       Path.join(tmp.directory, "file.txt"),
       Path.join(tmp.directory, "nested/dir/file.txt"),
-    ])
+    ]);
 
     directoryPath = tmp.directory;
 
@@ -36,7 +36,6 @@ it("creates temporary files and cleans them up", async () => {
       "utf8",
     );
     expect(nestedFileContents).toBe("Nested file");
-
   }
 
   await expect(Fsp.readdir(directoryPath)).rejects.toThrow();
