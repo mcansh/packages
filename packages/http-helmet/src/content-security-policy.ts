@@ -1,18 +1,54 @@
 import parseContentSecurityPolicy from "content-security-policy-parser";
 import { objectEntries } from "ts-extras";
+import type { LiteralUnion } from "type-fest";
 
-import { isQuoted } from "#src/utils.ts";
-import type {
-  ContentSecurityPolicyKebab,
-  CspSetting,
-} from "../rules/content-security-policy";
-import { reservedCSPKeywords } from "../rules/content-security-policy";
+import { isQuoted, type QuotedSource } from "#src/utils.ts";
+
+export type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>;
 
 type CspValueForKey<T extends string> = T extends "upgrade-insecure-requests"
   ? boolean
   : CspSetting;
 
+export type ContentSecurityPolicyKebab = {
+  "child-src"?: CspSetting;
+  "connect-src"?: CspSetting;
+  "default-src"?: CspSetting;
+  "font-src"?: CspSetting;
+  "frame-src"?: CspSetting;
+  "img-src"?: CspSetting;
+  "manifest-src"?: CspSetting;
+  "media-src"?: CspSetting;
+  "object-src"?: CspSetting;
+  "prefetch-src"?: CspSetting;
+  "script-src"?: CspSetting;
+  "script-src-elem"?: CspSetting;
+  "script-src-attr"?: CspSetting;
+  "style-src"?: CspSetting;
+  "style-src-elem"?: CspSetting;
+  "style-src-attr"?: CspSetting;
+  "worker-src"?: CspSetting;
+  "base-uri"?: CspSetting;
+  sandbox?: CspSetting;
+  "form-action"?: CspSetting;
+  "frame-ancestors"?: CspSetting;
+  "navigate-to"?: CspSetting;
+  "report-uri"?: CspSetting;
+  "report-to"?: CspSetting;
+  "require-sri-for"?: CspSetting;
+  "require-trusted-types-for"?: CspSetting;
+  "trusted-types"?: CspSetting;
+  "upgrade-insecure-requests"?: boolean;
+};
+
 type CspDirective = keyof ContentSecurityPolicyKebab;
+
+export let reservedCSPKeywords = new Set([
+  "self",
+  "none",
+  "unsafe-inline",
+  "unsafe-eval",
+]);
 
 export class ContentSecurityPolicyError extends Error {
   constructor(message: string) {

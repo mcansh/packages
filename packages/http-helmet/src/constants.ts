@@ -9,4 +9,4 @@ export {
   UNSAFE_HASHES,
   UNSAFE_INLINE,
   WASM_UNSAFE_EVAL,
-} from "../utils.ts";
+} from "./utils.ts";

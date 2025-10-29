@@ -1,7 +1,7 @@
 import {
   createNonce,
-  createSecureHeaders,
   mergeHeaders,
+  SecurityHeaders,
 } from "@mcansh/http-helmet";
 import { NonceProvider } from "@mcansh/http-helmet/react";
 import { createReadableStreamFromReadable } from "@react-router/node";
@@ -22,10 +22,9 @@ export default function handleRequest(
   _loadContext: AppLoadContext,
 ) {
   const nonce = createNonce();
-  const secureHeaders = createSecureHeaders({
-    "Content-Security-Policy": {
-      "script-src": ["'self'", `'nonce-${nonce}'`],
-    },
+  const securityHeaders = new SecurityHeaders();
+  securityHeaders.contentSecurityPolicy({
+    "script-src": ["'self'", `'nonce-${nonce}'`],
   });
 
   return new Promise((resolve, reject) => {
@@ -54,7 +53,7 @@ export default function handleRequest(
 
           resolve(
             new Response(stream, {
-              headers: mergeHeaders(responseHeaders, secureHeaders),
+              headers: mergeHeaders(responseHeaders, securityHeaders),
               status: responseStatusCode,
             }),
           );

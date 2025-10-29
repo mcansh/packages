@@ -5,8 +5,8 @@
  */
 import {
   createNonce,
-  createSecureHeaders,
   mergeHeaders,
+  SecurityHeaders,
 } from "@mcansh/http-helmet";
 import { NonceProvider } from "@mcansh/http-helmet/react";
 import type { AppLoadContext, EntryContext } from "@remix-run/node";
@@ -33,7 +33,7 @@ export default function handleRequest(
     : "onShellReady";
 
   const nonce = createNonce();
-  const secureHeaders = createSecureHeaders({
+  const securityHeaders = new SecurityHeaders({
     "Content-Security-Policy": {
       "upgrade-insecure-requests": process.env.NODE_ENV === "production",
       "default-src": ["'self'"],
@@ -85,7 +85,7 @@ export default function handleRequest(
 
           resolve(
             new Response(stream, {
-              headers: mergeHeaders(responseHeaders, secureHeaders),
+              headers: mergeHeaders(responseHeaders, securityHeaders),
               status: responseStatusCode,
             }),
           );

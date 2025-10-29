@@ -34,7 +34,6 @@
     ".": "./dist/index.js",
     "./constants": "./dist/constants.js",
     "./react": "./dist/react.js",
-    "./v2": "./dist/v2.js",
     "./package.json": "./package.json"
   },
   "files": [

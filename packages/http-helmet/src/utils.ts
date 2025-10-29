@@ -1,3 +1,5 @@
+import { SecurityHeaders } from ".";
+
 export function isQuoted(value: string): boolean {
   return /^".*"$/.test(value);
 }
@@ -40,8 +42,10 @@ function isObject(value: unknown) {
   return value !== null && typeof value === "object";
 }
 
+type HeadersOrSecurityHeaders = HeadersInit | SecurityHeaders;
+
 export function mergeHeaders(
-  ...sources: [HeadersInit, ...HeadersInit[]]
+  ...sources: [HeadersOrSecurityHeaders, ...HeadersOrSecurityHeaders[]]
 ): Headers {
   let result = new Headers();
 
@@ -50,7 +54,9 @@ export function mergeHeaders(
       throw new TypeError("All arguments must be of type object");
     }
 
-    let headers = new Headers(source);
+    let headers = new Headers(
+      source instanceof SecurityHeaders ? source.toHeaders() : source,
+    );
 
     for (let [key, value] of headers.entries()) {
       let lowerKey = key.toLowerCase();
