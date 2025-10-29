@@ -1,4 +1,5 @@
 import { STATUS_CODES } from "node:http";
+
 import type { MatcherResult } from "./matcher";
 
 export function toHaveStrictStatusText(response: Response): MatcherResult {

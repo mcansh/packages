@@ -1,5 +1,6 @@
-import { SELF } from "#src/utils.ts";
 import { expect, it } from "vitest";
+
+import { SELF } from "#src/utils.ts";
 import { ContentSecurityPolicy } from "./content-security-policy";
 
 it("creates a CSP policy with a single directive", () => {

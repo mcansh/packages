@@ -14,9 +14,9 @@ npm i @mcansh/http-helmet
 basic example using [`@mjackson/node-fetch-server`](https://github.com/mjackson/remix-the-web/tree/main/packages/node-fetch-server)
 
 ```js
-import * as http from "node:http";
-import { createRequestListener } from "@mjackson/node-fetch-server";
 import { createNonce, createSecureHeaders } from "@mcansh/http-helmet";
+import { createRequestListener } from "@mjackson/node-fetch-server";
+import * as http from "node:http";
 
 let html = String.raw;
 

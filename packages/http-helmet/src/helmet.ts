@@ -1,4 +1,5 @@
 import type { RequireOneOrNone } from "type-fest";
+
 import type { PublicContentSecurityPolicy } from "./rules/content-security-policy.js";
 import { createContentSecurityPolicy } from "./rules/content-security-policy.js";
 import type { PermissionsPolicy } from "./rules/permissions.js";

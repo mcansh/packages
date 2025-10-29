@@ -1,5 +1,6 @@
 import { kebabCase } from "change-case";
 import type { KebabCasedProperties, LiteralUnion } from "type-fest";
+
 import type { QuotedSource } from "../utils.js";
 import { isQuoted } from "../utils.js";
 

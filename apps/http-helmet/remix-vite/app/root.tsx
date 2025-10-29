@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+
 import rootStyleHref from "./root.css?url";
 
 export let links: LinksFunction = () => {

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import { globSync } from "glob";
 import { execSync } from "node:child_process";
 import semver from "semver";

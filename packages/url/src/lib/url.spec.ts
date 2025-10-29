@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { urlString } from "./url.js";
 
 describe("invalid", () => {

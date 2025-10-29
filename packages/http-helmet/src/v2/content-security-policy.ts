@@ -1,11 +1,12 @@
-import { isQuoted } from "#src/utils.ts";
 import parseContentSecurityPolicy from "content-security-policy-parser";
 import { objectEntries } from "ts-extras";
-import {
-  reservedCSPKeywords,
-  type ContentSecurityPolicyKebab,
-  type CspSetting,
+
+import { isQuoted } from "#src/utils.ts";
+import type {
+  ContentSecurityPolicyKebab,
+  CspSetting,
 } from "../rules/content-security-policy";
+import { reservedCSPKeywords } from "../rules/content-security-policy";
 
 type CspValueForKey<T extends string> = T extends "upgrade-insecure-requests"
   ? boolean

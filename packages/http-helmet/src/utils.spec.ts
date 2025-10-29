@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { createSecureHeaders } from "./helmet";
 import { mergeHeaders } from "./utils";
 import { SecurityHeaders } from "./v2";
