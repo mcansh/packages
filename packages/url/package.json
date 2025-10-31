@@ -35,6 +35,7 @@
   },
   "files": [
     "dist",
+    "static",
     "package.json",
     "README.md",
     "LICENSE"
