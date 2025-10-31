@@ -1,6 +1,6 @@
 # @mcansh/url
 
-a template string function to create urls and only keeping search params with values - based on this tweet: [![tweet](./tweet.jpg)](https://x.com/Steve8708/status/1792939860820644201)
+a template string function to create urls and only keeping search params with values - based on this tweet: [![tweet](./static/tweet.jpg)](https://x.com/Steve8708/status/1792939860820644201)
 
 ## Example
 
