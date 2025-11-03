@@ -25,8 +25,8 @@ catalogs:
       specifier: ^0.12.9
       version: 0.12.9
     typescript:
-      specifier: ^5.8.3
-      version: 5.9.2
+      specifier: ^5.9.3
+      version: 5.9.3
     vitest:
       specifier: ^3.2.4
       version: 3.2.4
@@ -70,7 +70,7 @@ importers:
         version: 3.6.2
       prettier-plugin-organize-imports:
         specifier: ^4.1.0
-        version: 4.3.0(prettier@3.6.2)(typescript@5.9.2)
+        version: 4.3.0(prettier@3.6.2)(typescript@5.9.3)
       prettier-plugin-sort-package-json:
         specifier: ^1.1.0
         version: 1.1.0(prettier@3.6.2)
@@ -82,7 +82,7 @@ importers:
         version: 7.7.2
       typedoc:
         specifier: ^0.28.7
-        version: 0.28.13(typescript@5.9.2)
+        version: 0.28.13(typescript@5.9.3)
       vitest:
         specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(happy-dom@20.0.10)(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1)
@@ -259,10 +259,10 @@ importers:
         version: 0.3.13
       tsdown:
         specifier: 'catalog:'
-        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2)
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
-        version: 5.9.2
+        version: 5.9.3
       vitest:
         specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(happy-dom@20.0.10)(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1)
@@ -320,10 +320,10 @@ importers:
         version: 19.2.0(react@19.2.0)
       tsdown:
         specifier: 'catalog:'
-        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2)
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
-        version: 5.9.2
+        version: 5.9.3
       vitest:
         specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(happy-dom@20.0.10)(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1)
@@ -347,10 +347,10 @@ importers:
         version: 0.3.13
       tsdown:
         specifier: 'catalog:'
-        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2)
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
-        version: 5.9.2
+        version: 5.9.3
       vitest:
         specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(happy-dom@20.0.10)(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1)
@@ -378,10 +378,10 @@ importers:
         version: 0.3.13
       tsdown:
         specifier: 'catalog:'
-        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2)
+        version: 0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
-        version: 5.9.2
+        version: 5.9.3
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.0)(happy-dom@20.0.10)(jiti@2.6.0)(lightningcss@1.30.1)(yaml@2.8.1)
@@ -5919,6 +5919,11 @@ packages:
 
   typescript@5.9.2:
     resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -11696,6 +11701,11 @@ snapshots:
       prettier: 3.6.2
       typescript: 5.9.2
 
+  prettier-plugin-organize-imports@4.3.0(prettier@3.6.2)(typescript@5.9.3):
+    dependencies:
+      prettier: 3.6.2
+      typescript: 5.9.3
+
   prettier-plugin-sort-package-json@1.1.0(prettier@3.6.2):
     dependencies:
       prettier: 3.6.2
@@ -12048,7 +12058,7 @@ snapshots:
     dependencies:
       glob: 7.2.3
 
-  rolldown-plugin-dts@0.13.14(rolldown@1.0.0-beta.41)(typescript@5.9.2):
+  rolldown-plugin-dts@0.13.14(rolldown@1.0.0-beta.41)(typescript@5.9.3):
     dependencies:
       '@babel/generator': 7.28.5
       '@babel/parser': 7.28.5
@@ -12060,7 +12070,7 @@ snapshots:
       get-tsconfig: 4.10.1
       rolldown: 1.0.0-beta.41
     optionalDependencies:
-      typescript: 5.9.2
+      typescript: 5.9.3
     transitivePeerDependencies:
       - oxc-resolver
       - supports-color
@@ -12605,7 +12615,7 @@ snapshots:
       minimist: 1.2.8
       strip-bom: 3.0.0
 
-  tsdown@0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.2):
+  tsdown@0.12.9(@arethetypeswrong/core@0.18.2)(publint@0.3.13)(typescript@5.9.3):
     dependencies:
       ansis: 4.2.0
       cac: 6.7.14
@@ -12615,7 +12625,7 @@ snapshots:
       empathic: 2.0.0
       hookable: 5.5.3
       rolldown: 1.0.0-beta.41
-      rolldown-plugin-dts: 0.13.14(rolldown@1.0.0-beta.41)(typescript@5.9.2)
+      rolldown-plugin-dts: 0.13.14(rolldown@1.0.0-beta.41)(typescript@5.9.3)
       semver: 7.7.2
       tinyexec: 1.0.1
       tinyglobby: 0.2.15
@@ -12623,7 +12633,7 @@ snapshots:
     optionalDependencies:
       '@arethetypeswrong/core': 0.18.2
       publint: 0.3.13
-      typescript: 5.9.2
+      typescript: 5.9.3
     transitivePeerDependencies:
       - '@typescript/native-preview'
       - oxc-resolver
@@ -12690,18 +12700,20 @@ snapshots:
       possible-typed-array-names: 1.1.0
       reflect.getprototypeof: 1.0.10
 
-  typedoc@0.28.13(typescript@5.9.2):
+  typedoc@0.28.13(typescript@5.9.3):
     dependencies:
       '@gerrit0/mini-shiki': 3.13.0
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
-      typescript: 5.9.2
+      typescript: 5.9.3
       yaml: 2.8.1
 
   typescript@5.6.1-rc: {}
 
   typescript@5.9.2: {}
+
+  typescript@5.9.3: {}
 
   uc.micro@2.1.0: {}
 
