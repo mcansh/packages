@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mcansh/packages.git",
-    "directory": "./packages/vitest-response-matchers"
+    "directory": "./packages/config"
   },
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "license": "MIT",
