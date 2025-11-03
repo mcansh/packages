@@ -73,7 +73,7 @@
     "@types/react-dom": "^19.2.2",
     "@vitest/coverage-v8": "catalog:",
     "content-security-policy-parser": "^0.6.0",
-    "happy-dom": "^18.0.1",
+    "happy-dom": "^20.0.2",
     "publint": "catalog:",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
