@@ -27,7 +27,7 @@
     "@types/react-dom": "^19.2.2",
     "oxlint": "^1.6.0",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5",
+    "vite": "^7.1.12",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "sideEffects": false
