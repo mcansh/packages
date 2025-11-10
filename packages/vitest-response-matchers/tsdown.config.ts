@@ -11,7 +11,9 @@ export default defineConfig({
   tsconfig: "tsconfig.json",
   sourcemap: true,
   clean: true,
-  exports: true,
+  exports: {
+    devExports: true,
+  },
   publint: true,
   attw: { profile: "node16" },
   skipNodeModulesBundle: true,

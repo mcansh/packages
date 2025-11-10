@@ -31,9 +31,9 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./constants": "./dist/constants.js",
-    "./react": "./dist/react.js",
+    ".": "./src/index.ts",
+    "./constants": "./src/constants.ts",
+    "./react": "./src/react.tsx",
     "./package.json": "./package.json"
   },
   "files": [
@@ -78,7 +78,13 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "provenance": true,
+    "exports": {
+      ".": "./dist/index.js",
+      "./constants": "./dist/constants.js",
+      "./react": "./dist/react.js",
+      "./package.json": "./package.json"
+    }
   },
   "imports": {
     "#*": "./*"

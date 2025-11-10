@@ -10,7 +10,9 @@ export default defineConfig({
   format: "esm",
   tsconfig: "./tsconfig.json",
   sourcemap: true,
-  exports: true,
+  exports: {
+    devExports: true,
+  },
   clean: true,
   publint: true,
   attw: { profile: "esmOnly" },
