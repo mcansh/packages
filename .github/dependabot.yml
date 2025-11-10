@@ -30,6 +30,10 @@ updates:
           - "react-dom"
           - "@types/react"
           - "@types/react-dom"
+      "tailwindcss":
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
       "eslint":
         patterns:
           - "@typescript-eslint/eslint-plugin"
