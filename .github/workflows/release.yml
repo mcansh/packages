@@ -10,9 +10,10 @@ on:
       - "!release-manual-*"
 
 permissions:
-  id-token: write
-  pull-requests: write
-  contents: write
+  id-token: write # to use OpenID Connect token for trusted publishing (changesets/action)
+  pull-requests: write # to create pull request (changesets/action)
+  contents: write # to create release (changesets/action)
+  issues: write # to post issue comments (changesets/action)
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -65,8 +66,6 @@ jobs:
           title: "chore: Update version for release"
           publish: pnpm run changeset:release
           createGithubReleases: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   comment:
     name: 📝 Comment on issues and pull requests
