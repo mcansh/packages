@@ -52,6 +52,10 @@ jobs:
               args: [--frozen-lockfile, --strict-peer-dependencies]
               cwd: ./
 
+      - name: 🟧 Set publish-branch to current branch
+        run: |
+          echo "publish-branch=$(git branch --show-current)" >> ~/.npmrc
+
         # This action has two responsibilities. The first time the workflow runs
         # (initial push to a `release-*` branch) it will create a new branch and
         # then open a PR with the related changes for the new version. After the
