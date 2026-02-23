@@ -9,7 +9,7 @@
     "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**\" build",
     "build": "pnpm run --sequential \"/^build:.*/\"",
     "changeset": "changeset",
-    "changeset:release": "pnpm publish --recursive && changeset tag",
+    "changeset:release": "pnpm publish --recursive --no-git-checks && changeset tag",
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
