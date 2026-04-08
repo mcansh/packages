@@ -39,6 +39,10 @@
       "import": "./dist/react.js",
       "require": "./dist/react.cjs"
     },
+    "./remix-middleware": {
+      "import": "./dist/remix-middleware.js",
+      "require": "./dist/remix-middleware.cjs"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -51,10 +55,18 @@
     "type-fest": "^4.41.0"
   },
   "peerDependencies": {
+    "@remix-run/fetch-router": ">=0.18.0",
+    "@remix-run/async-context-middleware": ">=0.2.0",
     "react": ">=18.0.0 || >=19.0.0",
     "react-dom": ">=18.0.0 || >=19.0.0"
   },
   "peerDependenciesMeta": {
+    "@remix-run/fetch-router": {
+      "optional": true
+    },
+    "@remix-run/async-context-middleware": {
+      "optional": true
+    },
     "react": {
       "optional": true
     },
@@ -64,6 +76,8 @@
   },
   "devDependencies": {
     "@arethetypeswrong/core": "catalog:",
+    "@remix-run/async-context-middleware": "^0.2.0",
+    "@remix-run/fetch-router": "^0.18.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -77,6 +91,7 @@
     "publint": "catalog:",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "remix": "3.0.0-alpha.4",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

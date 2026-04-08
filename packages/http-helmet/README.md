@@ -11,14 +11,13 @@ npm i @mcansh/http-helmet
 
 ## Usage
 
-basic example using [`@mjackson/node-fetch-server`](https://github.com/mjackson/remix-the-web/tree/main/packages/node-fetch-server)
+basic example using [`@remix-run/node-fetch-server`](https://github.com/remix-run/remix/tree/main/packages/node-fetch-server)
 
 ```js
 import * as http from "node:http";
-import { createRequestListener } from "@mjackson/node-fetch-server";
+import { createRequestListener } from "@remix-run/node-fetch-server";
+import { html } from "@remix-run/html-template";
 import { createNonce, createSecureHeaders } from "@mcansh/http-helmet";
-
-let html = String.raw;
 
 let handler = (request) => {
   let nonce = createNonce();
