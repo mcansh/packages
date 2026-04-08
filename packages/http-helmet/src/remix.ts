@@ -4,6 +4,21 @@ import { createContextKey } from "@remix-run/fetch-router";
 import type { CreateSecureHeaders } from "./index.ts";
 import { createSecureHeaders, mergeHeaders } from "./index.ts";
 
+export {
+  createNonce,
+  HASH,
+  mergeHeaders,
+  NONCE,
+  NONE,
+  REPORT_SAMPLE,
+  SELF,
+  STRICT_DYNAMIC,
+  UNSAFE_EVAL,
+  UNSAFE_HASHES,
+  UNSAFE_INLINE,
+  WASM_UNSAFE_EVAL,
+} from "./utils";
+
 let NONCE_KEY = createContextKey<string>();
 
 export function getCSPNonce(): string {
