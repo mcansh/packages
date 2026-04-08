@@ -37,7 +37,9 @@ function isObject(value: unknown) {
   return value !== null && typeof value === "object";
 }
 
-export function mergeHeaders(...sources: HeadersInit[]): Headers {
+export function mergeHeaders(
+  ...sources: [HeadersInit, ...Array<HeadersInit>]
+): Headers {
   let result = new Headers();
 
   for (let source of sources) {
