@@ -5,12 +5,17 @@
 adds support for remix middleware
 
 ```ts
-import { securityHeaders, NONCE, getCSPNonce, setCSPNonce } from "@mcansh/http-helmet/remix-middleware";
+import {
+  securityHeaders,
+  NONCE,
+  getCSPNonce,
+  setCSPNonce,
+} from "@mcansh/http-helmet/remix-middleware";
 import { createRouter } from "remix/fetch-router";
 import { asyncContext } from "@remix-run/async-context-middleware";
 
-let nonce = createNonce()
-setCSPNonce(nonce)
+let nonce = createNonce();
+setCSPNonce(nonce);
 
 let router = createRouter({
   middleware: [
@@ -20,8 +25,8 @@ let router = createRouter({
         "default-src": ["'self'"],
         "script-src": ["'self'", NONCE(nonce)],
       },
-    })
-  ]
+    }),
+  ],
 });
 ```
 
@@ -30,11 +35,11 @@ let router = createRouter({
 ```ts
 export const home = {
   handler() {
-    let nonce = getCSPNonce()
+    let nonce = getCSPNonce();
 
     return render(
-      `<script nonce="${nonce}">console.log("hello world")</script>`
-    )
-  }
+      `<script nonce="${nonce}">console.log("hello world")</script>`,
+    );
+  },
 } satisfies BuildAction;
 ```
