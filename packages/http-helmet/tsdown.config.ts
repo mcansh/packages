@@ -10,6 +10,7 @@ export default defineConfig({
   entry: {
     index: "./src/index.ts",
     react: "./src/react.tsx",
+    "remix-middleware": "./src/remix.ts",
   },
   dts: true,
   format: ["cjs", "esm"],
