@@ -52,13 +52,13 @@
   ],
   "dependencies": {
     "change-case": "^5.4.4",
-    "type-fest": "^4.41.0"
+    "type-fest": "catalog:"
   },
   "peerDependencies": {
-    "@remix-run/fetch-router": ">=0.18.0",
-    "@remix-run/async-context-middleware": ">=0.2.0",
-    "react": ">=18.0.0 || >=19.0.0",
-    "react-dom": ">=18.0.0 || >=19.0.0"
+    "@remix-run/async-context-middleware": "^0.3.0",
+    "@remix-run/fetch-router": "^0.20.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
     "@remix-run/fetch-router": {
@@ -76,21 +76,21 @@
   },
   "devDependencies": {
     "@arethetypeswrong/core": "catalog:",
-    "@remix-run/async-context-middleware": "^0.2.0",
-    "@remix-run/fetch-router": "^0.18.0",
+    "@remix-run/async-context-middleware": "^0.3.4",
+    "@remix-run/fetch-router": "^0.20.1",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "@vitest/coverage-v8": "catalog:",
     "content-security-policy-parser": "^0.6.0",
-    "happy-dom": "^20.0.10",
+    "happy-dom": "^20.10.6",
     "publint": "catalog:",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "remix": "3.0.0-alpha.4",
     "tsdown": "catalog:",
     "typescript": "catalog:",
