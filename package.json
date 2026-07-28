@@ -22,24 +22,24 @@
     "typecheck": "pnpm run --recursive typecheck",
     "validate": "run-p build lint format typecheck"
   },
-  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
+  "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72",
   "dependencies": {
-    "@changesets/cli": "^2.29.5",
+    "@changesets/cli": "^2.31.1",
     "@manypkg/get-packages": "^3.0.0",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
-    "chalk": "^5.4.1",
-    "jsonfile": "^6.1.0",
+    "chalk": "^6.0.0",
+    "jsonfile": "^6.2.1",
     "junit": "^1.4.9",
-    "pkg-pr-new": "^0.0.54",
-    "prettier": "^3.6.2",
+    "pkg-pr-new": "^0.0.80",
+    "prettier": "^3.9.6",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-sort-package-json": "^1.1.0",
     "prompt-confirm": "^2.0.4",
-    "semver": "^7.7.2",
-    "typedoc": "^0.28.7",
+    "semver": "^7.8.5",
+    "typedoc": "^0.28.20",
     "vitest": "catalog:",
-    "wrangler": "^4.45.0"
+    "wrangler": "^4.114.0"
   },
   "workspaces": [
     "packages/*",
