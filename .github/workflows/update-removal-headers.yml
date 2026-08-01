@@ -70,7 +70,7 @@ jobs:
                 if type == "string" then
                   length > 0
                     and length <= 256
-                    and test("^[!#$%&\u0027*+.^_`|~0-9A-Za-z-]+$")
+                    and test("\\A[!#$%&\u0027*+.^_`|~0-9A-Za-z-]+\\z")
                 else
                   false
                 end
