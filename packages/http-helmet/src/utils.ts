@@ -1,3 +1,5 @@
+import { removalHeaders } from "./removal-headers.js";
+
 export function isQuoted(value: string): boolean {
   return /^".*"$/.test(value);
 }
@@ -72,4 +74,14 @@ export function createNonce(): string {
   return typeof toBase64 === "function"
     ? toBase64.call(new TextEncoder().encode(uuid))
     : btoa(uuid);
+}
+
+export function removeInsecureHeaders(responseHeaders: Headers) {
+  const headers = new Headers(responseHeaders);
+
+  for (const key of removalHeaders) {
+    headers.delete(key);
+  }
+
+  return headers;
 }

@@ -1,0 +1,153 @@
+name: 🛡️ Update removal headers
+
+on:
+  schedule:
+    - cron: "17 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-http-helmet-removal-headers
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: 🛡️ Update removal headers
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: 🛡️ Update removal headers and pull request
+        shell: bash
+        env:
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          CHANGESET_PATH: .changeset/update-http-helmet-removal-headers.md
+          GH_TOKEN: ${{ github.token }}
+          OUTPUT_PATH: packages/http-helmet/src/removal-headers.ts
+          SOURCE_URL: https://raw.githubusercontent.com/OWASP/www-project-secure-headers/refs/heads/master/ci/headers_remove.json
+          UPDATE_BRANCH: automation/update-removal-headers
+        run: |
+          set -euo pipefail
+
+          response_file=$(mktemp)
+          trap 'rm -f "$response_file"' EXIT
+
+          curl \
+            --fail \
+            --location \
+            --max-filesize 1048576 \
+            --max-time 30 \
+            --proto '=https' \
+            --proto-redir '=https' \
+            --retry 3 \
+            --show-error \
+            --silent \
+            --tlsv1.2 \
+            "$SOURCE_URL" \
+            --output "$response_file"
+
+          response_size=$(wc -c < "$response_file")
+          if (( response_size > 1048576 )); then
+            echo "OWASP response exceeded the 1 MiB limit" >&2
+            exit 1
+          fi
+
+          jq --exit-status '
+            .headers
+            | type == "array"
+              and length > 0
+              and length <= 1000
+              and (unique | length) == length
+              and all(.[];
+                if type == "string" then
+                  length > 0
+                    and length <= 256
+                    and test("^[!#$%&\u0027*+.^_`|~0-9A-Za-z-]+$")
+                else
+                  false
+                end
+              )
+          ' "$response_file" > /dev/null
+
+          remote_branch_sha=""
+          if git ls-remote --exit-code --heads origin "refs/heads/$UPDATE_BRANCH" > /dev/null 2>&1; then
+            git fetch \
+              --no-tags \
+              origin \
+              "+refs/heads/$UPDATE_BRANCH:refs/remotes/origin/$UPDATE_BRANCH"
+            remote_branch_sha=$(git rev-parse "refs/remotes/origin/$UPDATE_BRANCH")
+          fi
+
+          git switch \
+            --force-create "$UPDATE_BRANCH" \
+            "origin/$BASE_BRANCH"
+
+          {
+            printf 'export const removalHeaders = [\n'
+            jq --raw-output '.headers[] | "  \(tojson),"' "$response_file"
+            printf '];\n'
+          } > "$OUTPUT_PATH"
+
+          if [[ -z "$(git status --porcelain -- "$OUTPUT_PATH")" ]]; then
+            echo "Removal headers are already up to date"
+            exit 0
+          fi
+
+          printf '%s\n' \
+            '---' \
+            '"@mcansh/http-helmet": patch' \
+            '---' \
+            '' \
+            'Update the insecure response headers list from the OWASP Secure Headers Project.' \
+            > "$CHANGESET_PATH"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$CHANGESET_PATH" "$OUTPUT_PATH"
+          git commit -m "chore(http-helmet): update removal headers"
+
+          if [[ -n "$remote_branch_sha" ]]; then
+            git push \
+              --force-with-lease="refs/heads/$UPDATE_BRANCH:$remote_branch_sha" \
+              origin \
+              "HEAD:refs/heads/$UPDATE_BRANCH"
+          else
+            git push \
+              --set-upstream origin \
+              "HEAD:refs/heads/$UPDATE_BRANCH"
+          fi
+
+          existing_pr=$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --base "$BASE_BRANCH" \
+            --head "$UPDATE_BRANCH" \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')
+
+          if [[ -n "$existing_pr" ]]; then
+            gh pr view "$existing_pr" \
+              --repo "$GITHUB_REPOSITORY" \
+              --json url \
+              --jq '"Updated pull request: \(.url)"'
+            exit 0
+          fi
+
+          printf -v pr_body '%s\n\n%s' \
+            'Updates `packages/http-helmet/src/removal-headers.ts` from the OWASP Secure Headers Project.' \
+            'Generated automatically by `.github/workflows/update-removal-headers.yml`.'
+
+          gh pr create \
+            --repo "$GITHUB_REPOSITORY" \
+            --base "$BASE_BRANCH" \
+            --head "$UPDATE_BRANCH" \
+            --title "chore(http-helmet): update removal headers" \
+            --body "$pr_body"
