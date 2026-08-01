@@ -11,6 +11,7 @@ export {
   WASM_UNSAFE_EVAL,
   createNonce,
   mergeHeaders,
+  removeInsecureHeaders,
 } from "./utils";
 
 export {
