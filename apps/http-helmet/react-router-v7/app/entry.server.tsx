@@ -2,6 +2,7 @@ import {
   createNonce,
   createSecureHeaders,
   mergeHeaders,
+  removeInsecureHeaders,
 } from "@mcansh/http-helmet";
 import { NonceProvider } from "@mcansh/http-helmet/react";
 import { createReadableStreamFromReadable } from "@react-router/node";
@@ -54,7 +55,10 @@ export default function handleRequest(
 
           resolve(
             new Response(stream, {
-              headers: mergeHeaders(responseHeaders, secureHeaders),
+              headers: mergeHeaders(
+                removeInsecureHeaders(responseHeaders),
+                secureHeaders,
+              ),
               status: responseStatusCode,
             }),
           );
