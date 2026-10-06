@@ -18,14 +18,14 @@ export type QuotedSource =
   | "'report-sample'"
   | HashSource;
 
-export let SELF = "'self'" as const;
-export let NONE = "'none'" as const;
-export let UNSAFE_INLINE = "'unsafe-inline'" as const;
-export let UNSAFE_EVAL = "'unsafe-eval'" as const;
-export let WASM_UNSAFE_EVAL = "'wasm-unsafe-eval'" as const;
-export let UNSAFE_HASHES = "'unsafe-hashes'" as const;
-export let STRICT_DYNAMIC = "'strict-dynamic'" as const;
-export let REPORT_SAMPLE = "'report-sample'" as const;
+export const SELF = "'self'" as const;
+export const NONE = "'none'" as const;
+export const UNSAFE_INLINE = "'unsafe-inline'" as const;
+export const UNSAFE_EVAL = "'unsafe-eval'" as const;
+export const WASM_UNSAFE_EVAL = "'wasm-unsafe-eval'" as const;
+export const UNSAFE_HASHES = "'unsafe-hashes'" as const;
+export const STRICT_DYNAMIC = "'strict-dynamic'" as const;
+export const REPORT_SAMPLE = "'report-sample'" as const;
 export function NONCE(nonce: string): `'nonce-${string}'` {
   return `'nonce-${nonce}'`;
 }

@@ -6,7 +6,6 @@ export type TemporaryFile = {
   contents: string;
 };
 
-
 export async function createTemporaryFiles(
   ...files: [TemporaryFile, ...TemporaryFile[]]
 ) {

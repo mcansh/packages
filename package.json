@@ -1,8 +1,8 @@
 {
-  "private": true,
   "name": "packages",
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "private": true,
   "license": "MIT",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
   "type": "module",
   "scripts": {
     "build:packages": "pnpm run --recursive --parallel --filter \"./packages/**\" build",
@@ -13,8 +13,8 @@
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
     "dev": "pnpm run --filter http-helmet --filter example-app --recursive --parallel dev",
     "dev:vite": "pnpm run --filter http-helmet --filter example-vite-app --recursive --parallel dev",
-    "format": "prettier --cache --ignore-path .gitignore --ignore-path .prettierignore --write .",
-    "lint": "pnpm run --recursive --parallel lint",
+    "format": "oxfmt",
+    "lint": "oxlint --fix",
     "prepublishOnly": "pnpm run build",
     "publish": "./scripts/publish.js",
     "test": "vitest",
@@ -22,7 +22,6 @@
     "typecheck": "pnpm run --recursive typecheck",
     "validate": "run-p build lint format typecheck"
   },
-  "packageManager": "pnpm@12.9.1+sha512.06b055fff5cd20dc12781de173ced3310ce0951bf2ec620211a16045d5444d5c93a663210764ef29a653a610459ba0368f0e74f84d80c54723cf95aae7bc0d6d",
   "dependencies": {
     "@changesets/cli": "^2.29.5",
     "@manypkg/get-packages": "^3.0.0",
@@ -31,15 +30,20 @@
     "chalk": "^5.4.1",
     "jsonfile": "^6.1.0",
     "junit": "^1.4.9",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
     "pkg-pr-new": "^0.0.54",
-    "prettier": "^3.6.2",
-    "prettier-plugin-organize-imports": "^4.1.0",
-    "prettier-plugin-sort-package-json": "^1.1.0",
     "prompt-confirm": "^2.0.4",
     "semver": "^7.7.2",
     "typedoc": "^0.28.7",
     "vitest": "catalog:",
     "wrangler": "^4.25.0"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:"
   },
   "devEngines": {
     "packageManager": {
@@ -47,5 +51,6 @@
       "version": "^12.9.1",
       "onFail": "warn"
     }
-  }
+  },
+  "packageManager": "pnpm@12.9.1+sha512.06b055fff5cd20dc12781de173ced3310ce0951bf2ec620211a16045d5444d5c93a663210764ef29a653a610459ba0368f0e74f84d80c54723cf95aae7bc0d6d"
 }

@@ -54,20 +54,17 @@ if (import.meta.vitest) {
   });
 
   it.fails("fails when passing a non response", () => {
-    const received = { status: 200, statusText: "OK" };
-    const expected = { status: 200, statusText: "OK" };
+    let received = { status: 200, statusText: "OK" };
+    let expected = { status: 200, statusText: "OK" };
     expect(() => {
       throw received;
     }).toThrowResponse(expected);
   });
 
-  it.fails(
-    "should not throw a Response with different status or statusText",
-    () => {
-      let expected = new Response("Not Found", { status: 404 });
-      expect(() => {
-        throw new Response("Internal Server Error", { status: 500 });
-      }).toThrowResponse(expected);
-    },
-  );
+  it.fails("should not throw a Response with different status or statusText", () => {
+    let expected = new Response("Not Found", { status: 404 });
+    expect(() => {
+      throw new Response("Internal Server Error", { status: 500 });
+    }).toThrowResponse(expected);
+  });
 }

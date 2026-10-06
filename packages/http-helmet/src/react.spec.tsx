@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+
 import { NonceProvider, useNonce } from "./react";
 
 describe("NonceProvider", () => {
@@ -13,7 +14,7 @@ describe("NonceProvider", () => {
     }
 
     function Child() {
-      const nonce = useNonce();
+      let nonce = useNonce();
       return <div data-testid="nonce">{nonce}</div>;
     }
 

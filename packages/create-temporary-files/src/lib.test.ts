@@ -1,6 +1,8 @@
 import Fsp from "node:fs/promises";
 import Path from "node:path";
+
 import { expect, it, vi } from "vitest";
+
 import { createTemporaryFiles } from "./lib";
 
 it("creates temporary files and cleans them up", async () => {
@@ -25,13 +27,13 @@ it("creates temporary files and cleans them up", async () => {
 
     directoryPath = tmp.directory;
 
-    const fileContents = await Fsp.readFile(
+    let fileContents = await Fsp.readFile(
       Path.join(tmp.directory, "file.txt"),
       "utf8",
     );
     expect(fileContents).toBe("Hello, world!");
 
-    const nestedFileContents = await Fsp.readFile(
+    let nestedFileContents = await Fsp.readFile(
       Path.join(tmp.directory, "nested/dir/file.txt"),
       "utf8",
     );

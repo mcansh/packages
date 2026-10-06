@@ -1,4 +1,5 @@
 import { SetCookie } from "@mjackson/headers";
+
 import type { MatcherResult } from "./matcher";
 
 export function toHaveCookies(
@@ -11,15 +12,15 @@ export function toHaveCookies(
       ? response.headers
       : new Headers(response.headers);
 
-  let responseCookies = headers.get("set-cookie");
+  let responseCookies = headers.get("Set-Cookie");
 
   if (!responseCookies) {
     return {
       pass: false,
-      message: () => {
-        return `Expected "Set-Cookie" header to be present, but it was not found`;
-      },
-      actual: headers.get("set-cookie"),
+      message: () => 
+        `Expected "Set-Cookie" header to be present, but it was not found`
+      ,
+      actual: headers.get("Set-Cookie"),
       expected: cookies,
     };
   }
@@ -35,9 +36,9 @@ export function toHaveCookies(
 
   return {
     pass,
-    message: () => {
-      return `Expected response to have cookies: ${responseCookies}`;
-    },
+    message: () => 
+      `Expected response to have cookies: ${responseCookies}`
+    ,
     expected: cookies,
     actual: cookiesArray.map((cookie) => cookie.toString()),
   };
@@ -50,9 +51,9 @@ if (import.meta.vitest) {
 
   it("toHaveCookies matcher", () => {
     let headers = new Headers();
-    headers.append("set-cookie", "sessionId=abc123; Path=/");
-    headers.append("set-cookie", "userId=xyz789; Path=/");
-    headers.append("set-cookie", "anotherId=def456;Path=/;httpOnly");
+    headers.append("Set-Cookie", "sessionId=abc123; Path=/");
+    headers.append("Set-Cookie", "userId=xyz789; Path=/");
+    headers.append("Set-Cookie", "anotherId=def456;Path=/;httpOnly");
     let response = new Response("Hello, world!", { headers });
     expect(response).toHaveCookies(["sessionId=abc123; Path=/"]);
   });
@@ -70,15 +71,15 @@ if (import.meta.vitest) {
 
   it.fails("toHaveCookies matcher - negative case", () => {
     let response = new Response("Hello, world!", {
-      headers: { "set-cookie": "sessionId=abc123; Path=/" },
+      headers: { "Set-Cookie": "sessionId=abc123; Path=/" },
     });
     expect(response).toHaveCookies(["sessionId=wrongValue"]);
   });
 
   it.fails("strict mode ensures all cookies are accounted for", () => {
     let headers = new Headers();
-    headers.append("set-cookie", "sessionId=abc123; Path=/");
-    headers.append("set-cookie", "userId=xyz789; Path=/");
+    headers.append("Set-Cookie", "sessionId=abc123; Path=/");
+    headers.append("Set-Cookie", "userId=xyz789; Path=/");
     let response = new Response("Hello, world!", { headers });
     expect(response).toHaveCookies(["sessionId=abc123; Path=/"], {
       strict: true,
@@ -87,8 +88,8 @@ if (import.meta.vitest) {
 
   it("strict mode ensures all cookies are accounted for", () => {
     let headers = new Headers();
-    headers.append("set-cookie", "sessionId=abc123; Path=/");
-    headers.append("set-cookie", "userId=xyz789; Path=/");
+    headers.append("Set-Cookie", "sessionId=abc123; Path=/");
+    headers.append("Set-Cookie", "userId=xyz789; Path=/");
     let response = new Response("Hello, world!", { headers });
     expect(response).toHaveCookies(
       ["sessionId=abc123; Path=/", "userId=xyz789; Path=/"],

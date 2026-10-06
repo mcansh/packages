@@ -53,7 +53,7 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
         );
       }
 
-      const allowedValuesSeen: Set<string> = new Set();
+      let allowedValuesSeen: Set<string> = new Set();
 
       for (let allowedValue of featureValues) {
         if (typeof allowedValue !== "string") {
@@ -83,8 +83,8 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
         );
       }
 
-      const featureKeyDashed = kebabCase(key);
-      const featureValuesUnion = featureValues
+      let featureKeyDashed = kebabCase(key);
+      let featureValuesUnion = featureValues
         .map((value) => {
           if (reservedPermissionKeywords.has(value)) {
             return value;

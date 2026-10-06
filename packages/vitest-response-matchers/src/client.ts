@@ -16,8 +16,12 @@ declare namespace matchers {
 }
 
 declare module "vitest" {
-  interface Assertion<T = any>
-    extends matchers.CustomResponseMatchers<any, T> {}
-  interface AsymmetricMatchersContaining
-    extends matchers.CustomResponseMatchers<any, any> {}
+  interface Assertion<T = any> extends matchers.CustomResponseMatchers<
+    any,
+    T
+  > {}
+  interface AsymmetricMatchersContaining extends matchers.CustomResponseMatchers<
+    any,
+    any
+  > {}
 }

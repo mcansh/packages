@@ -1,6 +1,6 @@
 import { configDefaults, defineConfig } from "vitest/config";
 
-let exclude = [
+const exclude = [
   "**/build/**",
   "**/dist/**",
   "**/apps/**",

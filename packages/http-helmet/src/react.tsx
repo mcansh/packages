@@ -1,6 +1,6 @@
 import * as React from "react";
 
-let NonceContext = React.createContext<string | undefined>(undefined);
+const NonceContext = React.createContext<string | undefined>(undefined);
 
 type NonceProviderProps = {
   nonce: string;

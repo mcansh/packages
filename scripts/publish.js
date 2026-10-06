@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-import { globSync } from "glob";
 import { execSync } from "node:child_process";
+
+import { globSync } from "glob";
 import semver from "semver";
 
-let packages = globSync("packages/*", { absolute: true });
+const packages = globSync("packages/*", { absolute: true });
 
 function getTaggedVersion() {
   let output = execSync("git tag --list --points-at HEAD").toString().trim();

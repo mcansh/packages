@@ -1,5 +1,6 @@
 import { kebabCase } from "change-case";
 import type { KebabCasedProperties, LiteralUnion } from "type-fest";
+
 import type { QuotedSource } from "../utils.js";
 import { isQuoted } from "../utils.js";
 
@@ -47,7 +48,7 @@ export type PublicContentSecurityPolicy = Parameters<
   typeof createContentSecurityPolicy
 >[0];
 
-let reservedCSPKeywords = new Set([
+const reservedCSPKeywords = new Set([
   "self",
   "none",
   "unsafe-inline",

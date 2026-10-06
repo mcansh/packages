@@ -60,7 +60,7 @@ export class UrlBuilder {
   }
 
   password(password: string): Omit<this, "password"> {
-    const [username, domain] = this.domainValue.split("@");
+    let [username, domain] = this.domainValue.split("@");
     this.domainValue = `${username}:${password}@${domain}`;
     return this;
   }
@@ -71,7 +71,7 @@ export class UrlBuilder {
   }
 
   toURL(): URL {
-    const urlString = this.build();
+    let urlString = this.build();
     return new URL(urlString);
   }
 
@@ -95,14 +95,14 @@ export class UrlBuilder {
       path += "/";
     }
 
-    const query = Object.keys(this.queryParams)
+    let query = Object.keys(this.queryParams)
       .map(
         (key) =>
           `${encodeURIComponent(key)}=${encodeURIComponent(String(this.queryParams[key]))}`,
       )
       .join("&");
-    const queryString = query ? `?${query}` : "";
-    const hashString = this.hashValue ? this.hashValue : "";
+    let queryString = query ? `?${query}` : "";
+    let hashString = this.hashValue ? this.hashValue : "";
 
     return `${this.protocolValue}://${this.domainValue}${path}${queryString}${hashString}`;
   }
