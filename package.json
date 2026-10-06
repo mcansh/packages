@@ -23,21 +23,21 @@
     "validate": "run-p build lint format typecheck"
   },
   "dependencies": {
-    "@changesets/cli": "^2.29.5",
+    "@changesets/cli": "^3.0.3",
     "@manypkg/get-packages": "^3.0.0",
     "@types/node": "catalog:",
     "@vitest/coverage-v8": "catalog:",
-    "chalk": "^5.4.1",
-    "jsonfile": "^6.1.0",
+    "chalk": "^6.0.1",
+    "jsonfile": "^6.2.1",
     "junit": "^1.4.9",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
-    "pkg-pr-new": "^0.0.54",
+    "pkg-pr-new": "^0.0.90",
     "prompt-confirm": "^2.0.4",
-    "semver": "^7.7.2",
-    "typedoc": "^0.28.7",
+    "semver": "^7.8.5",
+    "typedoc": "^0.28.20",
     "vitest": "catalog:",
-    "wrangler": "^4.25.0"
+    "wrangler": "^4.147.0"
   },
   "devDependencies": {
     "@oxlint/plugins": "catalog:",
