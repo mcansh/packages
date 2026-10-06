@@ -6,6 +6,7 @@ export type Matcher = MatchersObject[keyof MatchersObject]
 
 export type MatcherResult = ReturnType<Matcher>
 
+/** @inline */
 export type JsonValue =
   | null
   | boolean

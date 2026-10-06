@@ -2,10 +2,13 @@ export function isQuoted(value: string): boolean {
   return /^".*"$/.test(value)
 }
 
+/** @inline */
 type Algorithm = "sha256" | "sha384" | "sha512"
 
+/** @inline */
 type HashSource = `'${Algorithm}-${string}'`
 
+/** @inline */
 export type QuotedSource =
   | "'self'"
   | "'none'"
