@@ -28,7 +28,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "imports": {
     "#*": "./*"
   },
@@ -51,7 +51,7 @@
     "@arethetypeswrong/core": "catalog:",
     "@total-typescript/tsconfig": "catalog:",
     "@types/node": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
+    "@vitest/coverage-v8": "^3.2.4",
     "publint": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
