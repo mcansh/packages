@@ -12,7 +12,7 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "types": ["node"],
     "paths": {
       "~/*": ["./app/*"]
     },
