@@ -70,6 +70,7 @@ export function createContentSecurityPolicy(
   let { "upgrade-insecure-requests": upgradeInsecureRequests, ...rest } =
     Object.entries(settings).reduce<ContentSecurityPolicyKebab>(
       (acc, [key, value]) => {
+        // SAFETY: settings only contains CSP directive keys; kebabCase maps them to the corresponding kebab-case keys.
         let kebab = kebabCase(key) as keyof ContentSecurityPolicyKebab
         if (acc[kebab]) {
           throw new Error(
@@ -98,11 +99,10 @@ export function createContentSecurityPolicy(
       )
     }
 
-    let definedValues = values.filter(
-      (v): v is string => typeof v !== "undefined",
-    )
+    let definedValues = values.filter((v): v is string => v !== undefined)
 
     definedValues.forEach((allowedValue) => {
+      // oxlint-disable-next-line anti-slop/no-runtime-typeof -- Validate each CSP source at the public input boundary.
       if (typeof allowedValue !== "string") {
         throw new Error(
           `[createContentSecurityPolicy]: The value of the "${key}" contains a non-string, which is not supported.`,
