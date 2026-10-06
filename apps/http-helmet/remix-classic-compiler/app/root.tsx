@@ -1,5 +1,5 @@
-import { useNonce } from "@mcansh/http-helmet/react";
-import type { LinksFunction } from "@remix-run/node";
+import { useNonce } from "@mcansh/http-helmet/react"
+import type { LinksFunction } from "@remix-run/node"
 import {
   Links,
   LiveReload,
@@ -7,15 +7,16 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
-import appStylesHref from "./styles/app.css";
+} from "@remix-run/react"
+
+import appStylesHref from "./styles/app.css"
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: appStylesHref }];
-};
+  return [{ rel: "stylesheet", href: appStylesHref }]
+}
 
 export default function App() {
-  let nonce = useNonce();
+  let nonce = useNonce()
 
   return (
     <html lang="en">
@@ -33,5 +34,5 @@ export default function App() {
         <LiveReload nonce={nonce} />
       </body>
     </html>
-  );
+  )
 }

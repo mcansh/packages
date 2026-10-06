@@ -1,4 +1,4 @@
-import type { MatcherResult } from "./matcher";
+import type { MatcherResult } from "./matcher"
 
 export function toMatchResponse(
   received: Response,
@@ -6,14 +6,15 @@ export function toMatchResponse(
 ): MatcherResult {
   if (!(received instanceof Response)) {
     return {
-      message: () => `Expected a Response, but received ${typeof received}`,
+      message: () => `Expected a Response`,
+      actual: received,
       pass: false,
-    };
+    }
   }
 
   return {
     message() {
-      return `Expected response to have (status: ${expected.status}, statusText: "${expected.statusText}"), but received (status: ${received.status}, statusText: "${received.statusText}")`;
+      return `Expected response to have (status: ${expected.status}, statusText: "${expected.statusText}"), but received (status: ${received.status}, statusText: "${received.statusText}")`
     },
     pass:
       received instanceof Response &&
@@ -27,29 +28,29 @@ export function toMatchResponse(
       status: expected.status,
       statusText: expected.statusText,
     },
-  };
+  }
 }
 
 if (import.meta.vitest) {
-  let { expect, it } = import.meta.vitest;
+  let { expect, it } = import.meta.vitest
 
-  expect.extend({ toMatchResponse });
+  expect.extend({ toMatchResponse })
 
   it("should match the response status and statusText", () => {
-    const received = new Response(null, { status: 200, statusText: "OK" });
-    const expected = { status: 200, statusText: "OK" };
-    expect(received).toMatchResponse(expected);
-  });
+    let received = new Response(null, { status: 200, statusText: "OK" })
+    let expected = { status: 200, statusText: "OK" }
+    expect(received).toMatchResponse(expected)
+  })
 
   it.fails("fails when passing a non response", () => {
-    const received = { status: 200, statusText: "OK" };
-    const expected = { status: 200, statusText: "OK" };
-    expect(received).toMatchResponse(expected);
-  });
+    let received = { status: 200, statusText: "OK" }
+    let expected = { status: 200, statusText: "OK" }
+    expect(received).toMatchResponse(expected)
+  })
 
   it.fails("fails when passing no match", () => {
-    const received = new Response(null, { status: 200, statusText: "OK" });
-    const expected = { status: 404, statusText: "Not Found" };
-    expect(received).toMatchResponse(expected);
-  });
+    let received = new Response(null, { status: 200, statusText: "OK" })
+    let expected = { status: 404, statusText: "Not Found" }
+    expect(received).toMatchResponse(expected)
+  })
 }

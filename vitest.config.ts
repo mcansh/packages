@@ -1,6 +1,6 @@
-import { configDefaults, defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config"
 
-let exclude = [
+const exclude = [
   "**/build/**",
   "**/dist/**",
   "**/apps/**",
@@ -11,12 +11,11 @@ let exclude = [
   "**/vitest.setup.ts",
   "**/public/**",
   "**/src/index.ts",
-];
+]
 
 export default defineConfig({
   test: {
     projects: ["./packages/*"],
-    include: ["./packages/*/src/**/*.{js,ts,tsx}"],
     exclude: [...configDefaults.exclude, ...exclude],
     reporters: process.env.CI ? ["junit"] : [],
     outputFile: process.env.CI ? "./coverage/test-report.junit.xml" : undefined,
@@ -24,4 +23,4 @@ export default defineConfig({
       exclude: [...(configDefaults.coverage.exclude ?? []), ...exclude],
     },
   },
-});
+})

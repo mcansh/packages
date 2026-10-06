@@ -11,14 +11,14 @@ export {
   WASM_UNSAFE_EVAL,
   createNonce,
   mergeHeaders,
-} from "./utils";
+} from "./utils.ts"
 
 export {
   createContentSecurityPolicy,
   createPermissionsPolicy,
   createSecureHeaders,
   createStrictTransportSecurity,
-} from "./helmet";
+} from "./helmet.ts"
 
 export type {
   ContentSecurityPolicy,
@@ -31,4 +31,4 @@ export type {
   ReferrerPolicy,
   StrictTransportSecurity,
   XSSProtection,
-} from "./helmet";
+} from "./helmet.ts"
