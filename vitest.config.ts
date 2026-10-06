@@ -16,7 +16,6 @@ const exclude = [
 export default defineConfig({
   test: {
     projects: ["./packages/*"],
-    include: ["./packages/*/src/**/*.{js,ts,tsx}"],
     exclude: [...configDefaults.exclude, ...exclude],
     reporters: process.env.CI ? ["junit"] : [],
     outputFile: process.env.CI ? "./coverage/test-report.junit.xml" : undefined,
