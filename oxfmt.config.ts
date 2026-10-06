@@ -1,6 +1,6 @@
-import { defineConfig } from "oxfmt";
+import { defineConfig } from "oxfmt"
 
-import { IGNORE_PATTERNS } from "./oxlint.config.ts";
+import { IGNORE_PATTERNS } from "./oxlint.config.ts"
 
 export default defineConfig({
   printWidth: 80,
@@ -8,5 +8,5 @@ export default defineConfig({
   sortImports: true,
   sortPackageJson: true,
   sortTailwindcss: true,
-  semi: true, // disable later
-});
+  semi: false,
+})

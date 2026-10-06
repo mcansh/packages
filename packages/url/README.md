@@ -7,17 +7,17 @@ a template string function to create urls and only keeping search params with va
 ### Functional
 
 ```ts
-let filter = undefined;
-let user = null;
-let q = "my search";
-urlString`https://site.com/path?q=${q}&user=${user}&filter=${filter}`;
+let filter = undefined
+let user = null
+let q = "my search"
+urlString`https://site.com/path?q=${q}&user=${user}&filter=${filter}`
 // => "https://site.com/path?q=my+search"
 ```
 
 ### Builder Pattern
 
 ```ts
-import { UrlBuilder } from "@mcansh/url";
+import { UrlBuilder } from "@mcansh/url"
 
 new UrlBuilder()
   .domain("site.com")
@@ -25,6 +25,6 @@ new UrlBuilder()
   .param("q", "my search")
   .param<number>("userId", 5)
   .param<string>("filter", "category")
-  .build();
+  .build()
 // => "https://site.com/path?q=my+search&userId=5&filter=category"
 ```

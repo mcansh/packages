@@ -1,20 +1,20 @@
-import { expect, it } from "vitest";
+import { expect, it } from "vitest"
 
-import { createPermissionsPolicy } from "./permissions.ts";
+import { createPermissionsPolicy } from "./permissions.ts"
 
 it("handles a single value", () => {
-  expect(createPermissionsPolicy({ battery: ["self"] })).toBe("battery=(self)");
-});
+  expect(createPermissionsPolicy({ battery: ["self"] })).toBe("battery=(self)")
+})
 
 it("handles multiple values", () => {
   expect(
     createPermissionsPolicy({ battery: ["self", "https://example.com"] }),
-  ).toBe('battery=(self "https://example.com")');
-});
+  ).toBe('battery=(self "https://example.com")')
+})
 
 it("handles wildcard value", () => {
-  expect(createPermissionsPolicy({ battery: ["*"] })).toBe("battery=*");
-});
+  expect(createPermissionsPolicy({ battery: ["*"] })).toBe("battery=*")
+})
 
 it("throws an error when permissions are not strings", () => {
   expect(() =>
@@ -24,8 +24,8 @@ it("throws an error when permissions are not strings", () => {
     }),
   ).toThrowError(
     '[createPermissionsPolicy]: The value of "accelerometer" contains a non-string, which is not supported.',
-  );
-});
+  )
+})
 
 it("throws when quoted self", () => {
   expect(() =>
@@ -34,8 +34,8 @@ it("throws when quoted self", () => {
     }),
   ).toThrowError(
     `[createPermissionsPolicy]: self must not be quoted for "payment".`,
-  );
-});
+  )
+})
 
 it("throws when using wildcard and specific value", () => {
   expect(() =>
@@ -44,8 +44,8 @@ it("throws when using wildcard and specific value", () => {
     }),
   ).toThrowError(
     `[createPermissionsPolicy]: The value of the "gyroscope" feature cannot contain * and other values.`,
-  );
-});
+  )
+})
 
 it("throws when a permission contains duplicates", () => {
   expect(() =>
@@ -54,8 +54,8 @@ it("throws when a permission contains duplicates", () => {
     }),
   ).toThrowError(
     `[createPermissionsPolicy]: The value of "battery" contains duplicates, which it shouldn't.`,
-  );
-});
+  )
+})
 
 it("throws when a permission is not an array", () => {
   expect(() =>
@@ -65,5 +65,5 @@ it("throws when a permission is not an array", () => {
     }),
   ).toThrowError(
     `[createPermissionsPolicy]: The value of the "battery" feature must be array of strings.`,
-  );
-});
+  )
+})

@@ -1,4 +1,4 @@
-import { configDefaults, defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config"
 
 const exclude = [
   "**/build/**",
@@ -11,7 +11,7 @@ const exclude = [
   "**/vitest.setup.ts",
   "**/public/**",
   "**/src/index.ts",
-];
+]
 
 export default defineConfig({
   test: {
@@ -24,4 +24,4 @@ export default defineConfig({
       exclude: [...(configDefaults.coverage.exclude ?? []), ...exclude],
     },
   },
-});
+})

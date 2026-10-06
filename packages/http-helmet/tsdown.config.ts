@@ -1,11 +1,11 @@
-import { defineConfig } from "tsdown";
+import { defineConfig } from "tsdown"
 
-import pkgJson from "./package.json" with { type: "json" };
+import pkgJson from "./package.json" with { type: "json" }
 
 const external =
   "dependencies" in pkgJson && pkgJson.dependencies
     ? Object.keys(pkgJson.dependencies)
-    : [];
+    : []
 
 export default defineConfig({
   entry: {
@@ -25,4 +25,4 @@ export default defineConfig({
   define: {
     "import.meta.vitest": "undefined",
   },
-});
+})

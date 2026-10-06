@@ -1,31 +1,31 @@
-import { definePlugin, defineRule } from "@oxlint/plugins";
-import type { Context, ESTree, Fixer, Variable } from "@oxlint/plugins";
+import { definePlugin, defineRule } from "@oxlint/plugins"
+import type { Context, ESTree, Fixer, Variable } from "@oxlint/plugins"
 
 function isModuleScopeDeclaration(node: ESTree.VariableDeclaration) {
-  let parent = node.parent;
+  let parent = node.parent
 
   if (parent.type === "Program") {
-    return true;
+    return true
   }
 
   if (
     parent.type !== "ExportNamedDeclaration" &&
     parent.type !== "ExportDefaultDeclaration"
   ) {
-    return false;
+    return false
   }
 
-  return parent.parent.type === "Program";
+  return parent.parent.type === "Program"
 }
 
 function hasInitializers(node: ESTree.VariableDeclaration) {
-  return node.declarations.every((declaration) => declaration.init != null);
+  return node.declarations.every((declaration) => declaration.init != null)
 }
 
 function isConstEligibleModuleBinding(variable: Variable) {
   return variable.references.every(
     (reference) => !reference.isWrite() || reference.init,
-  );
+  )
 }
 
 const preferLetLocalsRule = defineRule({
@@ -37,11 +37,11 @@ const preferLetLocalsRule = defineRule({
     return {
       VariableDeclaration(node: ESTree.VariableDeclaration) {
         if (node.kind !== "const") {
-          return;
+          return
         }
 
         if (isModuleScopeDeclaration(node)) {
-          return;
+          return
         }
 
         context.report({
@@ -52,13 +52,13 @@ const preferLetLocalsRule = defineRule({
             return fixer.replaceTextRange(
               [node.range[0], node.range[0] + 5],
               "let",
-            );
+            )
           },
-        });
+        })
       },
-    };
+    }
   },
-});
+})
 
 const preferConstModuleScopeRule = defineRule({
   meta: {
@@ -69,25 +69,25 @@ const preferConstModuleScopeRule = defineRule({
     return {
       VariableDeclaration(node: ESTree.VariableDeclaration) {
         if (node.kind !== "let") {
-          return;
+          return
         }
 
         if (!isModuleScopeDeclaration(node)) {
-          return;
+          return
         }
 
         if (!hasInitializers(node)) {
-          return;
+          return
         }
 
-        let declaredVariables = context.sourceCode.getDeclaredVariables(node);
+        let declaredVariables = context.sourceCode.getDeclaredVariables(node)
 
         if (declaredVariables.length === 0) {
-          return;
+          return
         }
 
         if (!declaredVariables.every(isConstEligibleModuleBinding)) {
-          return;
+          return
         }
 
         context.report({
@@ -98,13 +98,13 @@ const preferConstModuleScopeRule = defineRule({
             return fixer.replaceTextRange(
               [node.range[0], node.range[0] + 3],
               "const",
-            );
+            )
           },
-        });
+        })
       },
-    };
+    }
   },
-});
+})
 
 /**
  * Enforces the repo convention that `const` is reserved for module scope and
@@ -120,4 +120,4 @@ export default definePlugin({
     "prefer-const-module-scope": preferConstModuleScopeRule,
     "prefer-let-locals": preferLetLocalsRule,
   },
-});
+})
