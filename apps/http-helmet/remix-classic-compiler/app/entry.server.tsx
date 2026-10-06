@@ -85,6 +85,6 @@ export default function handleRequest(
       },
     )
 
-    setTimeout(abort, ABORT_DELAY)
+    setTimeout(() => abort(), ABORT_DELAY)
   })
 }
