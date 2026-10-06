@@ -11,7 +11,7 @@ catalog:
   '@arethetypeswrong/core': ^0.18.5
   '@oxlint/plugins': ^1.87.0
   '@total-typescript/tsconfig': ^1.0.4
-  '@types/node': ^24.0.14
+  '@types/node': ^26.6.4
   '@vitest/coverage-v8': ^5.0.3
   oxfmt: ^0.72.0
   oxlint: ^1.87.0
