@@ -56,6 +56,7 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
       let allowedValuesSeen: Set<string> = new Set()
 
       for (let allowedValue of featureValues) {
+        // oxlint-disable-next-line anti-slop/no-runtime-typeof -- Validate each policy value at the public input boundary.
         if (typeof allowedValue !== "string") {
           throw new Error(
             `[createPermissionsPolicy]: The value of "${key}" contains a non-string, which is not supported.`,

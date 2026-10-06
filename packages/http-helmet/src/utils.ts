@@ -33,7 +33,8 @@ export function HASH(algorithm: Algorithm, hash: string): HashSource {
   return `'${algorithm}-${hash}'`
 }
 
-function isObject(value: unknown) {
+function isObject(value: HeadersInit) {
+  // oxlint-disable-next-line anti-slop/no-runtime-typeof -- Validate JavaScript callers before constructing Headers.
   return value !== null && typeof value === "object"
 }
 
