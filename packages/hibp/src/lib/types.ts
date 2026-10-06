@@ -1,4 +1,4 @@
-import { TaggedError } from "better-result";
+import { Err, Ok, Result, TaggedError } from "better-result";
 
 export class HibpError extends TaggedError("HibpError")<{
   reason:
@@ -20,4 +20,16 @@ export interface PwnedPasswordOptions {
   timeoutMs?: number;
   /** Optional transport for testing or a trusted proxy. Receives only the prefix. */
   fetch?: typeof globalThis.fetch;
+}
+
+export function assertErr<T, E>(result: Result<T, E>): asserts result is Err<T, E> {
+  if (result.isOk()) {
+    throw new Error("expected result to be an error");
+  }
+}
+
+export function assertOk<T, E>(result: Result<T, E>): asserts result is Ok<T, E> {
+  if (result.isErr()) {
+    throw new Error("expected result to be ok");
+  }
 }
