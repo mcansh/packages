@@ -22,13 +22,17 @@ export interface PwnedPasswordOptions {
   fetch?: typeof globalThis.fetch;
 }
 
-export function assertErr<T, E>(result: Result<T, E>): asserts result is Err<T, E> {
+export function assertErr<T, E>(
+  result: Result<T, E>,
+): asserts result is Err<T, E> {
   if (result.isOk()) {
     throw new Error("expected result to be an error");
   }
 }
 
-export function assertOk<T, E>(result: Result<T, E>): asserts result is Ok<T, E> {
+export function assertOk<T, E>(
+  result: Result<T, E>,
+): asserts result is Ok<T, E> {
   if (result.isErr()) {
     throw new Error("expected result to be ok");
   }

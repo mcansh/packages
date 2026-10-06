@@ -1,6 +1,13 @@
 import type { Err, Result } from "better-result";
 import { HibpError, pwnedPassword } from "../dist/index.js";
 
+if (import.meta.main) {
+  console.error(
+    `this file isn't meant to be run directly, use "${process.argv0} run.ts"`,
+  );
+  process.exit(1);
+}
+
 export function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }

@@ -31,7 +31,9 @@ describe("pwnedPassword", () => {
       return Result.ok(0);
     });
 
-    await expect(pwnedPassword("password", options)).resolves.toEqual(Result.ok(0));
+    await expect(pwnedPassword("password", options)).resolves.toEqual(
+      Result.ok(0),
+    );
     expect(options).toEqual({ signal, fetch });
   });
 
@@ -100,7 +102,9 @@ describe("pwnedPassword", () => {
   });
 
   it("classifies timeout errors", async () => {
-    mockLookup.mockRejectedValue(new DOMException("sensitive transport detail", "TimeoutError"));
+    mockLookup.mockRejectedValue(
+      new DOMException("sensitive transport detail", "TimeoutError"),
+    );
 
     const result = await pwnedPassword("password");
     assertErr(result);
@@ -113,19 +117,25 @@ describe("pwnedPassword", () => {
 
   it.each([
     new TypeError("sensitive transport detail"),
-    new DOMException("transport aborted without caller cancellation", "AbortError"),
+    new DOMException(
+      "transport aborted without caller cancellation",
+      "AbortError",
+    ),
     "non-Error rejection",
     { name: "TimeoutError" },
     null,
-  ])("classifies unknown rejection %j as unavailable without exposing details", async (error) => {
-    mockLookup.mockRejectedValue(error);
+  ])(
+    "classifies unknown rejection %j as unavailable without exposing details",
+    async (error) => {
+      mockLookup.mockRejectedValue(error);
 
-    const result = await pwnedPassword("password");
-    assertErr(result);
-    expect(result.error).toBeInstanceOf(HibpError);
-    expect(result.error).toMatchObject({
-      reason: "unavailable",
-      message: "Password lookup unavailable",
-    });
-  });
+      const result = await pwnedPassword("password");
+      assertErr(result);
+      expect(result.error).toBeInstanceOf(HibpError);
+      expect(result.error).toMatchObject({
+        reason: "unavailable",
+        message: "Password lookup unavailable",
+      });
+    },
+  );
 });

@@ -14,21 +14,28 @@ afterEach(() => {
 
 describe("lookup", () => {
   it("sends only the hash prefix with padding and privacy options", async () => {
-    const fetch = vi.fn<typeof globalThis.fetch>().mockResolvedValue(new Response(`${suffix}:42`));
+    const fetch = vi
+      .fn<typeof globalThis.fetch>()
+      .mockResolvedValue(new Response(`${suffix}:42`));
 
     const result = await lookup(password, { fetch });
     assertOk(result);
     expect(result.value).toBe(42);
-    expect(fetch).toHaveBeenCalledExactlyOnceWith("https://api.pwnedpasswords.com/range/80452", {
-      headers: { "Add-Padding": "true" },
-      signal: expect.any(AbortSignal),
-      redirect: "manual",
-      credentials: "omit",
-    });
+    expect(fetch).toHaveBeenCalledExactlyOnceWith(
+      "https://api.pwnedpasswords.com/range/80452",
+      {
+        headers: { "Add-Padding": "true" },
+        signal: expect.any(AbortSignal),
+        redirect: "manual",
+        credentials: "omit",
+      },
+    );
   });
 
   it("uses global fetch and a five-second timeout by default", async () => {
-    const fetch = vi.fn<typeof globalThis.fetch>().mockResolvedValue(new Response(`${suffix}:1`));
+    const fetch = vi
+      .fn<typeof globalThis.fetch>()
+      .mockResolvedValue(new Response(`${suffix}:1`));
     vi.stubGlobal("fetch", fetch);
     const timeout = vi.spyOn(AbortSignal, "timeout");
 
@@ -41,7 +48,9 @@ describe("lookup", () => {
 
   it("uses a custom timeout", async () => {
     const timeout = vi.spyOn(AbortSignal, "timeout");
-    const fetch = vi.fn<typeof globalThis.fetch>().mockResolvedValue(new Response(`${suffix}:1`));
+    const fetch = vi
+      .fn<typeof globalThis.fetch>()
+      .mockResolvedValue(new Response(`${suffix}:1`));
 
     const result = await lookup(password, { fetch, timeoutMs: 123 });
     assertOk(result);
@@ -57,7 +66,9 @@ describe("lookup", () => {
     [`${suffix}:2\n${suffix}:42\n${suffix}:3`, 42],
     [`${suffix}:${Number.MAX_SAFE_INTEGER}`, Number.MAX_SAFE_INTEGER],
   ])("parses response %j as %i", async (body, count) => {
-    const fetch = vi.fn<typeof globalThis.fetch>().mockResolvedValue(new Response(body));
+    const fetch = vi
+      .fn<typeof globalThis.fetch>()
+      .mockResolvedValue(new Response(body));
 
     const result = await lookup(password, { fetch });
     assertOk(result);
@@ -69,7 +80,9 @@ describe("lookup", () => {
     async (input) => {
       const fetch = vi.fn<typeof globalThis.fetch>();
 
-      await expect(lookup(input as unknown as string, { fetch })).rejects.toMatchObject({
+      await expect(
+        lookup(input as unknown as string, { fetch }),
+      ).rejects.toMatchObject({
         _tag: "HibpError",
         reason: "invalid-input",
         message: "Password must be a string",
@@ -96,19 +109,24 @@ describe("lookup", () => {
     },
   );
 
-  it.each([201, 302, 429, 500])("rejects HTTP %i without reading the body", async (status) => {
-    const response = new Response(`${suffix}:42`, { status });
-    const text = vi.spyOn(response, "text");
-    const fetch = vi.fn<typeof globalThis.fetch>().mockResolvedValue(response);
+  it.each([201, 302, 429, 500])(
+    "rejects HTTP %i without reading the body",
+    async (status) => {
+      const response = new Response(`${suffix}:42`, { status });
+      const text = vi.spyOn(response, "text");
+      const fetch = vi
+        .fn<typeof globalThis.fetch>()
+        .mockResolvedValue(response);
 
-    await expect(lookup(password, { fetch })).rejects.toMatchObject({
-      _tag: "HibpError",
-      reason: "http",
-      status,
-      message: `Pwned Passwords lookup failed (HTTP ${status})`,
-    });
-    expect(text).not.toHaveBeenCalled();
-  });
+      await expect(lookup(password, { fetch })).rejects.toMatchObject({
+        _tag: "HibpError",
+        reason: "http",
+        status,
+        message: `Pwned Passwords lookup failed (HTTP ${status})`,
+      });
+      expect(text).not.toHaveBeenCalled();
+    },
+  );
 
   it.each([
     "",
@@ -122,36 +140,45 @@ describe("lookup", () => {
     `${suffix}:${Number.MAX_SAFE_INTEGER + 1}`,
     `${suffix}:42\n${otherSuffix}:invalid`,
     `${suffix}:42\n\n${otherSuffix}:0`,
-  ])("rejects malformed response %j, including rows after a match", async (body) => {
-    const fetch = vi.fn<typeof globalThis.fetch>().mockResolvedValue(new Response(body));
+  ])(
+    "rejects malformed response %j, including rows after a match",
+    async (body) => {
+      const fetch = vi
+        .fn<typeof globalThis.fetch>()
+        .mockResolvedValue(new Response(body));
 
-    const result = lookup(password, { fetch });
-    await expect(result).rejects.toBeInstanceOf(HibpError);
-    await expect(result).rejects.toMatchObject({
-      reason: "invalid-response",
-    });
-  });
+      const result = lookup(password, { fetch });
+      await expect(result).rejects.toBeInstanceOf(HibpError);
+      await expect(result).rejects.toMatchObject({
+        reason: "invalid-response",
+      });
+    },
+  );
 
   it("rejects an already-aborted signal before fetching", async () => {
     const reason = new Error("cancelled");
     const fetch = vi.fn<typeof globalThis.fetch>();
 
-    await expect(lookup(password, { fetch, signal: AbortSignal.abort(reason) })).rejects.toBe(
-      reason,
-    );
+    await expect(
+      lookup(password, { fetch, signal: AbortSignal.abort(reason) }),
+    ).rejects.toBe(reason);
     expect(fetch).not.toHaveBeenCalled();
   });
 
   it("passes caller cancellation to the request signal", async () => {
     const controller = new AbortController();
     const reason = new Error("cancelled during request");
-    const fetch = vi.fn<typeof globalThis.fetch>().mockImplementation(async (_url, init) => {
-      controller.abort(reason);
-      init?.signal?.throwIfAborted();
-      return new Response(`${suffix}:42`);
-    });
+    const fetch = vi
+      .fn<typeof globalThis.fetch>()
+      .mockImplementation(async (_url, init) => {
+        controller.abort(reason);
+        init?.signal?.throwIfAborted();
+        return new Response(`${suffix}:42`);
+      });
 
-    await expect(lookup(password, { fetch, signal: controller.signal })).rejects.toBe(reason);
+    await expect(
+      lookup(password, { fetch, signal: controller.signal }),
+    ).rejects.toBe(reason);
   });
 
   it("checks cancellation after reading the response body", async () => {
