@@ -44,7 +44,7 @@ it("creates temporary files and cleans them up", async () => {
 it("automatically cleans up in the event of a file write error", async () => {
   vi.spyOn(Fsp, "writeFile").mockRejectedValueOnce(new Error("Mocked error"));
 
-  expect(async () => {
+  await expect(async () => {
     await createTemporaryFiles({
       filePath: "file.txt",
       contents: "Hello, world!",

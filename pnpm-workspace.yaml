@@ -1,25 +1,22 @@
 packages:
-  - packages/*
-  - apps/**/*
+- packages/*
+- examples/*
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
 
 catalog:
-  '@arethetypeswrong/core': ^0.18.2
+  '@arethetypeswrong/core': ^0.18.5
   '@total-typescript/tsconfig': ^1.0.4
   '@types/node': ^24.0.14
   '@vitest/coverage-v8': ^3.2.4
-  publint: ^0.3.15
-  tsdown: ^0.12.9
+  publint: ^0.3.25
+  tsdown: ^0.23.0
   type-fest: ^4.41.0
-  typescript: ^5.9.3
-  vitest: ^3.2.4
-
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - esbuild
-  - rolldown
-  - sharp
-  - unrs-resolver
-  - workerd
+  typescript: ^7.0.2
+  vitest: ^5.0.3
 
 overrides:
   '@mcansh/create-temporary-files': workspace:*
