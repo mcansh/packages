@@ -3,7 +3,7 @@ import Path from "node:path"
 
 import { expect, it, vi } from "vitest"
 
-import { createTemporaryFiles } from "./lib"
+import { createTemporaryFiles } from "./lib.ts"
 
 it("creates temporary files and cleans them up", async () => {
   let directoryPath: string

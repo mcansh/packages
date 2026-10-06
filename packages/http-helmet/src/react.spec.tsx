@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 
-import { NonceProvider, useNonce } from "./react"
+import { NonceProvider, useNonce } from "./react.tsx"
 
 describe("NonceProvider", () => {
   it("pass and receive nonce", () => {
