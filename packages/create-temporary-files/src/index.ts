@@ -1,1 +1,1 @@
-export { createTemporaryFiles } from "./lib";
+export { createTemporaryFiles } from "./lib.ts"
