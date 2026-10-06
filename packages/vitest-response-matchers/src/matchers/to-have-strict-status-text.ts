@@ -1,60 +1,58 @@
-import { STATUS_CODES } from "node:http";
+import { STATUS_CODES } from "node:http"
 
-import type { MatcherResult } from "./matcher";
+import type { MatcherResult } from "./matcher"
 
 export function toHaveStrictStatusText(response: Response): MatcherResult {
   if (!(response instanceof Response)) {
     return {
       message: () => `Expected a Response, but received ${typeof response}`,
       pass: false,
-    };
+    }
   }
 
-  let found = STATUS_CODES[response.status];
+  let found = STATUS_CODES[response.status]
 
   if (!found) {
     return {
       pass: false,
-      message: () => 
-        `Received status code ${response.status} does not have a valid status text`
-      ,
+      message: () =>
+        `Received status code ${response.status} does not have a valid status text`,
       actual: response.statusText,
       expected: found,
-    };
+    }
   }
 
   return {
     pass: found === response.statusText,
-    message: () => 
-      `Received status text "${response.statusText}" was not valid, should be "${found}"`
-    ,
+    message: () =>
+      `Received status text "${response.statusText}" was not valid, should be "${found}"`,
     actual: response.statusText,
     expected: found,
-  };
+  }
 }
 
 if (import.meta.vitest) {
-  let { describe, expect, it } = import.meta.vitest;
+  let { describe, expect, it } = import.meta.vitest
 
-  expect.extend({ toHaveStrictStatusText });
+  expect.extend({ toHaveStrictStatusText })
 
   describe("toHaveStatus matcher", () => {
     it.fails("when status code does not exist", () => {
       let response = new Response("Hello, world!", {
         status: 599,
         statusText: "Unknown",
-      });
+      })
 
-      expect(response).toHaveStrictStatusText();
-    });
+      expect(response).toHaveStrictStatusText()
+    })
 
     it.fails("when statusText on response is not what the http spec expects", () => {
       let response = new Response("Hello, world!", {
         status: 200,
         statusText: "Not OK",
-      });
-      expect(response).toHaveStrictStatusText();
-    });
+      })
+      expect(response).toHaveStrictStatusText()
+    })
 
     it.each([
       [200, "OK"],
@@ -65,9 +63,9 @@ if (import.meta.vitest) {
     ])(
       "passes when statusText matches the http spec for '%d'",
       (status, statusText) => {
-        let response = new Response(null, { status, statusText });
-        expect(response).toHaveStrictStatusText();
+        let response = new Response(null, { status, statusText })
+        expect(response).toHaveStrictStatusText()
       },
-    );
-  });
+    )
+  })
 }

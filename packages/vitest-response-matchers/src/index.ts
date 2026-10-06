@@ -1,5 +1,5 @@
-import { expect } from "vitest";
+import { expect } from "vitest"
 
-import * as extensions from "./matchers";
+import * as extensions from "./matchers"
 
-expect.extend(extensions);
+expect.extend(extensions)

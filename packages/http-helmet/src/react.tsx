@@ -1,18 +1,16 @@
-import * as React from "react";
+import * as React from "react"
 
-const NonceContext = React.createContext<string | undefined>(undefined);
+const NonceContext = React.createContext<string | undefined>(undefined)
 
 type NonceProviderProps = {
-  nonce: string;
-  children: React.ReactNode;
-};
+  nonce: string
+  children: React.ReactNode
+}
 
 export function NonceProvider({ nonce, children }: NonceProviderProps) {
-  return (
-    <NonceContext.Provider value={nonce}>{children}</NonceContext.Provider>
-  );
+  return <NonceContext.Provider value={nonce}>{children}</NonceContext.Provider>
 }
 
 export function useNonce(): string | undefined {
-  return React.useContext(NonceContext);
+  return React.useContext(NonceContext)
 }

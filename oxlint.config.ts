@@ -1,5 +1,5 @@
-import type { OxlintConfig } from "oxlint";
-import { defineConfig } from "oxlint";
+import type { OxlintConfig } from "oxlint"
+import { defineConfig } from "oxlint"
 
 export const IGNORE_PATTERNS = [
   ".pi/**",
@@ -22,7 +22,7 @@ export const IGNORE_PATTERNS = [
   "node_modules/**",
   "tools/oxlint/anti-slop/**",
   "worker-configuration.d.ts",
-] as const satisfies OxlintConfig["ignorePatterns"];
+] as const satisfies OxlintConfig["ignorePatterns"]
 
 export default defineConfig({
   // Ensure only explicitly enabled rules are used.
@@ -116,4 +116,4 @@ export default defineConfig({
       },
     },
   ],
-});
+})

@@ -1,5 +1,5 @@
-import { kebabCase } from "change-case";
-import type { LiteralUnion } from "type-fest";
+import { kebabCase } from "change-case"
+import type { LiteralUnion } from "type-fest"
 
 type KnownPermissions = LiteralUnion<
   | "accelerometer"
@@ -36,13 +36,13 @@ type KnownPermissions = LiteralUnion<
   | "webShare"
   | "xrSpatialTracking",
   string
->;
+>
 
 export type PermissionsPolicy = {
-  [key in KnownPermissions]?: Array<string>;
-};
+  [key in KnownPermissions]?: Array<string>
+}
 
-const reservedPermissionKeywords = new Set(["self", "*"]);
+const reservedPermissionKeywords = new Set(["self", "*"])
 
 export function createPermissionsPolicy(features: PermissionsPolicy): string {
   return Object.entries(features)
@@ -50,55 +50,55 @@ export function createPermissionsPolicy(features: PermissionsPolicy): string {
       if (!Array.isArray(featureValues)) {
         throw new Error(
           `[createPermissionsPolicy]: The value of the "${key}" feature must be array of strings.`,
-        );
+        )
       }
 
-      let allowedValuesSeen: Set<string> = new Set();
+      let allowedValuesSeen: Set<string> = new Set()
 
       for (let allowedValue of featureValues) {
         if (typeof allowedValue !== "string") {
           throw new Error(
             `[createPermissionsPolicy]: The value of "${key}" contains a non-string, which is not supported.`,
-          );
+          )
         }
 
         if (allowedValuesSeen.has(allowedValue)) {
           throw new Error(
             `[createPermissionsPolicy]: The value of "${key}" contains duplicates, which it shouldn't.`,
-          );
+          )
         }
 
         if (allowedValue === "'self'") {
           throw new Error(
             `[createPermissionsPolicy]: self must not be quoted for "${key}".`,
-          );
+          )
         }
 
-        allowedValuesSeen.add(allowedValue);
+        allowedValuesSeen.add(allowedValue)
       }
 
       if (featureValues.length > 1 && allowedValuesSeen.has("*")) {
         throw new Error(
           `[createPermissionsPolicy]: The value of the "${key}" feature cannot contain * and other values.`,
-        );
+        )
       }
 
-      let featureKeyDashed = kebabCase(key);
+      let featureKeyDashed = kebabCase(key)
       let featureValuesUnion = featureValues
         .map((value) => {
           if (reservedPermissionKeywords.has(value)) {
-            return value;
+            return value
           }
 
-          return `"${value}"`;
+          return `"${value}"`
         })
-        .join(" ");
+        .join(" ")
 
       if (featureValuesUnion === "*") {
-        return `${featureKeyDashed}=${featureValuesUnion}`;
+        return `${featureKeyDashed}=${featureValuesUnion}`
       }
 
-      return `${featureKeyDashed}=(${featureValuesUnion})`;
+      return `${featureKeyDashed}=(${featureValuesUnion})`
     })
-    .join(", ");
+    .join(", ")
 }

@@ -25,13 +25,13 @@
 - 6e43ad1: allows shorthand for Strict-Transport-Policy header using `createStrictTransportSecurity` function and `createSecureHeaders` functions
 
   ```js
-  import { createStrictTransportSecurity } from "@mcansh/http-helmet";
+  import { createStrictTransportSecurity } from "@mcansh/http-helmet"
 
   let hsts = createStrictTransportSecurity({
     maxAge: 31536000,
     includeSubDomains: true,
     preload: true,
-  });
+  })
   // => "max-age=31536000; includeSubDomains; preload"
   ```
 
@@ -76,7 +76,7 @@
   ```js
   createContentSecurityPolicy({
     "connect-src": [undefined, "'self'", undefined],
-  });
+  })
 
   // => `"connect-src 'self'"`
   ```
@@ -99,7 +99,7 @@
       "default-src": ["'self'"],
       "img-src": ["'self'", "data:"],
     },
-  });
+  })
   ```
 
 - 1cee380: allow setting Content-Security-Policy-Report-Only
@@ -110,7 +110,7 @@
       "default-src": ["'self'"],
       "img-src": ["'self'", "data:"],
     },
-  });
+  })
   ```
 
 ## 0.10.2

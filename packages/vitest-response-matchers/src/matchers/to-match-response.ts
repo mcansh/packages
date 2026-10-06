@@ -1,4 +1,4 @@
-import type { MatcherResult } from "./matcher";
+import type { MatcherResult } from "./matcher"
 
 export function toMatchResponse(
   received: Response,
@@ -8,12 +8,12 @@ export function toMatchResponse(
     return {
       message: () => `Expected a Response, but received ${typeof received}`,
       pass: false,
-    };
+    }
   }
 
   return {
     message() {
-      return `Expected response to have (status: ${expected.status}, statusText: "${expected.statusText}"), but received (status: ${received.status}, statusText: "${received.statusText}")`;
+      return `Expected response to have (status: ${expected.status}, statusText: "${expected.statusText}"), but received (status: ${received.status}, statusText: "${received.statusText}")`
     },
     pass:
       received instanceof Response &&
@@ -27,29 +27,29 @@ export function toMatchResponse(
       status: expected.status,
       statusText: expected.statusText,
     },
-  };
+  }
 }
 
 if (import.meta.vitest) {
-  let { expect, it } = import.meta.vitest;
+  let { expect, it } = import.meta.vitest
 
-  expect.extend({ toMatchResponse });
+  expect.extend({ toMatchResponse })
 
   it("should match the response status and statusText", () => {
-    let received = new Response(null, { status: 200, statusText: "OK" });
-    let expected = { status: 200, statusText: "OK" };
-    expect(received).toMatchResponse(expected);
-  });
+    let received = new Response(null, { status: 200, statusText: "OK" })
+    let expected = { status: 200, statusText: "OK" }
+    expect(received).toMatchResponse(expected)
+  })
 
   it.fails("fails when passing a non response", () => {
-    let received = { status: 200, statusText: "OK" };
-    let expected = { status: 200, statusText: "OK" };
-    expect(received).toMatchResponse(expected);
-  });
+    let received = { status: 200, statusText: "OK" }
+    let expected = { status: 200, statusText: "OK" }
+    expect(received).toMatchResponse(expected)
+  })
 
   it.fails("fails when passing no match", () => {
-    let received = new Response(null, { status: 200, statusText: "OK" });
-    let expected = { status: 404, statusText: "Not Found" };
-    expect(received).toMatchResponse(expected);
-  });
+    let received = new Response(null, { status: 200, statusText: "OK" })
+    let expected = { status: 404, statusText: "Not Found" }
+    expect(received).toMatchResponse(expected)
+  })
 }

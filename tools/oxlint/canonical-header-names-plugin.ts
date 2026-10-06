@@ -1,5 +1,5 @@
-import { definePlugin, defineRule } from "@oxlint/plugins";
-import type { Context, ESTree, Fixer } from "@oxlint/plugins";
+import { definePlugin, defineRule } from "@oxlint/plugins"
+import type { Context, ESTree, Fixer } from "@oxlint/plugins"
 
 const headerWordCasingExceptions = new Map([
   ["ct", "CT"],
@@ -9,10 +9,10 @@ const headerWordCasingExceptions = new Map([
   ["www", "WWW"],
   ["x", "X"],
   ["xss", "XSS"],
-]);
+])
 
-const headerNamePattern = /^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/;
-const headerMethods = new Set(["append", "delete", "get", "has", "set"]);
+const headerNamePattern = /^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/
+const headerMethods = new Set(["append", "delete", "get", "has", "set"])
 
 function canonicalHeaderName(name: string): string {
   return name
@@ -23,12 +23,12 @@ function canonicalHeaderName(name: string): string {
         headerWordCasingExceptions.get(word) ??
         word.charAt(0).toUpperCase() + word.slice(1),
     )
-    .join("-");
+    .join("-")
 }
 
 function isStringLiteral(node: ESTree.Node): node is ESTree.StringLiteral {
-  if (node.type !== "Literal" || node.raw == null) return false;
-  return node.raw.startsWith('"') || node.raw.startsWith("'");
+  if (node.type !== "Literal" || node.raw == null) return false
+  return node.raw.startsWith('"') || node.raw.startsWith("'")
 }
 
 function isStaticMemberExpression(
@@ -38,17 +38,17 @@ function isStaticMemberExpression(
     node.type === "MemberExpression" &&
     !node.computed &&
     node.property.type === "Identifier"
-  );
+  )
 }
 
 function isIdentifierReference(
   node: ESTree.Expression,
 ): node is ESTree.IdentifierReference {
-  return node.type === "Identifier";
+  return node.type === "Identifier"
 }
 
 function isHeadersIdentifierName(name: string): boolean {
-  return name === "headers" || name.endsWith("Headers");
+  return name === "headers" || name.endsWith("Headers")
 }
 
 function isNewHeadersExpression(node: ESTree.Expression): boolean {
@@ -56,42 +56,42 @@ function isNewHeadersExpression(node: ESTree.Expression): boolean {
     node.type === "NewExpression" &&
     isIdentifierReference(node.callee) &&
     node.callee.name === "Headers"
-  );
+  )
 }
 
 function isLikelyHeadersReceiver(node: ESTree.Expression): boolean {
   if (isIdentifierReference(node)) {
-    return isHeadersIdentifierName(node.name);
+    return isHeadersIdentifierName(node.name)
   }
 
   if (isStaticMemberExpression(node)) {
-    return node.property.name === "headers";
+    return node.property.name === "headers"
   }
 
-  return isNewHeadersExpression(node);
+  return isNewHeadersExpression(node)
 }
 
 function quoteLike(raw: string | null, value: string): string {
-  let quote = raw?.startsWith('"') ? '"' : "'";
-  let escaped = value.replace(/\\/g, "\\\\").replaceAll(quote, `\\${quote}`);
+  let quote = raw?.startsWith('"') ? '"' : "'"
+  let escaped = value.replace(/\\/g, "\\\\").replaceAll(quote, `\\${quote}`)
 
-  return `${quote}${escaped}${quote}`;
+  return `${quote}${escaped}${quote}`
 }
 
 function getStaticPropertyName(node: ESTree.ObjectProperty): string | null {
   if (node.computed) {
-    return null;
+    return null
   }
 
   if (node.key.type === "Identifier") {
-    return node.key.name;
+    return node.key.name
   }
 
   if (isStringLiteral(node.key)) {
-    return node.key.value;
+    return node.key.value
   }
 
-  return null;
+  return null
 }
 
 function getHeaderPropertyKeyFixText(
@@ -99,16 +99,16 @@ function getHeaderPropertyKeyFixText(
   canonicalName: string,
 ): string {
   if (node.type === "Literal") {
-    return quoteLike(node.raw, canonicalName);
+    return quoteLike(node.raw, canonicalName)
   }
 
-  return canonicalName;
+  return canonicalName
 }
 
 function isHeaderPropertyKey(
   node: ESTree.PropertyKey,
 ): node is ESTree.IdentifierName | ESTree.StringLiteral {
-  return node.type === "Identifier" || isStringLiteral(node);
+  return node.type === "Identifier" || isStringLiteral(node)
 }
 
 function reportHeaderName(
@@ -117,12 +117,12 @@ function reportHeaderName(
   name: string,
 ): void {
   if (!headerNamePattern.test(name)) {
-    return;
+    return
   }
 
-  let canonicalName = canonicalHeaderName(name);
+  let canonicalName = canonicalHeaderName(name)
   if (name === canonicalName) {
-    return;
+    return
   }
 
   context.report({
@@ -132,9 +132,9 @@ function reportHeaderName(
       return fixer.replaceText(
         node,
         getHeaderPropertyKeyFixText(node, canonicalName),
-      );
+      )
     },
-  });
+  })
 }
 
 function checkHeadersInitObject(
@@ -143,30 +143,30 @@ function checkHeadersInitObject(
 ): void {
   for (let property of node.properties) {
     if (property.type !== "Property") {
-      continue;
+      continue
     }
 
-    let headerName = getStaticPropertyName(property);
+    let headerName = getStaticPropertyName(property)
     if (headerName == null) {
-      continue;
+      continue
     }
 
     if (!isHeaderPropertyKey(property.key)) {
-      continue;
+      continue
     }
 
-    reportHeaderName(context, property.key, headerName);
+    reportHeaderName(context, property.key, headerName)
   }
 }
 
 function isHeadersInitPropertyValue(node: ESTree.ObjectExpression): boolean {
-  let parent = node.parent;
+  let parent = node.parent
 
   if (parent.type !== "Property" || parent.value !== node) {
-    return false;
+    return false
   }
 
-  return getStaticPropertyName(parent) === "headers";
+  return getStaticPropertyName(parent) === "headers"
 }
 
 const canonicalHeaderNamesRule = defineRule({
@@ -178,47 +178,47 @@ const canonicalHeaderNamesRule = defineRule({
     return {
       CallExpression(node: ESTree.CallExpression) {
         if (!isStaticMemberExpression(node.callee)) {
-          return;
+          return
         }
 
-        let methodName = node.callee.property.name;
+        let methodName = node.callee.property.name
         if (!headerMethods.has(methodName)) {
-          return;
+          return
         }
 
         if (!isLikelyHeadersReceiver(node.callee.object)) {
-          return;
+          return
         }
 
-        let headerName = node.arguments[0];
+        let headerName = node.arguments[0]
         if (headerName == null || !isStringLiteral(headerName)) {
-          return;
+          return
         }
 
-        reportHeaderName(context, headerName, headerName.value);
+        reportHeaderName(context, headerName, headerName.value)
       },
       NewExpression(node: ESTree.NewExpression) {
         if (!isNewHeadersExpression(node)) {
-          return;
+          return
         }
 
-        let headersInit = node.arguments[0];
+        let headersInit = node.arguments[0]
         if (headersInit?.type !== "ObjectExpression") {
-          return;
+          return
         }
 
-        checkHeadersInitObject(context, headersInit);
+        checkHeadersInitObject(context, headersInit)
       },
       ObjectExpression(node: ESTree.ObjectExpression) {
         if (!isHeadersInitPropertyValue(node)) {
-          return;
+          return
         }
 
-        checkHeadersInitObject(context, node);
+        checkHeadersInitObject(context, node)
       },
-    };
+    }
   },
-});
+})
 
 /**
  * Encourages canonical HTTP header names in direct `Headers` method calls and
@@ -232,4 +232,4 @@ export default definePlugin({
   rules: {
     "canonical-header-name": canonicalHeaderNamesRule,
   },
-});
+})
