@@ -26,16 +26,14 @@
     "LICENSE"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.mts",
   "imports": {
     "#*": "./*"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./client": "./dist/client.js",
-    "./matchers": "./dist/matchers.js",
+    ".": "./dist/index.mjs",
+    "./client": "./dist/client.mjs",
+    "./matchers": "./dist/matchers.mjs",
     "./package.json": "./package.json"
   },
   "scripts": {
