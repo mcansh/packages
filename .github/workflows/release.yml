@@ -19,8 +19,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  hibp-runtime-contract:
+    uses: ./.github/workflows/hibp-runtimes.yml
+
   release:
     name: 🦋 Changesets Release
+    needs: hibp-runtime-contract
     if: github.repository == 'mcansh/packages'
     runs-on: ubuntu-latest
     outputs:
