@@ -12,7 +12,7 @@
   "type": "module",
   "scripts": {
     "build": "tsdown",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p test/tsconfig.json",
     "test": "vitest --project hibp",
     "prepublishOnly": "pnpm run build"
   },
@@ -40,6 +40,8 @@
   },
   "devDependencies": {
     "@arethetypeswrong/core": "catalog:",
+    "esbuild": "0.25.4",
+    "miniflare": "4.20250927.0",
     "publint": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",

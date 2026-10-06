@@ -25,18 +25,18 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @mcansh/hibp build
       - run: pnpm --filter @mcansh/hibp typecheck
-      - run: node packages/hibp/test/run.mjs
+      - run: node packages/hibp/test/run.ts
       - uses: denoland/setup-deno@v2
         if: matrix.node == 24
         with:
           deno-version: v2.x
-      - run: deno run packages/hibp/test/run.mjs
+      - run: deno run packages/hibp/test/run.ts
         if: matrix.node == 24
       - uses: oven-sh/setup-bun@v2
         if: matrix.node == 24
         with:
           bun-version: latest
-      - run: bun packages/hibp/test/run.mjs
+      - run: bun packages/hibp/test/run.ts
         if: matrix.node == 24
-      - run: node packages/hibp/test/workers.mjs
+      - run: node packages/hibp/test/workers.ts
         if: matrix.node == 24

@@ -52,7 +52,7 @@ HIBP still receives a hash prefix and connection metadata. This is privacy prese
 
 All four execute the **same contract suite against the built JavaScript**, testing known SHA-1 vectors, UTF-8, request privacy, response parsing, padding, errors, cancellation, and timeouts. The package uses only Web APIs: `fetch`, Web Crypto, `TextEncoder`, `AbortSignal.timeout`, and `AbortSignal.any`. New runtime releases are supported once validated; the matrix is the compatibility promise. Availability of HIBP and network access is outside that promise.
 
-The Changesets release workflow requires this runtime matrix to pass before publishing. Workers also tests its native fetch against an intercepted HTTP response, with external network access disabled. Locally verified versions: Node 22.23.2 and 24.15.0, Deno 2.9.7, Bun 1.4.2 (stable) and 1.4.3-canary.1, and workerd 1.20250927.0.
+The Changesets release workflow requires this runtime matrix to pass before publishing. Workers also tests its native fetch against intercepted success and redirect responses, with all outbound traffic intercepted. Locally verified versions: Node 22.23.3 and 24.15.0, Deno 2.9.7, Bun 1.4.3, and workerd 1.20250927.0.
 
 ## Development
 
@@ -61,10 +61,12 @@ From the workspace root:
 ```sh
 pnpm --filter @mcansh/hibp build
 pnpm --filter @mcansh/hibp typecheck
-node packages/hibp/test/run.mjs
-deno run packages/hibp/test/run.mjs
-bun packages/hibp/test/run.mjs
-node packages/hibp/test/workers.mjs
+node packages/hibp/test/run.ts
+deno run packages/hibp/test/run.ts
+bun packages/hibp/test/run.ts
+node packages/hibp/test/workers.ts
 ```
 
-Tests use synthetic passwords and mocked HTTP responses, requiring no network calls to HIBP. Workers tests run in Miniflare's real workerd engine, which requires permission to start a local server. CI also packs the package and verifies its exports and declarations before testing.
+The TypeScript runners execute directly in each runtime; `typecheck` checks both the library and the runtime tests against the built declarations. Build before typechecking. The shared suite runs 29 tests; Workers adds native fetch success and redirect checks without `nodejs_compat`.
+
+Tests use synthetic passwords and mocked HTTP responses, requiring no network calls to HIBP. Workers tests run in Miniflare's real workerd engine, which requires permission to start a local server. The build verifies exports and declarations with publint and Are The Types Wrong before testing.
