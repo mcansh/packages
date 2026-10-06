@@ -291,6 +291,34 @@ importers:
         specifier: 'catalog:'
         version: 5.0.3(@types/node@24.6.0)(@vitest/coverage-v8@5.0.3)(happy-dom@18.0.1)(vite@8.3.2(@types/node@24.6.0)(esbuild@0.28.2)(jiti@2.6.0)(yaml@2.8.1))
 
+  packages/hibp:
+    dependencies:
+      better-result:
+        specifier: ^3.0.1
+        version: 3.0.1
+    devDependencies:
+      '@arethetypeswrong/core':
+        specifier: 'catalog:'
+        version: 0.18.5
+      esbuild:
+        specifier: 0.28.2
+        version: 0.28.2
+      miniflare:
+        specifier: 4.20250927.0
+        version: 4.20250927.0
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.25
+      tsdown:
+        specifier: 'catalog:'
+        version: 0.23.0(@arethetypeswrong/core@0.18.5)(publint@0.3.25)(typescript@7.0.2)
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
+      vitest:
+        specifier: 'catalog:'
+        version: 5.0.3(@types/node@24.6.0)(@vitest/coverage-v8@5.0.3)(happy-dom@18.0.1)(vite@8.3.2(@types/node@24.6.0)(esbuild@0.28.2)(jiti@2.6.0)(yaml@2.8.1))
+
   packages/http-helmet:
     dependencies:
       change-case:
@@ -2309,6 +2337,9 @@ packages:
   better-path-resolve@1.0.0:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
     engines: {node: '>=4'}
+
+  better-result@3.0.1:
+    resolution: {integrity: sha512-rnCeqEXkKPHmz5MO5ZroPRDyHe4YvlNPyy7qj8cVcWs/GnvSvC3086G74/220W+wWcIWlXgzvcjskFV0A4blUQ==}
 
   blake3-wasm@2.1.5:
     resolution: {integrity: sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g==}
@@ -5374,6 +5405,8 @@ snapshots:
   better-path-resolve@1.0.0:
     dependencies:
       is-windows: 1.0.2
+
+  better-result@3.0.1: {}
 
   blake3-wasm@2.1.5: {}
 

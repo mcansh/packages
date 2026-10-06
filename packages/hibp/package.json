@@ -1,0 +1,51 @@
+{
+  "name": "@mcansh/hibp",
+  "version": "0.0.0",
+  "description": "Private password breach checks using standard Web APIs across Node, Deno, Bun and Cloudflare Workers",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcansh/packages.git",
+    "directory": "packages/hibp"
+  },
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh/)",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit && tsc -p test/tsconfig.json",
+    "test": "vitest --project hibp",
+    "prepublishOnly": "pnpm run build"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "better-result": "^3.0.1"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/core": "catalog:",
+    "esbuild": "0.28.2",
+    "miniflare": "4.20250927.0",
+    "publint": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "sideEffects": false
+}

@@ -8,3 +8,4 @@ All packages are packaged underneath the @mcansh scope
 - [http-helmet](./packages/http-helmet)
 - [url](./packages/url)
 - [vitest-response-matchers](./packages/vitest-response-matchers)
+- [hibp](./packages/hibp)
