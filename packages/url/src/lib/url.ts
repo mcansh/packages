@@ -23,6 +23,7 @@ export function url(
   strings: TemplateStringsArray | string,
   ...values: Array<unknown>
 ): URL {
+  // oxlint-disable-next-line anti-slop/no-runtime-typeof -- Reject ordinary calls at the tagged-template input boundary.
   if (typeof strings === "string") {
     throw new TypeError(`function must be used as template string`)
   }
