@@ -1,3 +1,6 @@
+import parseContentSecurityPolicy from "content-security-policy-parser";
+import { describe, expect, it } from "vitest";
+
 import {
   createContentSecurityPolicy,
   createSecureHeaders,
@@ -13,8 +16,6 @@ import {
   UNSAFE_INLINE,
   WASM_UNSAFE_EVAL,
 } from "#src/index.js";
-import parseContentSecurityPolicy from "content-security-policy-parser";
-import { describe, expect, it } from "vitest";
 
 describe("createSecureHeaders", () => {
   it("generates a config", () => {
@@ -64,7 +65,7 @@ describe("createSecureHeaders", () => {
     expect(headers.get("Cross-Origin-Opener-Policy")).toBe("same-origin");
     expect(headers.get("Cross-Origin-Resource-Policy")).toBe("same-origin");
     expect(headers.get("X-Content-Type-Options")).toBe("nosniff");
-    expect(headers.get("X-DNS-Prefetch-Control")).toBe("on");
+    expect(headers.get("X-Dns-Prefetch-Control")).toBe("on");
     expect(headers.get("Referrer-Policy")).toBe(
       "strict-origin-when-cross-origin",
     );
@@ -172,7 +173,7 @@ describe("mergeHeaders", () => {
 
     let responseHeaders = new Headers({
       "Content-Type": "text/html",
-      "x-foo": "bar",
+      "X-Foo": "bar",
     });
 
     let merged = mergeHeaders(responseHeaders, secureHeaders);
@@ -215,7 +216,7 @@ describe("mergeHeaders", () => {
   });
 
   it('merged different cased "Set-Cookie" headers"', () => {
-    let headers1 = new Headers({ "set-cookie": "foo=bar" });
+    let headers1 = new Headers({ "Set-Cookie": "foo=bar" });
     let headers2 = new Headers({ "Set-Cookie": "baz=qux" });
 
     let merged = mergeHeaders(headers1, headers2);

@@ -17,9 +17,9 @@ export function toHaveStatus(
 
   return {
     pass: response.status === status,
-    message: () => {
-      return `Expected status ${status}, but received ${response.status}`;
-    },
+    message: () => 
+      `Expected status ${status}, but received ${response.status}`
+    ,
     expected: status,
     actual: response.status,
   };

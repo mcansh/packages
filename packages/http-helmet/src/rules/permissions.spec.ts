@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+
 import { createPermissionsPolicy } from "./permissions.ts";
 
 it("handles a single value", () => {

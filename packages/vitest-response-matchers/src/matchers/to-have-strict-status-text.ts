@@ -1,4 +1,5 @@
 import { STATUS_CODES } from "node:http";
+
 import type { MatcherResult } from "./matcher";
 
 export function toHaveStrictStatusText(response: Response): MatcherResult {
@@ -14,9 +15,9 @@ export function toHaveStrictStatusText(response: Response): MatcherResult {
   if (!found) {
     return {
       pass: false,
-      message: () => {
-        return `Received status code ${response.status} does not have a valid status text`;
-      },
+      message: () => 
+        `Received status code ${response.status} does not have a valid status text`
+      ,
       actual: response.statusText,
       expected: found,
     };
@@ -24,9 +25,9 @@ export function toHaveStrictStatusText(response: Response): MatcherResult {
 
   return {
     pass: found === response.statusText,
-    message: () => {
-      return `Received status text "${response.statusText}" was not valid, should be "${found}"`;
-    },
+    message: () => 
+      `Received status text "${response.statusText}" was not valid, should be "${found}"`
+    ,
     actual: response.statusText,
     expected: found,
   };
@@ -47,16 +48,13 @@ if (import.meta.vitest) {
       expect(response).toHaveStrictStatusText();
     });
 
-    it.fails(
-      "when statusText on response is not what the http spec expects",
-      () => {
-        let response = new Response("Hello, world!", {
-          status: 200,
-          statusText: "Not OK",
-        });
-        expect(response).toHaveStrictStatusText();
-      },
-    );
+    it.fails("when statusText on response is not what the http spec expects", () => {
+      let response = new Response("Hello, world!", {
+        status: 200,
+        statusText: "Not OK",
+      });
+      expect(response).toHaveStrictStatusText();
+    });
 
     it.each([
       [200, "OK"],

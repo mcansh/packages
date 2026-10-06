@@ -1,7 +1,8 @@
 import { defineConfig } from "tsdown";
+
 import pkgJson from "./package.json" with { type: "json" };
 
-let external =
+const external =
   "dependencies" in pkgJson && pkgJson.dependencies
     ? Object.keys(pkgJson.dependencies)
     : [];

@@ -1,16 +1,14 @@
 {
-  "private": true,
   "name": "example-remix-classic-compiler",
+  "private": true,
   "type": "module",
+  "sideEffects": false,
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve ./build/index.js",
     "lint": "oxlint",
     "typecheck": "tsc -b"
-  },
-  "engines": {
-    "node": ">=18"
   },
   "dependencies": {
     "@mcansh/http-helmet": "^0.13.0",
@@ -29,5 +27,7 @@
     "oxlint": "^1.28.0",
     "typescript": "^5.9.3"
   },
-  "sideEffects": false
+  "engines": {
+    "node": ">=18"
+  }
 }

@@ -13,9 +13,9 @@ export function toHaveHeader(
   if (expected == undefined) {
     return {
       pass: headers.has(header),
-      message: () => {
-        return `Expected response header "${header}" to be absent, but it was found`;
-      },
+      message: () => 
+        `Expected response header "${header}" to be absent, but it was found`
+      ,
       actual: headers.get(header),
       expected: undefined,
     };
@@ -39,13 +39,13 @@ if (import.meta.vitest) {
 
   it("toHaveHeader matcher", () => {
     let response = new Response("Hello, world!", {
-      headers: { "x-custom-header": "custom-value" },
+      headers: { "X-Custom-Header": "custom-value" },
     });
     expect(response).toHaveHeader("x-custom-header", "custom-value");
   });
 
   it("ResponseInit", () => {
-    expect({ headers: { "x-custom-header": "custom-value" } }).toHaveHeader(
+    expect({ headers: { "X-Custom-Header": "custom-value" } }).toHaveHeader(
       "x-custom-header",
       "custom-value",
     );
@@ -53,14 +53,14 @@ if (import.meta.vitest) {
 
   it.fails("toHaveHeader matcher - negative case", () => {
     let response = new Response("Hello, world!", {
-      headers: { "x-custom-header": "custom-value" },
+      headers: { "X-Custom-Header": "custom-value" },
     });
     expect(response).toHaveHeader("x-custom-header", "wrong-value");
   });
 
   it("only checks for presence of header", () => {
     let response = new Response("Hello, world!", {
-      headers: { "x-custom-header": "custom-value" },
+      headers: { "X-Custom-Header": "custom-value" },
     });
     expect(response).toHaveHeader("x-custom-header");
   });

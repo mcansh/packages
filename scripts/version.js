@@ -1,13 +1,14 @@
-import chalk from "chalk";
-import jsonfile from "jsonfile";
 import { execSync } from "node:child_process";
 import path from "node:path";
+
+import chalk from "chalk";
+import jsonfile from "jsonfile";
 import Confirm from "prompt-confirm";
 import semver from "semver";
 
-let packages = ["http-helmet"];
+const packages = ["http-helmet"];
 
-let rootDir = path.join(import.meta.dirname, "..");
+const rootDir = path.join(import.meta.dirname, "..");
 
 run(process.argv.slice(2)).then(
   () => {

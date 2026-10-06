@@ -20,9 +20,9 @@ export function toHaveStatusText(
 
   return {
     pass: response.statusText === statusText,
-    message: () => {
-      return `Expected status text "${statusText}", but received "${response.statusText}"`;
-    },
+    message: () => 
+      `Expected status text "${statusText}", but received "${response.statusText}"`
+    ,
     actual: response.statusText,
     expected: statusText,
   };

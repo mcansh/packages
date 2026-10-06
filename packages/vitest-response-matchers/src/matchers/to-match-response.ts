@@ -36,20 +36,20 @@ if (import.meta.vitest) {
   expect.extend({ toMatchResponse });
 
   it("should match the response status and statusText", () => {
-    const received = new Response(null, { status: 200, statusText: "OK" });
-    const expected = { status: 200, statusText: "OK" };
+    let received = new Response(null, { status: 200, statusText: "OK" });
+    let expected = { status: 200, statusText: "OK" };
     expect(received).toMatchResponse(expected);
   });
 
   it.fails("fails when passing a non response", () => {
-    const received = { status: 200, statusText: "OK" };
-    const expected = { status: 200, statusText: "OK" };
+    let received = { status: 200, statusText: "OK" };
+    let expected = { status: 200, statusText: "OK" };
     expect(received).toMatchResponse(expected);
   });
 
   it.fails("fails when passing no match", () => {
-    const received = new Response(null, { status: 200, statusText: "OK" });
-    const expected = { status: 404, statusText: "Not Found" };
+    let received = new Response(null, { status: 200, statusText: "OK" });
+    let expected = { status: 404, statusText: "Not Found" };
     expect(received).toMatchResponse(expected);
   });
 }

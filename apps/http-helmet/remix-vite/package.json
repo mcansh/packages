@@ -1,16 +1,14 @@
 {
-  "private": true,
   "name": "example-remix-vite",
+  "private": true,
   "type": "module",
+  "sideEffects": false,
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",
     "start": "remix-serve ./build/server/index.js",
     "lint": "oxlint",
     "typecheck": "tsc"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   },
   "dependencies": {
     "@mcansh/http-helmet": "^0.13.0",
@@ -30,5 +28,7 @@
     "vite": "^7.2.2",
     "vite-tsconfig-paths": "^5.1.4"
   },
-  "sideEffects": false
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

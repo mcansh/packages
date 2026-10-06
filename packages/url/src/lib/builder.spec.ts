@@ -1,16 +1,17 @@
 import { describe, expect, it } from "vitest";
+
 import { UrlBuilder } from "./builder.js";
 
 describe("UrlBuilder", () => {
   it("should build a basic URL", () => {
-    const builder = new UrlBuilder();
-    const url = builder.protocol("https").domain("example.com").build();
+    let builder = new UrlBuilder();
+    let url = builder.protocol("https").domain("example.com").build();
     expect(url).toBe("https://example.com/");
   });
 
   it("should build a URL with path", () => {
-    const builder = new UrlBuilder();
-    const url = builder
+    let builder = new UrlBuilder();
+    let url = builder
       .protocol("https")
       .domain("example.com")
       .path("/test")
@@ -19,8 +20,8 @@ describe("UrlBuilder", () => {
   });
 
   it("should build a URL with query parameters", () => {
-    const builder = new UrlBuilder();
-    const url = builder
+    let builder = new UrlBuilder();
+    let url = builder
       .protocol("https")
       .domain("example.com")
       .param("key", "value")
@@ -29,8 +30,8 @@ describe("UrlBuilder", () => {
   });
 
   it("should build a URL with hash", () => {
-    const builder = new UrlBuilder();
-    const url = builder
+    let builder = new UrlBuilder();
+    let url = builder
       .protocol("https")
       .domain("example.com")
       .hash("section")
@@ -39,8 +40,8 @@ describe("UrlBuilder", () => {
   });
 
   it("should build a URL with multiple hashes", () => {
-    const builder = new UrlBuilder();
-    const url = builder
+    let builder = new UrlBuilder();
+    let url = builder
       .protocol("https")
       .domain("example.com")
       .hash("section")
@@ -50,8 +51,8 @@ describe("UrlBuilder", () => {
   });
 
   it("should build a URL with username and password", () => {
-    const builder = new UrlBuilder();
-    const url = builder
+    let builder = new UrlBuilder();
+    let url = builder
       .protocol("https")
       .domain("example.com")
       .username("user")
@@ -61,8 +62,8 @@ describe("UrlBuilder", () => {
   });
 
   it("should build a URL with port", () => {
-    const builder = new UrlBuilder();
-    const url = builder
+    let builder = new UrlBuilder();
+    let url = builder
       .protocol("https")
       .domain("example.com")
       .port(8080)
@@ -71,7 +72,7 @@ describe("UrlBuilder", () => {
   });
 
   it("should return the correct href", () => {
-    const builder = new UrlBuilder();
+    let builder = new UrlBuilder();
     builder.protocol("https").domain("example.com").path("/test");
     expect(builder.href).toBe("https://example.com/test");
   });
@@ -79,8 +80,8 @@ describe("UrlBuilder", () => {
   it.each(["/test", "test/", "/test/"])(
     "removes leading and trailing slashes from the path",
     (path) => {
-      const builder = new UrlBuilder();
-      const url = builder
+      let builder = new UrlBuilder();
+      let url = builder
         .protocol("https")
         .domain("example.com")
         .path(path)
@@ -89,7 +90,7 @@ describe("UrlBuilder", () => {
     },
   );
 
-  const domainlessCaseFactories = [
+  let domainlessCaseFactories = [
     { description: "a new builder", factory: () => new UrlBuilder() },
     {
       description: "a builder with protocol",
@@ -112,7 +113,7 @@ describe("UrlBuilder", () => {
   describe.each(domainlessCaseFactories)(
     "given $description without a domain",
     ({ factory }) => {
-      const expectedError = "Domain is required to build the URL.";
+      let expectedError = "Domain is required to build the URL.";
 
       it("throws an error when calling `build`", () => {
         expect(() => factory().build()).toThrow(expectedError);
@@ -129,8 +130,8 @@ describe("UrlBuilder", () => {
   );
 
   it("should return a URL object", () => {
-    const builder = new UrlBuilder();
-    const url = builder
+    let builder = new UrlBuilder();
+    let url = builder
       .protocol("https")
       .domain("example.com")
       .path("/test")
@@ -143,7 +144,7 @@ describe("UrlBuilder", () => {
    * note that the URL constructor will add a trailing slash
    * to the url for certain protocols
    */
-  const protocolCases = [
+  let protocolCases = [
     [`ssh`, "ssh://site.com"],
     [`data`, "data://site.com"],
     [`mailto`, "mailto://site.com"],

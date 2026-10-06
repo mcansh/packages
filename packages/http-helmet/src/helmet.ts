@@ -1,4 +1,5 @@
 import type { RequireOneOrNone } from "type-fest";
+
 import type { PublicContentSecurityPolicy } from "./rules/content-security-policy.js";
 import { createContentSecurityPolicy } from "./rules/content-security-policy.js";
 import type { PermissionsPolicy } from "./rules/permissions.js";
@@ -195,11 +196,11 @@ export function createSecureHeaders(options: CreateSecureHeaders) {
   }
 
   if (options["X-DNS-Prefetch-Control"]) {
-    headers.set("X-DNS-Prefetch-Control", options["X-DNS-Prefetch-Control"]);
+    headers.set("X-Dns-Prefetch-Control", options["X-DNS-Prefetch-Control"]);
   }
 
   // if we forgot to set a header internally, throw an error
-  for (const key of Object.keys(options)) {
+  for (let key of Object.keys(options)) {
     if (!headers.has(key)) {
       throw new Error(`createSecureHeaders: ${key} was not set`);
     }
