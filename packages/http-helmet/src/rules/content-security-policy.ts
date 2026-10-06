@@ -4,8 +4,10 @@ import type { KebabCasedProperties, LiteralUnion } from "type-fest"
 import type { QuotedSource } from "../utils.js"
 import { isQuoted } from "../utils.js"
 
+/** @inline */
 type CspSetting = Array<LiteralUnion<QuotedSource, string> | undefined>
 
+/** @inline */
 type ContentSecurityPolicyCamel = {
   childSrc?: CspSetting
   connectSrc?: CspSetting
@@ -40,6 +42,7 @@ type ContentSecurityPolicyCamel = {
 type ContentSecurityPolicyKebab =
   KebabCasedProperties<ContentSecurityPolicyCamel>
 
+/** @inline */
 type ContentSecurityPolicy =
   | ContentSecurityPolicyCamel
   | ContentSecurityPolicyKebab

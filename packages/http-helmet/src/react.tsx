@@ -2,6 +2,7 @@ import * as React from "react"
 
 const NonceContext = React.createContext<string | undefined>(undefined)
 
+/** @inline */
 type NonceProviderProps = {
   nonce: string
   children: React.ReactNode

@@ -1,6 +1,7 @@
 import Fsp from "node:fs/promises"
 import Path from "node:path"
 
+/** @inline */
 export type TemporaryFile = {
   filePath: string
   contents: string

@@ -32,6 +32,7 @@ export type CrossOriginOpenerPolicy =
   | "same-origin"
 export type XSSProtection = "0" | "1" | "1; mode=block" | `1; report=${string}`
 
+/** @inline */
 type BaseSecureHeaders = {
   /**
    * The X-Frame-Options HTTP response header can be used to indicate whether or not a browser should be allowed to render a page in a `<frame>`, `<iframe>`, `<embed>` or `<object>`. Sites can use this to avoid click-jacking attacks, by ensuring that their content is not embedded into other sites.

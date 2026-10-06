@@ -1,6 +1,7 @@
 import { kebabCase } from "change-case"
 import type { LiteralUnion } from "type-fest"
 
+/** @inline */
 type KnownPermissions = LiteralUnion<
   | "accelerometer"
   | "ambientLightSensor"
