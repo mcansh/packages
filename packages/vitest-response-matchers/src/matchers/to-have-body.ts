@@ -3,7 +3,8 @@ import type { MatcherResult } from "./matcher"
 export function toHaveBody(response: Response): MatcherResult {
   if (!(response instanceof Response)) {
     return {
-      message: () => `Expected a Response, but received ${typeof response}`,
+      message: () => `Expected a Response`,
+      actual: response,
       pass: false,
     }
   }

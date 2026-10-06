@@ -6,12 +6,13 @@ export function toHaveStatus(
 ): MatcherResult {
   if (!(response instanceof Response)) {
     return {
-      message: () => `Expected a Response, but received ${typeof response}`,
+      message: () => `Expected a Response`,
+      actual: response,
       pass: false,
     }
   }
 
-  if (typeof status === "undefined") {
+  if (status === undefined) {
     status = 200
   }
 

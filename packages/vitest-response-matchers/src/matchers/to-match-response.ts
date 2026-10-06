@@ -6,7 +6,8 @@ export function toMatchResponse(
 ): MatcherResult {
   if (!(received instanceof Response)) {
     return {
-      message: () => `Expected a Response, but received ${typeof received}`,
+      message: () => `Expected a Response`,
+      actual: received,
       pass: false,
     }
   }

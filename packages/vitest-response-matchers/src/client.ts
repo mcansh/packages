@@ -1,11 +1,12 @@
 import "vitest"
+import type { JsonValue } from "./matchers/matcher"
 
 declare namespace matchers {
   interface CustomResponseMatchers<E, R> {
     toHaveBody(): R
     toHaveCookies(cookies: Array<string>, options?: { strict?: boolean }): R
     toHaveHeader(headerName: string, expected?: string): R
-    toHaveJsonBody(expected: object | null): R
+    toHaveJsonBody(expected: JsonValue): R
     toHaveStatus(status?: number): R
     toHaveStatusText(statusText?: string): R
     toHaveStrictStatusText(): R

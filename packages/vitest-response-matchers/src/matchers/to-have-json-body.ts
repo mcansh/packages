@@ -1,10 +1,10 @@
-export async function toHaveJsonBody(
-  response: Response,
-  expected: object | null,
-) {
+import type { JsonValue } from "./matcher"
+
+export async function toHaveJsonBody(response: Response, expected: JsonValue) {
   if (!(response instanceof Response)) {
     return {
-      message: () => `Expected a Response, but received ${typeof response}`,
+      message: () => `Expected a Response`,
+      actual: response,
       pass: false,
     }
   }
@@ -26,8 +26,15 @@ if (import.meta.vitest) {
 
   expect.extend({ toHaveJsonBody })
 
-  it("toHaveBody matcher", () => {
+  it.each([null, true, 42, "hello", [1, "two", null]])(
+    "matches JSON values: %j",
+    async (expected) => {
+      await expect(Response.json(expected)).toHaveJsonBody(expected)
+    },
+  )
+
+  it("toHaveJsonBody matcher", async () => {
     let response = Response.json({ message: "Hello, world!" })
-    expect(response).toHaveJsonBody({ message: "Hello, world!" })
+    await expect(response).toHaveJsonBody({ message: "Hello, world!" })
   })
 }

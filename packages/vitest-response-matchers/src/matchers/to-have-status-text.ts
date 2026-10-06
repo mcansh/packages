@@ -6,12 +6,13 @@ export function toHaveStatusText(
 ): MatcherResult {
   if (!(response instanceof Response)) {
     return {
-      message: () => `Expected a Response, but received ${typeof response}`,
+      message: () => `Expected a Response`,
+      actual: response,
       pass: false,
     }
   }
 
-  if (typeof statusText === "undefined") {
+  if (statusText === undefined) {
     return {
       pass: false,
       message: () => "Response status text is not defined",

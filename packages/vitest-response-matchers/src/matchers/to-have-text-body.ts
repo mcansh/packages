@@ -4,7 +4,8 @@ export async function toHaveTextBody(
 ) {
   if (!(response instanceof Response)) {
     return {
-      message: () => `Expected a Response, but received ${typeof response}`,
+      message: () => `Expected a Response`,
+      actual: response,
       pass: false,
     }
   }

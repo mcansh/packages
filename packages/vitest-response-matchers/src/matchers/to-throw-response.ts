@@ -4,10 +4,16 @@ export function toThrowResponse(
   received: () => Response,
   expected: Response | ResponseInit,
 ): MatcherResult {
-  let error: unknown = null
+  let error: unknown
 
   try {
     received()
+    return {
+      message: () => `Did not throw a Response`,
+      pass: false,
+      actual: null,
+      expected: `[Response]`,
+    }
   } catch (e: unknown) {
     error = e
   }
@@ -38,6 +44,15 @@ export function toThrowResponse(
 if (import.meta.vitest) {
   let { expect, it } = import.meta.vitest
   expect.extend({ toThrowResponse })
+
+  it("fails when the callback does not throw", () => {
+    expect(
+      toThrowResponse(() => new Response(), { status: 200 }),
+    ).toMatchObject({
+      pass: false,
+      actual: null,
+    })
+  })
 
   it("should throw a Response with the expected status and statusText", () => {
     let expected = new Response("Not Found", { status: 404 })
