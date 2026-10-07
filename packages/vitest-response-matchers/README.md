@@ -50,7 +50,7 @@ expect(response).toHaveHeader("x-custom-header", "value");
 
 ### `toHaveCookies`
 
-Check if the response has a specific cookie.
+Check if the response has any of the expected cookies. Formatting is normalized on both sides. Pass `{ strict: true }` to require exactly the expected cookies, regardless of order.
 
 ```typescript
 let response = new Response("Hello World!", {
@@ -82,7 +82,7 @@ let response = new Response("Hello World!", {
   statusText: "nah",
 });
 
-expect(response).toHaveStrictStatusText("OK"); // fails
+expect(response).toHaveStrictStatusText(); // fails
 ```
 
 ### `toMatchResponse`
@@ -98,22 +98,22 @@ expect(response).toMatchResponse({ status: 200, statusText: "OK" });
 
 ### `toHaveTextBody`
 
-Check if the response has a specific text body.
+Check if the response has a specific text body. Use `null` for an absent body and `""` for an empty body. This asynchronous matcher must be awaited and does not consume the original response.
 
 ```typescript
 let response = new Response("Hello World!");
 
-expect(response).toHaveTextBody("Hello World!");
+await expect(response).toHaveTextBody("Hello World!");
 ```
 
 ### `toHaveJsonBody`
 
-Check if the response has a specific JSON body.
+Check if the response has a specific JSON body using Vitest deep equality, including asymmetric matchers. Objects match regardless of key order; array order matters. JSON primitives and `null` are supported. This asynchronous matcher must be awaited and does not consume the original response.
 
 ```typescript
 let response = new Response(JSON.stringify({ foo: "bar" }));
 
-expect(response).toHaveJsonBody({ foo: "bar" });
+await expect(response).toHaveJsonBody({ foo: "bar" });
 ```
 
 ### `toThrowResponse`
