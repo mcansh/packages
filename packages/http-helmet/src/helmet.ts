@@ -26,9 +26,7 @@ export type ReferrerPolicy =
 export type DNSPrefetchControl = "on" | "off";
 export type ContentTypeOptions = "nosniff";
 export type CrossOriginOpenerPolicy =
-  | "unsafe-none"
-  | "same-origin-allow-popups"
-  | "same-origin";
+  "unsafe-none" | "same-origin-allow-popups" | "same-origin";
 export type XSSProtection = "0" | "1" | "1; mode=block" | `1; report=${string}`;
 
 type BaseSecureHeaders = {
@@ -85,9 +83,7 @@ type BaseSecureHeaders = {
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy
    */
   "Cross-Origin-Embedder-Policy"?:
-    | "unsafe-none"
-    | "require-corp"
-    | "credentialless";
+    "unsafe-none" | "require-corp" | "credentialless";
 
   /**
    * Cross-Origin Resource Policy is a policy set by the Cross-Origin-Resource-Policy HTTP header that lets websites and applications opt in to protection against certain requests from other origins (such as those issued with elements like <script> and <img>), to mitigate speculative side-channel attacks, like Spectre, as well as Cross-Site Script Inclusion attacks.

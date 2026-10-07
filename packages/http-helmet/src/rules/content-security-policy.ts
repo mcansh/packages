@@ -40,8 +40,7 @@ type ContentSecurityPolicyKebab =
   KebabCasedProperties<ContentSecurityPolicyCamel>;
 
 type ContentSecurityPolicy =
-  | ContentSecurityPolicyCamel
-  | ContentSecurityPolicyKebab;
+  ContentSecurityPolicyCamel | ContentSecurityPolicyKebab;
 
 export type PublicContentSecurityPolicy = Parameters<
   typeof createContentSecurityPolicy
