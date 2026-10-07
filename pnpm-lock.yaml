@@ -451,9 +451,6 @@ importers:
 
   packages/http-helmet:
     dependencies:
-      change-case:
-        specifier: ^5.4.4
-        version: 5.4.4
       type-fest:
         specifier: ^5.10.0
         version: 5.10.0
@@ -485,6 +482,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 5.0.3(vitest@5.0.3)
+      change-case:
+        specifier: ^5.4.4
+        version: 5.4.4
       content-security-policy-parser:
         specifier: ^0.6.0
         version: 0.6.0
