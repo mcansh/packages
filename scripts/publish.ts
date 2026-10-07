@@ -1,21 +1,23 @@
 #!/usr/bin/env node
 
-import { globSync } from "glob";
 import { execSync } from "node:child_process";
-import semver from "semver";
+import fs from "node:fs";
+import path from "node:path";
+import * as semver from "verkit";
+import { getRepoRoot } from "./get-repo-root.ts";
 
-let packages = globSync("packages/*", { absolute: true });
+let ROOT_DIR = await getRepoRoot();
+
+let packages = fs.globSync("./packages/*", { cwd: ROOT_DIR }).map((pkg) => {
+  return path.join(ROOT_DIR, pkg);
+});
 
 function getTaggedVersion() {
   let output = execSync("git tag --list --points-at HEAD").toString().trim();
   return output.replace(/^v/g, "");
 }
 
-/**
- * @param {string} dir
- * @param {string} tag
- */
-function publish(dir, tag) {
+function publish(dir: string, tag: string) {
   execSync(`npm publish --access public --tag ${tag} ${dir}`, {
     stdio: "inherit",
   });
@@ -29,7 +31,7 @@ async function run() {
     process.exit(1);
   }
 
-  let prerelease = semver.prerelease(taggedVersion);
+  let prerelease = semver.getPrerelease(taggedVersion);
   let prereleaseTag = prerelease ? String(prerelease[0]) : undefined;
   let tag = prereleaseTag
     ? prereleaseTag.includes("nightly")

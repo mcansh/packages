@@ -1,12 +1,25 @@
 import { getPackagesSync } from "@manypkg/get-packages";
 import * as fs from "node:fs";
 import path from "node:path";
-import * as url from "node:url";
+import { parseArgs } from "node:util";
+import { getRepoRoot } from "./get-repo-root.ts";
 
-const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-const rootDir = path.join(__dirname, "..");
+const result = parseArgs({
+  options: {
+    "dry-run": {
+      type: "boolean",
+      default: false,
+    },
+    dry: {
+      type: "boolean",
+      default: false,
+    },
+  },
+});
 
-const DRY_RUN = false;
+const ROOT_DIR = await getRepoRoot();
+const DRY_RUN = result.values["dry-run"] || result.values.dry;
+
 // pre-release headings look like: "1.15.0-pre.2"
 const PRE_RELEASE_HEADING_REGEXP = /^\d+\.\d+\.\d+-pre\.\d+$/i;
 // stable headings look like: "1.15.0"
@@ -24,7 +37,7 @@ async function main() {
 }
 
 async function removePreReleaseChangelogs() {
-  let allPackages = getPackagesSync(rootDir).packages;
+  let allPackages = getPackagesSync(ROOT_DIR).packages;
 
   /** @type {Promise<any>[]} */
   let processes = [];
@@ -87,20 +100,24 @@ async function removePreReleaseChangelogs() {
 
 function isPrereleaseMode() {
   try {
-    let prereleaseFilePath = path.join(rootDir, ".changeset", "pre.json");
+    let prereleaseFilePath = path.join(ROOT_DIR, ".changeset", "pre.json");
     return fs.existsSync(prereleaseFilePath);
-  } catch (err) {
+  } catch {
     return false;
   }
 }
 
-/**
- * @param {string} markdownContents
- * @param {{ level: number; startAtIndex: number; matcher: RegExp }} opts
- */
 function findHeadingLineIndex(
-  markdownContents,
-  { level, startAtIndex, matcher },
+  markdownContents: string,
+  {
+    level,
+    startAtIndex,
+    matcher,
+  }: {
+    level: number;
+    startAtIndex: number;
+    matcher: RegExp;
+  },
 ) {
   let index = markdownContents.split("\n").findIndex((line, i) => {
     if (i < startAtIndex || !line.startsWith(`${"#".repeat(level)} `))
@@ -111,11 +128,16 @@ function findHeadingLineIndex(
   return index;
 }
 
-/**
- * @param {string} markdownContents
- * @param {{ start: number; end: number | 'max' }} param1
- */
-function removeLines(markdownContents, { start, end }) {
+function removeLines(
+  markdownContents: string,
+  {
+    start,
+    end,
+  }: {
+    start: number;
+    end: number | "max";
+  },
+) {
   let lines = markdownContents.split("\n");
   lines.splice(start, end === "max" ? lines.length - start : end - start);
   return lines.join("\n");
