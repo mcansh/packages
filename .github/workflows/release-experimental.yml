@@ -3,8 +3,8 @@
 # for general use, and all packages will be versioned and published with the
 # same hash for testing.
 #
-# This workflow will run when a GitHub release is created from experimental
-# version tag. Unlike standard releases created via Changesets, only one tag
+# This workflow runs when an experimental version tag is pushed.
+# Unlike standard releases created via Changesets, only one tag
 # should be created for all packages.
 #
 # To create a release:
@@ -16,11 +16,10 @@
 # - Make whatever changes you need and commit them:
 #   - `git add . && git commit "experimental changes!"`
 # - Update version numbers and create a release tag:
-#   - `yarn run version:experimental`
+#   - `pnpm run version:experimental`
 # - Push to GitHub:
 #   - `git push origin --follow-tags`
-# - Create a new release for the tag on GitHub to trigger the CI workflow that
-#   will publish the release to npm
+# - Pushing the experimental tag triggers the workflow that publishes to npm.
 
 name: 🚀 Release (experimental)
 on:
@@ -29,6 +28,7 @@ on:
       - "v0.0.0-experimental*"
 
 permissions:
+  contents: read
   id-token: write
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}

@@ -19,6 +19,8 @@
     "publish": "./scripts/publish.js",
     "test": "vitest",
     "test:ci": "vitest --coverage",
+    "test:release": "node --test scripts/release.spec.mjs",
+    "version:experimental": "node scripts/version.js experimental",
     "test:engines:prepare": "node scripts/package-engines/prepare.mjs",
     "typecheck": "pnpm run --recursive typecheck",
     "validate": "run-p build lint format typecheck"
