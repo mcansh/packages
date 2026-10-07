@@ -5,7 +5,7 @@ packages:
 allowBuilds:
   esbuild: true
   sharp: true
-  unrs-resolver: set this to true or false
+  unrs-resolver: true
   workerd: true
 
 catalog:
@@ -28,5 +28,17 @@ overrides:
   '@mcansh/http-helmet': workspace:*
   '@mcansh/url': workspace:*
   '@mcansh/vitest-response-matchers': workspace:*
+
+# These React 18 packages omit the peer used by their public declarations.
+packageExtensions:
+  '@remix-run/react@2':
+    peerDependencies:
+      '@types/react': ^18.3.0
+  'react-router@6':
+    peerDependencies:
+      '@types/react': ^18.3.0
+  'react-router-dom@6':
+    peerDependencies:
+      '@types/react': ^18.3.0
 
 shellEmulator: true
