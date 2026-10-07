@@ -63,5 +63,13 @@ export function mergeHeaders(...sources: HeadersInit[]): Headers {
 }
 
 export function createNonce(): string {
-  return Buffer.from(crypto.randomUUID()).toString("base64");
+  let uuid = crypto.randomUUID();
+  // SAFETY: This standard method is optional on older runtimes and checked before calling.
+  let toBase64 = (
+    Uint8Array.prototype as Uint8Array & { toBase64?: () => string }
+  ).toBase64;
+
+  return typeof toBase64 === "function"
+    ? toBase64.call(new TextEncoder().encode(uuid))
+    : btoa(uuid);
 }
