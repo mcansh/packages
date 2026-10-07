@@ -219,6 +219,9 @@ importers:
       '@manypkg/get-packages':
         specifier: ^3.0.0
         version: 3.1.0
+      '@oxlint/plugins':
+        specifier: 'catalog:'
+        version: 1.87.0
       '@types/node':
         specifier: 'catalog:'
         version: 26.6.4
@@ -240,6 +243,9 @@ importers:
       oxlint:
         specifier: 'catalog:'
         version: 1.87.0(oxlint-tsgolint@7.0.2003)
+      oxlint-tsgolint:
+        specifier: 'catalog:'
+        version: 7.0.2003
       pkg-pr-new:
         specifier: ^0.0.90
         version: 0.0.90
@@ -258,13 +264,6 @@ importers:
       wrangler:
         specifier: ^4.147.0
         version: 4.147.0(@types/node@26.6.4)
-    devDependencies:
-      '@oxlint/plugins':
-        specifier: 'catalog:'
-        version: 1.87.0
-      oxlint-tsgolint:
-        specifier: 'catalog:'
-        version: 7.0.2003
 
   apps/http-helmet/react-router-v7:
     dependencies:
