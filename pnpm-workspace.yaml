@@ -2,29 +2,43 @@ packages:
   - packages/*
   - apps/**/*
 
-catalog:
-  '@arethetypeswrong/core': ^0.18.2
-  '@total-typescript/tsconfig': ^1.0.4
-  '@types/node': ^24.0.14
-  '@vitest/coverage-v8': ^3.2.4
-  publint: ^0.3.15
-  tsdown: ^0.12.9
-  type-fest: ^4.41.0
-  typescript: ^5.9.3
-  vitest: ^3.2.4
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+  workerd: true
 
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - esbuild
-  - rolldown
-  - sharp
-  - unrs-resolver
-  - workerd
+catalog:
+  '@arethetypeswrong/core': ^0.18.5
+  '@oxlint/plugins': ^1.87.0
+  '@total-typescript/tsconfig': ^1.0.4
+  '@types/node': ^26.6.4
+  '@vitest/coverage-v8': ^5.0.3
+  oxfmt: ^0.72.0
+  oxlint: ^1.87.0
+  oxlint-tsgolint: ^7.0.2003
+  publint: ^0.3.25
+  tsdown: ^0.23.0
+  type-fest: ^4.41.0
+  typescript: ^7.0.2
+  vitest: ^5.0.3
 
 overrides:
   '@mcansh/create-temporary-files': workspace:*
   '@mcansh/http-helmet': workspace:*
   '@mcansh/url': workspace:*
   '@mcansh/vitest-response-matchers': workspace:*
+
+# These React 18 packages omit the peer used by their public declarations.
+packageExtensions:
+  '@remix-run/react@2':
+    peerDependencies:
+      '@types/react': ^18.3.0
+  'react-router@6':
+    peerDependencies:
+      '@types/react': ^18.3.0
+  'react-router-dom@6':
+    peerDependencies:
+      '@types/react': ^18.3.0
 
 shellEmulator: true

@@ -1,7 +1,8 @@
 {
-  "private": true,
   "name": "example-remix-vite",
+  "private": true,
   "type": "module",
+  "sideEffects": false,
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",
@@ -9,26 +10,27 @@
     "lint": "oxlint",
     "typecheck": "tsc"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "dependencies": {
     "@mcansh/http-helmet": "^0.13.0",
-    "@remix-run/node": "2.17.2",
-    "@remix-run/react": "2.17.2",
-    "@remix-run/serve": "2.17.2",
+    "@remix-run/node": "2.17.5",
+    "@remix-run/react": "2.17.5",
+    "@remix-run/serve": "2.17.5",
     "isbot": "^5.1.28",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "2.17.2",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@remix-run/dev": "2.17.5",
+    "@types/node": "catalog:",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "oxlint": "^1.28.0",
-    "typescript": "^5.9.3",
-    "vite": "^7.2.2",
-    "vite-tsconfig-paths": "^5.1.4"
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3",
+    "vite-tsconfig-paths": "^6.1.1",
+    "wrangler": "^4.147.0"
   },
-  "sideEffects": false
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

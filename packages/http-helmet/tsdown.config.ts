@@ -1,10 +1,4 @@
-import { defineConfig } from "tsdown";
-import pkgJson from "./package.json" with { type: "json" };
-
-let external =
-  "dependencies" in pkgJson && pkgJson.dependencies
-    ? Object.keys(pkgJson.dependencies)
-    : [];
+import { defineConfig } from "tsdown"
 
 export default defineConfig({
   entry: {
@@ -19,9 +13,11 @@ export default defineConfig({
   clean: true,
   publint: true,
   attw: { profile: "node16" },
-  external,
+  deps: {
+    alwaysBundle: ["change-case"],
+  },
   platform: "neutral",
   define: {
     "import.meta.vitest": "undefined",
   },
-});
+})

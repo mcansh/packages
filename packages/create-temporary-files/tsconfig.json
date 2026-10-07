@@ -4,6 +4,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "moduleResolution": "Bundler",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"]
   }
 }

@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import { NonceProvider, useNonce } from "./react";
+import { render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
+
+import { NonceProvider, useNonce } from "./react.tsx"
 
 describe("NonceProvider", () => {
   it("pass and receive nonce", () => {
@@ -9,16 +10,16 @@ describe("NonceProvider", () => {
         <NonceProvider nonce="test-nonce">
           <Child />
         </NonceProvider>
-      );
+      )
     }
 
     function Child() {
-      const nonce = useNonce();
-      return <div data-testid="nonce">{nonce}</div>;
+      let nonce = useNonce()
+      return <div data-testid="nonce">{nonce}</div>
     }
 
-    render(<Parent />);
+    render(<Parent />)
 
-    expect(screen.getByTestId("nonce")).toHaveTextContent("test-nonce");
-  });
-});
+    expect(screen.getByTestId("nonce")).toHaveTextContent("test-nonce")
+  })
+})

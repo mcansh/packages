@@ -1,15 +1,16 @@
-import { defineConfig } from "tsdown";
-import pkgJson from "./package.json" with { type: "json" };
+import { defineConfig } from "tsdown"
 
-let external =
+import pkgJson from "./package.json" with { type: "json" }
+
+const external =
   "dependencies" in pkgJson && pkgJson.dependencies
     ? Object.keys(pkgJson.dependencies)
-    : [];
+    : []
 
 export default defineConfig({
   entry: ["src/index.ts"],
   dts: true,
-  format: ["esm"],
+  format: "esm",
   tsconfig: "tsconfig.json",
   sourcemap: true,
   clean: true,
@@ -21,4 +22,4 @@ export default defineConfig({
   define: {
     "import.meta.vitest": "undefined",
   },
-});
+})
