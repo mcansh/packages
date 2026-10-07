@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build:packages": "pnpm run --recursive --parallel --filter \"./packages/**\" build",
-    "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**\" build",
+    "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**/*\" build",
     "build": "pnpm run --sequential \"/^build:.*/\"",
     "changeset": "changeset",
     "changeset:release": "pnpm run build && changeset publish",

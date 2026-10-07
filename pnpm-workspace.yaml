@@ -1,10 +1,11 @@
 packages:
   - packages/*
-  - examples/*
+  - apps/**/*
 
 allowBuilds:
   esbuild: true
   sharp: true
+  unrs-resolver: set this to true or false
   workerd: true
 
 catalog:
