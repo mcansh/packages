@@ -66,3 +66,20 @@ server.listen(3000);
 
 console.log("✅ app ready: http://localhost:3000");
 ```
+
+## Remove Insecure Headers
+
+`removeInsecureHeaders` returns a copy of a `Headers` object with every
+server-identifying, framework, and diagnostic header in the [OWASP Secure
+Headers Project](https://owasp.org/www-project-secure-headers/) list removed,
+leaving the original untouched.
+
+```js
+import { removeInsecureHeaders } from "@mcansh/http-helmet";
+
+let headers = removeInsecureHeaders(responseHeaders);
+```
+
+This is opt-in, so existing behavior is unchanged. Every entry in the list is
+removed — there's no per-header allowlist — so don't use it if your app relies
+on a removed header like `X-B3-*` or `X-Datadog-*` for observability.
