@@ -11,5 +11,5 @@ export type JsonValue =
   | boolean
   | number
   | string
-  | Array<JsonValue>
-  | { [key: string]: JsonValue }
+  // Retain interface, readonly, and custom toJSON payloads accepted by the original object parameter.
+  | object

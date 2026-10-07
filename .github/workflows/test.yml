@@ -98,6 +98,10 @@ jobs:
         working-directory: ${{ runner.temp }}/package-engines/${{ matrix.node }}
         run: node node_modules/vitest/vitest.mjs run registration.test.mjs
 
+      - name: 🧮 Check consumer declarations
+        working-directory: ${{ runner.temp }}/package-engines/${{ matrix.node }}
+        run: node node_modules/typescript/bin/tsc --project tsconfig.json
+
   test:
     name: "${{ matrix.os }} | node-${{ matrix.node }}"
     strategy:

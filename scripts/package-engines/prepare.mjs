@@ -73,6 +73,8 @@ for (let version of versions) {
   dependencies.vitest = modernVitest ? workspaceVitest.version : "3.2.4"
   // Pin Vitest 3's Vite peer to a release that supports early Node 20.
   if (!modernVitest) dependencies.vite = "6.4.3"
+  // Exercise the minimum TypeScript version supported by http-helmet declarations.
+  dependencies.typescript = "5.9.3"
   dependencies.react = "18.3.1"
   dependencies["react-dom"] = "18.3.1"
   writeFileSync(
@@ -88,7 +90,12 @@ for (let version of versions) {
       2,
     ) + "\n",
   )
-  for (let fixture of ["runtime.test.mjs", "registration.test.mjs"]) {
+  for (let fixture of [
+    "runtime.test.mjs",
+    "registration.test.mjs",
+    "consumer-types.ts",
+    "tsconfig.json",
+  ]) {
     copyFileSync(
       path.join(import.meta.dirname, fixture),
       path.join(directory, fixture),
