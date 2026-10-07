@@ -23,6 +23,8 @@ jobs:
   build:
     name: ⚙️ Build
     runs-on: ubuntu-latest
+    outputs:
+      engine-node: ${{ steps.package-engines.outputs.node }}
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -45,6 +47,53 @@ jobs:
 
       - name: 🧮 Typecheck
         run: pnpm run typecheck
+
+      - name: 📦 Pack packages for engine checks
+        id: package-engines
+        run: pnpm run test:engines:prepare "$RUNNER_TEMP/package-engines"
+
+      - name: 📤 Upload packed package tests
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: package-engine-tests
+          path: ${{ runner.temp }}/package-engines
+          if-no-files-found: error
+
+  engines:
+    name: "Packed packages | ${{ matrix.os }} | node-${{ matrix.node }}"
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.os) }}
+        node: ${{ fromJSON(needs.build.outputs.engine-node) }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: ⎔ Setup minimum Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: ⬇️ Download packed package tests
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: package-engine-tests
+          path: ${{ runner.temp }}/package-engines
+
+      - name: 🟧 Install packed packages with strict engines
+        working-directory: ${{ runner.temp }}/package-engines/${{ matrix.node }}
+        run: npm install --ignore-scripts --engine-strict --no-audit --no-fund
+
+      - name: 🧪 Test published entry points
+        working-directory: ${{ runner.temp }}/package-engines/${{ matrix.node }}
+        run: node --test runtime.test.mjs
+
+      - name: 🧪 Test matcher registration
+        working-directory: ${{ runner.temp }}/package-engines/${{ matrix.node }}
+        run: node node_modules/vitest/vitest.mjs run registration.test.mjs
 
   test:
     name: "${{ matrix.os }} | node-${{ matrix.node }}"

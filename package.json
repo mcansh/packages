@@ -19,6 +19,7 @@
     "publish": "./scripts/publish.js",
     "test": "vitest",
     "test:ci": "vitest --coverage",
+    "test:engines:prepare": "node scripts/package-engines/prepare.mjs",
     "typecheck": "pnpm run --recursive typecheck",
     "validate": "run-p build lint format typecheck"
   },

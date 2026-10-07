@@ -3,6 +3,7 @@
 .ds_store
 /public/dev/
 /.wrangler/
+/.package-engines/
 **/LICENSE
 !/LICENSE
 **/coverage/

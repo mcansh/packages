@@ -90,6 +90,9 @@
       "optional": true
     }
   },
+  "engines": {
+    "node": ">=20"
+  },
   "inlinedDependencies": {
     "change-case": "5.4.4"
   }
