@@ -7,9 +7,9 @@ npm install @mcansh/hibp
 ```
 
 ```ts
-import { pwnedPassword } from "@mcansh/hibp";
+import { pwnedPassword } from "@mcansh/hibp"
 
-const result = await pwnedPassword(password);
+const result = await pwnedPassword(password)
 if (result.isErr()) {
   // The lookup failed. Handle result.error.reason; don't accept the password.
 } else if (result.value > 0) {
@@ -33,7 +33,7 @@ Options:
 | `timeoutMs` | `5000`             | Limit the request and response body consumption |
 | `fetch`     | `globalThis.fetch` | Inject a trusted transport or test double       |
 
-Unsuccessful lookups return `Result.err(HibpError)`. The error has `_tag: "HibpError"`, a `reason` (`invalid-input`, `http`, `invalid-response`, `cancelled`, `timeout`, or `unavailable`), a safe `message`, and an optional HTTP `status`. Handle these separately from a zero result. Custom transports must honor the supplied abort signal. There are no automatic retries. Exceptions deliberately marked as a `better-result` Panic still propagate according to that library's contract.
+Unsuccessful lookups return `Result.err(HibpError)`. The error has `_tag: "HibpError"`, a `reason` (`invalid-input`, `http`, `invalid-response`, `cancelled`, `timeout`, or `unavailable`), a safe `message`, and an optional HTTP `status`. Handle these separately from a zero result. Caller cancellation returns `cancelled`; expiry of `timeoutMs` returns `timeout`, whether detected during the request, while reading the body, or immediately after the body finishes. If both signals are aborted when a failure is handled, caller cancellation takes precedence. There is no separate `aborted` reason. Custom transports must honor the supplied abort signal. There are no automatic retries. Exceptions deliberately marked as a `better-result` Panic still propagate according to that library's contract.
 
 ## Privacy
 
@@ -67,6 +67,6 @@ bun packages/hibp/test/run.ts
 node packages/hibp/test/workers.ts
 ```
 
-The TypeScript runners execute directly in each runtime; `typecheck` checks both the library and the runtime tests against the built declarations. Build before typechecking. The shared suite runs 29 tests; Workers adds native fetch success and redirect checks without `nodejs_compat`.
+The TypeScript runners execute directly in each runtime; `typecheck` checks both the library and the runtime tests against the built declarations. Build before typechecking. The shared suite runs 38 tests; Workers adds native fetch success and redirect checks without `nodejs_compat`.
 
 Tests use synthetic passwords and mocked HTTP responses, requiring no network calls to HIBP. Workers tests run in Miniflare's real workerd engine, which requires permission to start a local server. The build verifies exports and declarations with publint and Are The Types Wrong before testing.
