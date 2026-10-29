@@ -15,7 +15,7 @@ let exclude = [
 
 export default defineConfig({
   test: {
-    projects: ["./packages/*"],
+    projects: ["./packages/*", "./site"],
     include: ["./packages/*/src/**/*.{js,ts,tsx}"],
     exclude: [...configDefaults.exclude, ...exclude],
     reporters: process.env.CI ? ["junit"] : [],
