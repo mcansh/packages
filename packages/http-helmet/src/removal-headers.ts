@@ -9,6 +9,7 @@ export const removalHeaders = [
   "Product",
   "Server",
   "SourceMap",
+  "TeamCity-Node-Id",
   "X-AspNet-Version",
   "X-AspNetMvc-Version",
   "X-Atmosphere-error",
