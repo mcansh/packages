@@ -7,7 +7,9 @@
   "scripts": {
     "build:packages": "pnpm run --recursive --parallel --filter \"./packages/**\" build",
     "build:apps": "pnpm run --recursive --parallel --filter \"./apps/**\" build",
+    "build:docs": "typedoc",
     "build": "pnpm run --sequential \"/^build:.*/\"",
+    "docs": "typedoc",
     "changeset": "changeset",
     "changeset:release": "pnpm run build && changeset publish",
     "changeset:version": "changeset version && node ./scripts/remove-prerelease-changelogs.js && pnpm install --lockfile-only",
@@ -19,7 +21,7 @@
     "publish": "./scripts/publish.js",
     "test": "vitest",
     "test:ci": "vitest --coverage",
-    "typecheck": "pnpm run --recursive typecheck",
+    "typecheck": "pnpm run --recursive typecheck && tsc --noEmit -p site",
     "validate": "run-p build lint format typecheck"
   },
   "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
@@ -38,6 +40,7 @@
     "prompt-confirm": "^2.0.4",
     "semver": "^7.7.2",
     "typedoc": "^0.28.7",
+    "typescript": "catalog:",
     "vitest": "catalog:",
     "wrangler": "^4.45.0"
   },
