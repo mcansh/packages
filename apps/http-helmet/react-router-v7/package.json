@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "@mcansh/http-helmet": "^0.13.0",
-    "@react-router/node": "^7.9.5",
-    "@react-router/serve": "^7.9.5",
+    "@react-router/node": "^7.17.0",
+    "@react-router/serve": "^7.17.0",
     "isbot": "^5.1.28",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.9.5"
+    "react-router": "^7.17.0"
   },
   "devDependencies": {
-    "@react-router/dev": "^7.9.5",
+    "@react-router/dev": "^7.17.0",
     "@tailwindcss/vite": "^4.1.17",
     "@types/node": "^24.0.1",
     "@types/react": "^19.2.2",
