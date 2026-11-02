@@ -77,6 +77,11 @@ leaving the original untouched.
 ```js
 import { removeInsecureHeaders } from "@mcansh/http-helmet";
 
+let responseHeaders = new Headers({
+  Server: "example",
+  "Content-Type": "text/html; charset=utf-8",
+});
+
 let headers = removeInsecureHeaders(responseHeaders);
 ```
 

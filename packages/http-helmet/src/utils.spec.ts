@@ -44,4 +44,33 @@ describe("removeInsecureHeaders", () => {
     expect(headers.has("Server")).toBe(false);
     expect(responseHeaders.get("Server")).toBe("example");
   });
+
+  it("accepts a plain header object", () => {
+    let responseHeaders = {
+      Server: "example",
+      "Content-Type": "text/html; charset=utf-8",
+    };
+
+    let headers = removeInsecureHeaders(responseHeaders);
+
+    expect(headers.has("Server")).toBe(false);
+    expect(headers.get("Content-Type")).toBe("text/html; charset=utf-8");
+    expect(responseHeaders.Server).toBe("example");
+  });
+
+  it("accepts a header tuple list", () => {
+    let responseHeaders: [string, string][] = [
+      ["Server", "example"],
+      ["Content-Type", "text/html; charset=utf-8"],
+    ];
+
+    let headers = removeInsecureHeaders(responseHeaders);
+
+    expect(headers.has("Server")).toBe(false);
+    expect(headers.get("Content-Type")).toBe("text/html; charset=utf-8");
+    expect(responseHeaders).toStrictEqual([
+      ["Server", "example"],
+      ["Content-Type", "text/html; charset=utf-8"],
+    ]);
+  });
 });

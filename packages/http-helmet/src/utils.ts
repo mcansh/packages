@@ -76,7 +76,7 @@ export function createNonce(): string {
     : btoa(uuid);
 }
 
-export function removeInsecureHeaders(responseHeaders: Headers) {
+export function removeInsecureHeaders(responseHeaders: HeadersInit): Headers {
   const headers = new Headers(responseHeaders);
 
   for (const key of removalHeaders) {
