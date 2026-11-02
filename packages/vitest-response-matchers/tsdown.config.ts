@@ -7,6 +7,8 @@ export default defineConfig({
     matchers: "./src/matchers/index.ts",
   },
   dts: true,
+  // Preserve module augmentation that the declaration bundler otherwise removes.
+  copy: [{ from: "./src/client.ts", to: "./dist/client.d.ts" }],
   format: ["esm"],
   tsconfig: "tsconfig.json",
   sourcemap: true,

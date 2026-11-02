@@ -25,7 +25,9 @@
     "dev": "tsdown --watch",
     "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --ignore-unknown --write .",
     "prepublishOnly": "node --run build",
-    "test": "vitest"
+    "test": "vitest",
+    "test:types": "tsc --noEmit --strict --skipLibCheck --moduleResolution bundler --module esnext test/client.test-d.ts",
+    "typecheck": "tsc --noEmit"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
