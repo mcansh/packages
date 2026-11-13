@@ -35,6 +35,7 @@ jobs:
       - name: 🟧 Setup pnpm
         uses: pnpm/action-setup@v4
         with:
+          dest: ~/.ci/setup-pnpm
           version: ${{ steps.pnpm-version.outputs.VERSION }}
           run_install: |
             - recursive: true
