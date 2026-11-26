@@ -39,9 +39,6 @@ export default function Index() {
         <li>
           <Link to="page/2">Page 2</Link>
         </li>
-        <li>
-          <Link to="page/ghsghsh">Page ghsghsh</Link>
-        </li>
       </ul>
     </div>
   );
